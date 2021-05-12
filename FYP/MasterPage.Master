@@ -1,0 +1,72 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="FYP.MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+
+    <!--CSS-->
+    <link href="MasterPage.css" rel="stylesheet" type="text/css" />
+
+    <!--Meta for responsive website-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body>
+    <form id="form1" runat="server">
+        <div class="header">
+        <asp:HyperLink ID="logo" runat="server" NavigateUrl="~/HomePage.aspx" ImageUrl="~/BuildInPicturess/logo.JPG" CssClass="imgBurgerMenu"/>
+        <asp:Menu ID="menuNav" runat="server" RenderingMode="Table" Orientation="Horizontal" CssClass="menuBar">
+                <Items>
+
+                   <asp:MenuItem NavigateUrl="~/HomePage.aspx" Text="Home" Value="Home Page"/>
+                   <asp:MenuItem NavigateUrl="~/AboutUs.aspx" Text="About" Value="About Us"/>
+                   <asp:MenuItem NavigateUrl="~/Timetable.aspx" Text="Timetable" Value="Gallery"/>
+                   <asp:MenuItem NavigateUrl="~/Tutorial.aspx" Text="Tutorial" Value="Wishlist" />
+                   <asp:MenuItem NavigateUrl="~/BMI.aspx" Text="BMI" Value="Cart"/>
+                   <asp:MenuItem NavigateUrl="~/Calories.aspx" Text="Calories" Value="Order History" />
+                   <asp:MenuItem NavigateUrl="~/Profile.aspx" Text="Profile" Value="Profile"/>
+              </Items>
+        </asp:Menu>
+
+            <!--hamburger menu -->
+            <div class="menuWrap">
+            
+
+            <input id="Checkbox1" type="checkbox" class="toggler" />
+            <div class="hamburger">
+                <div>
+
+                </div>
+            </div>
+            <div class ="menu">
+                <div>
+                    <div>
+                        <ul>
+                            <li><asp:HyperLink ID="HyperLink1" NavigateUrl="~/HomePage.aspx" runat="server">Home</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="HyperLink2" NavigateUrl="~/AboutUs.aspx" runat="server">AboutUs</asp:HyperLink></li>
+                           
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+
+
+        <div >
+            
+
+            <!--Content for other pages-->
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>
