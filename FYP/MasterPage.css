@@ -5,6 +5,18 @@
 }
 
 
+.footer {
+    margin: 0px -8px -8px -8px;
+    padding: 1% 5% 1% 5%;
+    background-color: black;
+    color:white;
+    bottom:0;
+}
+
+.pageContent{
+    padding-top:150px
+}
+
 
 body {
     font-family :Arial;
@@ -16,7 +28,15 @@ body {
     background-color: black;
     margin: -8px -8px 0px -8px;
     height: 130px;
+    position: fixed;
+    width: 100%;
+    top: 0;
 }
+
+.menuBar a:hover{
+    background-color:gray;
+}
+
 
 .menuBar{
     display :none;
@@ -26,6 +46,7 @@ img{
     width:130px;
     height:130px;
 }
+
 
 .imgBurgerMenu{
     padding : 20px;    
@@ -38,7 +59,7 @@ img{
     top : 23px;
     right:0;
     z-index:1;
-    
+
 }
 
 
@@ -52,7 +73,6 @@ img{
     z-index:2;
     height: 50px;
     opacity:0;
-
 }
 
 .menuWrap .hamburger{
@@ -183,7 +203,7 @@ img{
     transition : color 0.4s ease;
 }
 
-    @media only screen and (min-width :860px) {
+    @media only screen and (min-width :870px) {
         .menuWrap{
         display : none;
     }
@@ -192,7 +212,7 @@ img{
         width: 80%;
         display: block;
         float:right;
-        padding-top:50px
+        padding-top:60px
     }
 
     .menuBar a {

@@ -68,8 +68,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutUs.aspx" />
+    <Content Include="AboutUs.css" />
     <Content Include="BMI.aspx" />
+    <Content Include="BuildInPicturess\calculator.jpg" />
     <Content Include="Calories.aspx" />
+    <Content Include="HomePage.css" />
     <Content Include="MasterPage.css" />
     <Content Include="BuildInPicturess\logo.JPG" />
     <Content Include="Profile.aspx" />
