@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!--CSS -->
-    <link href="HomePage.css" rel="stylesheet" type="text/css" />
+    <link href="CSS/HomePage.css" rel="stylesheet" type="text/css" />
 
     <div class="container">
         <div class="row">

@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
     <!--CSS -->
-    <link href="AboutUs.css" rel="stylesheet" type="text/css" />
+    <link href="CSS/AboutUs.css" rel="stylesheet" type="text/css" />
 
     <div class="aboutUs">
        
