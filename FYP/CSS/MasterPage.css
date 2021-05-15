@@ -17,6 +17,12 @@
     padding-top:150px
 }
 
+.logInLink{
+    float :right;
+    color:white;
+    padding-top:10px;
+    padding-right:15px;
+}
 
 body {
     font-family :Arial;
@@ -203,13 +209,13 @@ img{
     transition : color 0.4s ease;
 }
 
-    @media only screen and (min-width :870px) {
+    @media only screen and (min-width :950px) {
         .menuWrap{
         display : none;
     }
 
     .menuBar {
-        width: 80%;
+        width: 75%;
         display: block;
         float:right;
         padding-top:60px

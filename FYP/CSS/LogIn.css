@@ -19,3 +19,57 @@
     box-sizing: border-box;
     clear: both;
 }
+
+
+.loginTable{
+    width:50%;
+    margin:50px auto 100px auto;
+    border:1px solid black;
+
+}
+
+.loginTitle {
+    text-align: center;
+    background-color: black;
+    color: white;
+    height: 80px;
+    font-size:18px;
+}
+
+.rowInput{
+    height:100px
+}
+
+.rowInput input{
+    border: none;
+    border-bottom : 1px solid black;
+    width:35%;
+    height:30px
+}
+
+.rowButtonLogin{
+    text-align:center;
+    height:50px;
+}
+
+.rowLink{
+    height:50px;
+}
+
+.buttonLogin{
+    background-color:black;
+    color:white;
+    width:20%;
+    height:80%;
+    font-size:18px;
+}
+
+
+.text{
+    width:40%;
+    text-align:right;
+}
+
+.linkForgetPassword {
+    text-align: right
+}

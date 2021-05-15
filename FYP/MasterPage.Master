@@ -27,6 +27,7 @@
     <form id="form1" runat="server">
         <div id="topMenu" class="header">
         <asp:HyperLink ID="logo" runat="server" NavigateUrl="~/HomePage.aspx" ImageUrl="~/BuildInPicturess/logo.JPG" CssClass="imgBurgerMenu"/>
+        <asp:HyperLink ID="linkLogIn" runat="server" NavigateUrl="~/LogIn.aspx" CssClass="logInLink">SignIn</asp:HyperLink>
         <asp:Menu ID="menuNav" runat="server" RenderingMode="Table" Orientation="Horizontal" CssClass="menuBar">
                 <Items>
                    <asp:MenuItem NavigateUrl="~/HomePage.aspx" Text="Home" Value="Home Page"/>

@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="AboutUs.aspx.cs" Inherits="FYP.AboutUs" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
+    </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
     <!--CSS -->
@@ -34,11 +34,32 @@
         <p>+6019-358 9809 (YONG)</p>
       </div>
       <div class="column" >
-        <h2>Email</h2>
+        <h2>Emails</h2>
         <hr />
         <p>teejh-wp18@student.tarc.edu.my</p>
         <p>yongwh-wp18@student.tarc.edu.my</p>
       </div>
 </div>
+
+    <table class="aboutMeTable">
+        <tr>
+            <td ><h2>Yong Wei Han<br /><hr /></h2></td>
+            <td ></td>
+        </tr>
+        <tr>
+            <td><asp:Image ID="Image2" ImageUrl="~/BuildInPicturess/ywh.jpg" CssClass="aboutMePicture" runat="server" /></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <p>Currently studying Bachelor Degree in Software Engineering in University Tunku Abdul Rahman.
+
+                </p>
+                <p>21 years old single ready to migle.</p>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+
     
 </asp:Content>
