@@ -40,40 +40,11 @@
         height: 50px;
     }
 
-    .container{
-        margin-bottom:400px
-    }
-
 }
 
 @media only screen and (min-width :1000px) {
     .btnContainer {
         height: 70px;
     }
-
-    .container {
-        margin-bottom: 500px
-    }
 }
 
-@media only screen and (min-width :1100px) {
-
-    .container {
-        margin-bottom: 600px
-    }
-}
-
-@media only screen and (min-width :1710px) {
-
-    .container {
-        margin-bottom: 800px
-    }
-
-}
-
-@media only screen and (min-width :1900px) {
-
-    .container {
-        margin-bottom: 1000px
-    }
-}
