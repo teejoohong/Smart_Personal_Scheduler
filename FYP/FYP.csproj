@@ -43,6 +43,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DDay.iCal">
+      <HintPath>D:\Downloads\DDay-iCal-1_0_2-BetaCandidate2-bin\DDay.iCal.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -81,6 +84,7 @@
     <Content Include="Profile.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Timetable.aspx" />
+    <Content Include="TimeTableGenerator.aspx" />
     <Content Include="Tutorial.aspx" />
     <Content Include="Web.config" />
     <Content Include="HomePage.aspx" />
@@ -149,6 +153,13 @@
     </Compile>
     <Compile Include="Timetable.aspx.designer.cs">
       <DependentUpon>Timetable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTableGenerator.aspx.cs">
+      <DependentUpon>TimeTableGenerator.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TimeTableGenerator.aspx.designer.cs">
+      <DependentUpon>TimeTableGenerator.aspx</DependentUpon>
     </Compile>
     <Compile Include="Tutorial.aspx.cs">
       <DependentUpon>Tutorial.aspx</DependentUpon>
