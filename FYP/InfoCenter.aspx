@@ -8,7 +8,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h2>Google Map</h2><br />
-    
+    <!--  <p id="demo"></p>  -->
     <input id="input" type="text" style="height:75px;width:49.5%"/>
     <table class="table">
         <tr>
@@ -36,6 +36,9 @@
 
   
     <script type="text/javascript">  
+
+        //document.getElementById("demo").innerHTML = 5 + 6;
+
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(success);
         } else {
@@ -50,7 +53,6 @@
         const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
 
         function success(position) {
-
             //GOOGLE_MAP--------
             var name = getParameterByName('name');
             lat = position.coords.latitude;
