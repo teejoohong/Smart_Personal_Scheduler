@@ -43,7 +43,7 @@
 
     <table class="aboutMeTable">
         <tr>
-            <td ><h2>Yong Wei Han<br /><hr /></h2></td>
+            <td ><h2>Yong Wei Han<br /></h2><hr /></td>
             <td ></td>
         </tr>
         <tr>
