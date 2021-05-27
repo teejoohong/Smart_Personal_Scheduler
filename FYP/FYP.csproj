@@ -77,7 +77,10 @@
     <Content Include="BuildInPicturess\calculator.jpg" />
     <Content Include="Calories.aspx" />
     <Content Include="CSS\HomePage.css" />
+    <Content Include="CSS\InfoCenter.css" />
     <Content Include="CSS\LogIn.css" />
+    <Content Include="InfoCenter.aspx" />
+    <Content Include="JavaScript\InfoCenter.js" />
     <Content Include="LogIn.aspx" />
     <Content Include="CSS\MasterPage.css" />
     <Content Include="BuildInPicturess\logo.JPG" />
@@ -110,6 +113,13 @@
     </Compile>
     <Compile Include="Calories.aspx.designer.cs">
       <DependentUpon>Calories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InfoCenter.aspx.cs">
+      <DependentUpon>InfoCenter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InfoCenter.aspx.designer.cs">
+      <DependentUpon>InfoCenter.aspx</DependentUpon>
     </Compile>
     <Compile Include="LogIn.aspx.cs">
       <DependentUpon>LogIn.aspx</DependentUpon>

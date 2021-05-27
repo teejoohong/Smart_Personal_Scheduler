@@ -11,7 +11,13 @@ namespace FYP
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                string absoluteurl = HttpContext.Current.Request.Url.AbsoluteUri;
+                Label1.Text = absoluteurl;
+                HyperLink1.Text = absoluteurl;
+                HyperLink1.NavigateUrl = absoluteurl;
+            }
         }
     }
 }
