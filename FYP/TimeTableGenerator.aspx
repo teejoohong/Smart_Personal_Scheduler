@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
         <asp:FileUpload ID="timeTableFile" runat="server" />
-         <asp:Button runat="server" Text="Button" OnClick="Unnamed1_Click" />
+         <asp:Button runat="server" Text="Generate" OnClick="GenerationOfTimetable_Click" />
         <br />
         <br />
         <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
