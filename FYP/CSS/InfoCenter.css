@@ -13,8 +13,13 @@
     
 }
 
-.searchedResults {
+.autoCompleteResult{
     padding-left:1%;
+}
+
+.searchedResults {
+    padding-left: 1%;
+    display: none;
 }
 
 .navigateButton {

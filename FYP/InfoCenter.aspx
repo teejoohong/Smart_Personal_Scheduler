@@ -15,6 +15,7 @@
             <td><div id="googleMap" class="googleMapCss"></div> </td>
             <td>
                 <!-- Radio button -->
+                
                 <div class="searchedResults">
                     <input type="radio" id="nearest" name="option" value="male" onclick ="suggestedResult()">
                     <label for="nearest">Nearest</label>
@@ -28,6 +29,12 @@
                     <h2>Suggested location</h2>
 
                     <p id="demo"></p>
+                    
+                </div>
+
+                <div class="autoCompleteResult">
+                    <h2>Searched location</h2>
+                    <p id="autoComplete"></p>
                 </div>
 
                 
@@ -49,19 +56,22 @@
 
  
 <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOs73MjrEETY_b9lbU9QCco5DoMll2UOY&libraries=places&callback=success">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOs73MjrEETY_b9lbU9QCco5DoMll2UOY&libraries=places">
 </script>
 
   
     <script type="text/javascript">  
 
         //document.getElementById("demo").innerHTML = 5 + 6;
+        $(document).ready(function () {
+            // Add your function call here
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success);
+            } else {
+                alert("Geolocation not supported!");
+            }
+        });
 
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(success);
-        } else {
-            alert("Geolocation not supported!");
-        }
         let markers = []; //google place results' markers array
         var highestRatingMarker = [];
         var nearestMarker = [];
@@ -75,6 +85,7 @@
         const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
 
         function success(position) {
+
             //GOOGLE_MAP--------
             var name = getParameterByName('name');
             lat = position.coords.latitude;
@@ -111,8 +122,10 @@
 
 
             //AUTO_COMPLETE------------------------------
+            document.getElementById('autoComplete').innerHTML = "Search a location using the search bar above the google map.";
+
             autocomplete = new google.maps.places.Autocomplete(document.getElementById("input"), {
-                fields: ['geometry', 'name'],
+                fields: ['geometry', 'name', 'rating','formatted_address'],
                 componentRestrictions: { 'country': ['MY'] },
                 types:['establishment']
             });
@@ -128,6 +141,11 @@
                     animation: google.maps.Animation.DROP,
                 });
 
+                placeLink = googleMapLink + lat + "," + long + "/" + place.geometry.location;
+
+                document.getElementById('autoComplete').innerHTML = (`${place.name} is the searched location with a rating of ${place.rating} on google. <br/><br/>
+                                                                Location Address : ${place.formatted_address}<br/>
+                                                                <a href="${placeLink}" class="navigateButton">Navigate Now</a>`);
                 //var d = distance(LatLng, place.geometry.location);
                 
                 //alert(d);
@@ -149,6 +167,7 @@
 
             //GOOGLE_PLACE SEARCH
             if (name != null) {
+                showAutoSearch();
                 var request = {
                     location: LatLng,
                     radius: 500,
@@ -157,16 +176,28 @@
                     //types: ['establishment'],
                     //openNow: true;
                 };
-
+                
                 service = new google.maps.places.PlacesService(map);
 
                 service.textSearch(request, callback);
             } else {
+                hideAutoSearch();
                 document.getElementById('demo').innerHTML = "No location found...";
             }
 
         }
-            
+
+        function hideAutoSearch() {
+            var x = document.getElementsByClassName('searchedResults');
+            x[0].style.display = 'none';
+          
+        }
+
+        function showAutoSearch() {
+            var x = document.getElementsByClassName('searchedResults');
+            x[0].style.display = 'block';
+
+        }
 
         function callback(results, status) {
             if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -266,7 +297,7 @@
                 
                 if (highestRatingMarker.length == 0) {
                     createMarker(highestRatingLocation, highestRatingMarker);
-                    console.log("created");
+                    //console.log("created");
                 }
 
                 showMarkers(highestRatingMarker);
