@@ -60,12 +60,12 @@ namespace FYP
         protected global::System.Web.UI.WebControls.HyperLink linkRegister;
 
         /// <summary>
-        /// HyperLink9 control.
+        /// linkForgetPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink9;
+        protected global::System.Web.UI.WebControls.HyperLink linkForgetPassword;
     }
 }

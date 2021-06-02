@@ -9,7 +9,24 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h2>Google Map</h2><br />
     <!--  <p id="demo"></p>  -->
-    <input id="input" type="text" style="height:75px;width:49.5%"/>
+    <table class="topTable">
+        <tr>
+            <td><input id="input" type="text" style="height:75px;width:99%;float:left"/></td>
+            <td>
+                <div class="main">
+                    <input id="slider" type="range" min="0" max="5000" value="2500" onclick ="suggestedResult()"/>
+                        <div id="selector">
+                            <div id="selectBtn"></div>
+                            <div id="selectValue"></div>
+                        </div>
+                    <div id="progressBar"></div>
+                </div>
+                
+            </td>
+        </tr>
+    </table>
+    
+   
     <table class="table">
         <tr>
             <td><div id="googleMap" class="googleMapCss"></div> </td>
@@ -61,6 +78,21 @@
 
   
     <script type="text/javascript">  
+        var radius = 2500;
+        var slider = document.getElementById('slider');
+        var selector = document.getElementById('selector');
+        var selectValue = document.getElementById('selectValue');
+        var progressBar = document.getElementById('progressBar');
+
+        selectValue.innerHTML = slider.value + "m";
+
+        slider.oninput = function () {
+            radius = this.value;
+            selectValue.innerHTML = this.value + "m";
+            selector.style.left = this.value/50 + "%";
+            progressBar.style.width = this.value/50 + "%";
+            
+        }
 
         //document.getElementById("demo").innerHTML = 5 + 6;
         $(document).ready(function () {
@@ -80,7 +112,6 @@
         let infowindow;
         let lat, long, LatLng;
         let searchedResults = [];
-        const radius = 2500;
         const googleMapLink = "https://www.google.com/maps/dir/";
         const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
 
@@ -106,7 +137,7 @@
                 position: LatLng,
                 animation: google.maps.Animation.DROP,
                 title: "<div style = 'height:60px;width:200px'><b>Your location:</b><br />Latitude: "
-                    + lat + +"<br />Longitude: " + long
+                    + lat +"<br />Longitude: " + long
             });
             initMarker.setMap(map);
             var getInfoWindow = new google.maps.InfoWindow({
@@ -182,11 +213,23 @@
                 service.textSearch(request, callback);
             } else {
                 hideAutoSearch();
+                hideSlider();
                 document.getElementById('demo').innerHTML = "No location found...";
             }
 
         }
 
+        function hideSlider() {
+            var x = document.getElementsByClassName('main');
+            x[0].style.display = 'none';
+        }
+
+        function showSlider() {
+            var x = document.getElementsByClassName('main');
+            x[0].style.display = 'block';
+        }
+
+        //radio button and the content
         function hideAutoSearch() {
             var x = document.getElementsByClassName('searchedResults');
             x[0].style.display = 'none';
@@ -215,6 +258,8 @@
         function suggestedResult() {
 
             if (document.getElementById('nearest').checked) {
+
+                hideSlider();
                 //nearest location 
                 clearMarkers(highestRatingMarker);
                 clearMarkers(markers);
@@ -256,9 +301,11 @@
 
             } else if (document.getElementById('highestRating').checked) {
                 //highest rating
+                showSlider();
                 var highestRatingLocation;
                 var isFirstTime = true;
                 var highestRatingLink = googleMapLink;
+
 
 
                 for (var i = 0; i < searchedResults.length; i++) {
@@ -274,9 +321,9 @@
 
                         if (highestRatingLocation.rating < searchedResults[i].rating) {
                             highestRatingLocation = searchedResults[i];
-                            
+
                         }
-                    }      
+                    }   
                 }
                 
 
@@ -284,11 +331,13 @@
 
                     highestRatingLink = googleMapLink + lat + "," + long + "/" + highestRatingLocation.geometry.location;
 
-                    document.getElementById("demo").innerHTML = (`${highestRatingLocation.name} is the highest rated location in 2500m
+                    document.getElementById("demo").innerHTML = (`${highestRatingLocation.name} is the highest rated location in ${radius}m
                                                                     with a rating of <b> ${highestRatingLocation.rating}</b> on google. <br/><br/>
                                                                 Location Address : ${highestRatingLocation.formatted_address}<br/>
                                                                 <a href="${highestRatingLink}" class="navigateButton">Navigate Now</a>`);
-                } 
+                } else {
+                    document.getElementById("demo").innerHTML = (`No location found...`);
+                }
                 
                 
 
@@ -304,6 +353,7 @@
 
             } else {
                 //show all
+                hideSlider();
                 //create marker
                 clearMarkers(highestRatingMarker);
                 clearMarkers(nearestMarker);
@@ -316,8 +366,7 @@
                                                                to your smartphone and proceed to your destination. <br/><br/>
                                                                Have a nice day~~~`);
                 } 
-
-                
+ 
 
             }
 
