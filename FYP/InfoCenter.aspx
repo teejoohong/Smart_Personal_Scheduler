@@ -306,7 +306,9 @@
                 var isFirstTime = true;
                 var highestRatingLink = googleMapLink;
 
-
+               
+                clearMarkers(markers);//clear all google place searched markers
+                clearMarkers(nearestMarker);
 
                 for (var i = 0; i < searchedResults.length; i++) {
                     
@@ -321,10 +323,11 @@
 
                         if (highestRatingLocation.rating < searchedResults[i].rating) {
                             highestRatingLocation = searchedResults[i];
-
+                            
                         }
                     }   
                 }
+
                 
 
                 if (highestRatingLocation != null) {
@@ -335,19 +338,21 @@
                                                                     with a rating of <b> ${highestRatingLocation.rating}</b> on google. <br/><br/>
                                                                 Location Address : ${highestRatingLocation.formatted_address}<br/>
                                                                 <a href="${highestRatingLink}" class="navigateButton">Navigate Now</a>`);
+
+                    deleteMarkers(highestRatingMarker);
+                    createMarker(highestRatingLocation, highestRatingMarker);
+                    console.log(highestRatingMarker);
+
                 } else {
+                    deleteMarkers(highestRatingMarker);
                     document.getElementById("demo").innerHTML = (`No location found...`);
                 }
                 
                 
-
-                clearMarkers(markers);//clear all google place searched markers
-                clearMarkers(nearestMarker);
-                
-                if (highestRatingMarker.length == 0) {
+                /*if (highestRatingMarker.length == 0) {
                     createMarker(highestRatingLocation, highestRatingMarker);
                     //console.log("created");
-                }
+                }*/
 
                 showMarkers(highestRatingMarker);
 
@@ -394,9 +399,9 @@
         }
 
         // Deletes all markers in the array by removing references to them.
-        function deleteMarkers() {
-            clearMarkers();
-            markers = [];
+        function deleteMarkers(array) {
+            clearMarkers(array);
+            array.length = 0;
         }
 
         //Returns Distance between two latlng objects using haversine formula
