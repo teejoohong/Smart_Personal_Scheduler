@@ -14,7 +14,7 @@
             <td><input id="input" type="text" style="height:75px;width:99%;float:left"/></td>
             <td>
                 <div class="main">
-                    <input id="slider" type="range" min="0" max="5000" value="2500" onclick ="suggestedResult()"/>
+                    <input id="slider" type="range" min="0" max="10000" value="5000" onclick ="suggestedResult()"/>
                         <div id="selector">
                             <div id="selectBtn"></div>
                             <div id="selectValue"></div>
@@ -34,8 +34,12 @@
                 <!-- Radio button -->
                 
                 <div class="searchedResults">
+
                     <input type="radio" id="nearest" name="option" value="male" onclick ="suggestedResult()">
                     <label for="nearest">Nearest</label>
+
+                    <input type="radio" id="mostRated" name="option" value="mostRated" checked="checked" onclick ="suggestedResult()">
+                    <label for="showAll">Most Rated</label>
 
                     <input type="radio" id="highestRating" name="option" value="highestRating"  onclick ="suggestedResult()">
                     <label for="highestRating">Highest Rating</label>
@@ -78,8 +82,9 @@
 
   
     <script type="text/javascript">  
-        var radius = 2500;
+        
         var slider = document.getElementById('slider');
+        var radius = slider.value;
         var selector = document.getElementById('selector');
         var selectValue = document.getElementById('selectValue');
         var progressBar = document.getElementById('progressBar');
@@ -89,8 +94,8 @@
         slider.oninput = function () {
             radius = this.value;
             selectValue.innerHTML = this.value + "m";
-            selector.style.left = this.value/50 + "%";
-            progressBar.style.width = this.value/50 + "%";
+            selector.style.left = this.value/100 + "%";
+            progressBar.style.width = this.value/100 + "%";
             
         }
 
@@ -106,6 +111,7 @@
 
         let markers = []; //google place results' markers array
         var highestRatingMarker = [];
+        var mostRatedMarker = [];
         var nearestMarker = [];
         let map;
         let service;
@@ -156,7 +162,7 @@
             document.getElementById('autoComplete').innerHTML = "Search a location using the search bar above the google map.";
 
             autocomplete = new google.maps.places.Autocomplete(document.getElementById("input"), {
-                fields: ['geometry', 'name', 'rating','formatted_address'],
+                fields: ['geometry', 'name', 'rating', 'formatted_address'],
                 componentRestrictions: { 'country': ['MY'] },
                 types:['establishment']
             });
@@ -180,6 +186,7 @@
                 //var d = distance(LatLng, place.geometry.location);
                 
                 //alert(d);
+                
 
                 searchedMarker.setMap(map);
                 
@@ -244,7 +251,7 @@
 
         function callback(results, status) {
             if (status == google.maps.places.PlacesServiceStatus.OK) {
-                console.log(results[1]);
+                
                 for (var i = 0; i < results.length; i++) {
                     createMarker(results[i], markers);
                 }
@@ -258,11 +265,12 @@
         function suggestedResult() {
 
             if (document.getElementById('nearest').checked) {
-
+                
                 hideSlider();
                 //nearest location 
                 clearMarkers(highestRatingMarker);
                 clearMarkers(markers);
+                clearMarkers(mostRatedMarker);
                 var nearestDistance = distance(LatLng, searchedResults[0].geometry.location);
                 var newNearestDistance;
                 var nearestLocation = searchedResults[0];
@@ -297,24 +305,21 @@
                                                                 <a href="${nearestLocationLink}" class="navigateButton">Navigate Now</a>`);
                 } 
 
-                //console.log(nearestLocation.name + ">>> nearest location" + nearestDistance);
-
             } else if (document.getElementById('highestRating').checked) {
                 //highest rating
                 showSlider();
                 var highestRatingLocation;
                 var isFirstTime = true;
                 var highestRatingLink = googleMapLink;
-
                
                 clearMarkers(markers);//clear all google place searched markers
                 clearMarkers(nearestMarker);
+                clearMarkers(mostRatedMarker);
 
                 for (var i = 0; i < searchedResults.length; i++) {
                     
                     var d = distance(LatLng, searchedResults[i].geometry.location);
                     if (d <= radius) { //limit the highest rating location
-                        //console.log(searchedResults[i].rating + searchedResults[i].name);
 
                         if (isFirstTime) {
                             highestRatingLocation = searchedResults[i];
@@ -341,28 +346,77 @@
 
                     deleteMarkers(highestRatingMarker);
                     createMarker(highestRatingLocation, highestRatingMarker);
-                    console.log(highestRatingMarker);
+                    console.log(highestRatingLocation.user_ratings_total);
 
                 } else {
                     deleteMarkers(highestRatingMarker);
                     document.getElementById("demo").innerHTML = (`No location found...`);
                 }
                 
-                
-                /*if (highestRatingMarker.length == 0) {
-                    createMarker(highestRatingLocation, highestRatingMarker);
-                    //console.log("created");
-                }*/
-
                 showMarkers(highestRatingMarker);
 
-            } else {
+            } else if(document.getElementById('mostRated').checked){
+
+                //highest rating
+                showSlider();
+                var mostRatedLocation;
+                var isFirstTime = true;
+                var mostRatedLink = googleMapLink;
+
+                clearMarkers(markers);//clear all google place searched markers
+                clearMarkers(nearestMarker);
+                clearMarkers(highestRatingMarker);
+                
+
+                for (var i = 0; i < searchedResults.length; i++) {
+
+                    var d = distance(LatLng, searchedResults[i].geometry.location);
+                    if (d <= radius) { //limit the highest rating location
+
+                        if (isFirstTime) {
+                            mostRatedLocation = searchedResults[i];
+                            isFirstTime = false;
+                        }
+
+                        if (mostRatedLocation.user_ratings_total < searchedResults[i].user_ratings_total) {
+                            mostRatedLocation = searchedResults[i];
+
+                        }
+                    }
+                }
+
+
+
+                if (mostRatedLocation != null) {
+
+                    mostRatedLink = googleMapLink + lat + "," + long + "/" + mostRatedLocation.geometry.location;
+
+                    document.getElementById("demo").innerHTML = (`With ${mostRatedLocation.user_ratings_total} ratings, ${mostRatedLocation.name} is the most rated location in ${radius}m.
+                                                                    with a rating of <b> ${mostRatedLocation.rating}</b> on google. <br/><br/>
+                                                                Location Address : ${mostRatedLocation.formatted_address}<br/>
+                                                                <a href="${mostRatedLink}" class="navigateButton">Navigate Now</a>`);
+
+                    deleteMarkers(mostRatedMarker);
+                    createMarker(mostRatedLocation, mostRatedMarker);
+                    //console.log(highestRatingLocation.user_ratings_total);
+
+                } else {
+                    deleteMarkers(mostRatedMarker);
+                    document.getElementById("demo").innerHTML = (`No location found...`);
+                }
+
+                showMarkers(mostRatedMarker);
+ 
+
+            }else {
                 //show all
                 hideSlider();
                 //create marker
                 clearMarkers(highestRatingMarker);
                 clearMarkers(nearestMarker);
+                clearMarkers(mostRatedMarker);
                 showMarkers(markers);
+
 
                 if (searchedResults.length != 0) {
                     document.getElementById('demo').innerHTML = (`<b>Click on the marker to see detailed informations.</b><br/><br/>
@@ -371,14 +425,9 @@
                                                                to your smartphone and proceed to your destination. <br/><br/>
                                                                Have a nice day~~~`);
                 } 
- 
-
             }
 
-            
-
         }
-
 
         // marker functions
         // Sets the map on all markers in the array.
@@ -419,8 +468,7 @@
             return d;
         }
 
-        function createMarker(place,array) {
-
+        function createMarker(place, array) {
 
             if (!place.geometry || !place.geometry.location) {
                 return;
