@@ -35,16 +35,19 @@
                 
                 <div class="searchedResults">
 
+                    <input type="radio" id="recommended" name="option" value="recommended" checked="checked" onclick ="suggestedResult()">
+                    <label for="recommended">Recommended</label>
+
                     <input type="radio" id="nearest" name="option" value="male" onclick ="suggestedResult()">
                     <label for="nearest">Nearest</label>
 
-                    <input type="radio" id="mostRated" name="option" value="mostRated" checked="checked" onclick ="suggestedResult()">
-                    <label for="showAll">Most Rated</label>
+                    <input type="radio" id="mostRated" name="option" value="mostRated" onclick ="suggestedResult()">
+                    <label for="mostRated">Most Rated</label>
 
                     <input type="radio" id="highestRating" name="option" value="highestRating"  onclick ="suggestedResult()">
                     <label for="highestRating">Highest Rating</label>
 
-                    <input type="radio" id="showAll" name="option" value="showAll" checked="checked" onclick ="suggestedResult()">
+                    <input type="radio" id="showAll" name="option" value="showAll" onclick ="suggestedResult()">
                     <label for="showAll">Show All</label>
                     
                     <h2>Suggested location</h2>
@@ -211,7 +214,7 @@
                     radius: 500,
                     query: name,
                     //fields: ["name", "geometry"],
-                    //types: ['establishment'],
+                    //types: ["point_of_interest", "establishment"]
                     //openNow: true;
                 };
                 
@@ -254,46 +257,113 @@
                 
                 for (var i = 0; i < results.length; i++) {
                     createMarker(results[i], markers);
+                    //console.log(results[i]);
                 }
                 searchedResults = results;//save the result for further use
                 suggestedResult(); //create marker and write result
             } 
         }
 
+        function getNearestLocation() {
+            hideSlider();
+            //nearest location 
+            
+            var nearestDistance = distance(LatLng, searchedResults[0].geometry.location);
+            var newNearestDistance;
+            var nearestLocation = searchedResults[0];
+            
+            //console.log(searchedResults[0].name +  " >> initial distance :" + nearestDistance);
+
+            for (var i = 1; i < searchedResults.length; i++) {
+
+                newNearestDistance = distance(LatLng, searchedResults[i].geometry.location);
+                //console.log(searchedResults[i].name + " >>  distance :" + newNearestDistance);
+
+                if (newNearestDistance < nearestDistance ) {
+                    nearestLocation = searchedResults[i];
+                    nearestDistance = newNearestDistance;
+                }
+
+            }
+
+            if (nearestMarker.length == 0) {
+                createMarker(nearestLocation, nearestMarker);
+            }
+
+            showMarkers(nearestMarker);
+
+            return [nearestLocation , nearestDistance];
+        }
+
+        function getHighestRatingLocation() {
+            //highest rating
+            showSlider();
+            var highestRatingLocation;
+            var isFirstTime = true;
+
+            for (var i = 0; i < searchedResults.length; i++) {
+
+                var d = distance(LatLng, searchedResults[i].geometry.location);
+                if (d <= radius) { //limit the highest rating location
+
+                    if (isFirstTime) {
+                        highestRatingLocation = searchedResults[i];
+                        isFirstTime = false;
+                    }
+
+                    if (highestRatingLocation.rating < searchedResults[i].rating) {
+                        highestRatingLocation = searchedResults[i];
+
+                    }
+                }
+            }
+
+            return highestRatingLocation;
+        }
+
+        function getMostRatedLocation() {
+            //most rated 
+            showSlider();
+            var mostRatedLocation;
+            var isFirstTime = true;
+
+            for (var i = 0; i < searchedResults.length; i++) {
+
+                var d = distance(LatLng, searchedResults[i].geometry.location);
+                if (d <= radius) { //limit the highest rating location
+
+                    if (isFirstTime) {
+                        mostRatedLocation = searchedResults[i];
+                        isFirstTime = false;
+                    }
+
+                    if (mostRatedLocation.user_ratings_total < searchedResults[i].user_ratings_total) {
+                        mostRatedLocation = searchedResults[i];
+
+                    }
+                }
+            }
+
+            return mostRatedLocation;
+        }
 
         //need to have the results
         function suggestedResult() {
 
+            //NEAREST=======================================
             if (document.getElementById('nearest').checked) {
-                
-                hideSlider();
-                //nearest location 
+
                 clearMarkers(highestRatingMarker);
                 clearMarkers(markers);
                 clearMarkers(mostRatedMarker);
-                var nearestDistance = distance(LatLng, searchedResults[0].geometry.location);
-                var newNearestDistance;
-                var nearestLocation = searchedResults[0];
+
                 var nearestLocationLink;
-                //console.log(searchedResults[0].name +  " >> initial distance :" + nearestDistance);
 
-                for (var i = 1; i < searchedResults.length; i++) {
+                //get nearest location
+                var nearestValues = getNearestLocation();
 
-                    newNearestDistance = distance(LatLng, searchedResults[i].geometry.location);
-                    //console.log(searchedResults[i].name + " >>  distance :" + newNearestDistance);
-
-                    if (newNearestDistance < nearestDistance) {
-                        nearestLocation = searchedResults[i];
-                        nearestDistance = newNearestDistance;
-                    }
-
-                }
-
-                if (nearestMarker.length == 0) {
-                    createMarker(nearestLocation, nearestMarker);
-                }
-
-                showMarkers(nearestMarker);
+                var nearestLocation = nearestValues[0];
+                var nearestDistance = nearestValues[1];
 
                 if (nearestLocation != null) {
 
@@ -303,37 +373,18 @@
                                                                     with distance of ${nearestDistance.toFixed(2)} meters and a rating of <b> ${nearestLocation.rating}</b> on google. <br/><br/>
                                                                 Location Address : ${nearestLocation.formatted_address}<br/>
                                                                 <a href="${nearestLocationLink}" class="navigateButton">Navigate Now</a>`);
-                } 
+                }
 
+                //HIGHEST RATING=======================================
             } else if (document.getElementById('highestRating').checked) {
-                //highest rating
-                showSlider();
-                var highestRatingLocation;
-                var isFirstTime = true;
-                var highestRatingLink = googleMapLink;
-               
+
                 clearMarkers(markers);//clear all google place searched markers
                 clearMarkers(nearestMarker);
                 clearMarkers(mostRatedMarker);
 
-                for (var i = 0; i < searchedResults.length; i++) {
-                    
-                    var d = distance(LatLng, searchedResults[i].geometry.location);
-                    if (d <= radius) { //limit the highest rating location
+                var highestRatingLink = googleMapLink;
 
-                        if (isFirstTime) {
-                            highestRatingLocation = searchedResults[i];
-                            isFirstTime = false;
-                        }
-
-                        if (highestRatingLocation.rating < searchedResults[i].rating) {
-                            highestRatingLocation = searchedResults[i];
-                            
-                        }
-                    }   
-                }
-
-                
+                var highestRatingLocation = getHighestRatingLocation();
 
                 if (highestRatingLocation != null) {
 
@@ -346,46 +397,25 @@
 
                     deleteMarkers(highestRatingMarker);
                     createMarker(highestRatingLocation, highestRatingMarker);
-                    console.log(highestRatingLocation.user_ratings_total);
+                    //console.log(highestRatingLocation.user_ratings_total);
 
                 } else {
                     deleteMarkers(highestRatingMarker);
                     document.getElementById("demo").innerHTML = (`No location found...`);
                 }
-                
+
                 showMarkers(highestRatingMarker);
 
-            } else if(document.getElementById('mostRated').checked){
-
-                //highest rating
-                showSlider();
-                var mostRatedLocation;
-                var isFirstTime = true;
-                var mostRatedLink = googleMapLink;
+                //MOST RATED=======================================
+            } else if (document.getElementById('mostRated').checked) {
 
                 clearMarkers(markers);//clear all google place searched markers
                 clearMarkers(nearestMarker);
                 clearMarkers(highestRatingMarker);
-                
 
-                for (var i = 0; i < searchedResults.length; i++) {
+                var mostRatedLink = googleMapLink;
 
-                    var d = distance(LatLng, searchedResults[i].geometry.location);
-                    if (d <= radius) { //limit the highest rating location
-
-                        if (isFirstTime) {
-                            mostRatedLocation = searchedResults[i];
-                            isFirstTime = false;
-                        }
-
-                        if (mostRatedLocation.user_ratings_total < searchedResults[i].user_ratings_total) {
-                            mostRatedLocation = searchedResults[i];
-
-                        }
-                    }
-                }
-
-
+                var mostRatedLocation = getMostRatedLocation();
 
                 if (mostRatedLocation != null) {
 
@@ -406,9 +436,94 @@
                 }
 
                 showMarkers(mostRatedMarker);
- 
 
-            }else {
+                //RECOMMENDED=======================================
+            } else if (document.getElementById('recommended').checked) {
+
+                var recommendedLocation; var m_allLocationAverage; var totalRatings = 0;
+                var ratingList = []; var C_lowerQuartile;var limitRange = 10000;var count = 0;
+                var isFirstTime = true; var highestBayesianRating; var newHighestBayesianRating;
+
+                //recommended location considering three factors 
+                var mostRatedLocation = getMostRatedLocation();
+                var highestRatingLocation = getHighestRatingLocation();
+                var nearestValues = getNearestLocation();
+                var nearestLocation = nearestValues[0];
+                var nearestDistance = nearestValues[1];
+
+                if (mostRatedLocation == highestRatingLocation && highestRatingLocation == nearestLocation) {
+                    // if three location are the same means the best location
+                    recommendedLocation = highestRatingLocation;
+                    console.log("best location = ");
+                    console.log(recommendedLocation);
+
+                } else {
+
+                    for (var i = 0; i < searchedResults.length; i++) {
+
+                        var d = distance(LatLng, searchedResults[i].geometry.location);
+                        
+                        if (d < limitRange) {
+                            totalRatings += searchedResults[i].rating;
+                            ratingList.push(searchedResults[i].user_ratings_total);
+                            count++;
+                            //console.log(searchedResults[i]);
+                        }
+                    }
+
+                    m_allLocationAverage = totalRatings / count;
+                    C_lowerQuartile = mean(ratingList);
+                    
+                    /*C_lowerQuartile = Quartile(ratingList, 0.25);
+
+                    if (C_lowerQuartile == 0) {
+                        
+                    }*/
+
+                    console.log(`m = ${m_allLocationAverage} and c = ${C_lowerQuartile} count= ${count} total rating = ${totalRatings}`);
+                    
+                    for (var i = 0; i < searchedResults.length; i++) {
+                        var d = distance(LatLng, searchedResults[i].geometry.location);
+
+                        if (d < limitRange) {
+                            if (isFirstTime) {
+                                recommendedLocation = searchedResults[i];
+                                highestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
+                                    , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
+                                console.log("first = " + highestBayesianRating);
+                                isFirstTime = false;
+                            }
+
+                            newHighestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
+                                , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
+
+                            console.log("new= "+newHighestBayesianRating);
+                            console.log(searchedResults[i]);
+
+                            if (newHighestBayesianRating > highestBayesianRating) {
+                                highestBayesianRating = newHighestBayesianRating;
+                                recommendedLocation = searchedResults[i];
+                            }
+                            
+                        }
+                    } console.log("Highest = "+highestBayesianRating);
+                    /*
+                    for (var i = 0; i < searchedResults.length; i++) {
+                        if (C_lowerQuartile == 0) {
+                            C_lowerQuartile = 2;
+                        }
+
+                        newHighestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
+                            , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
+                        console.log(i + 1 + "Rating = " + newHighestBayesianRating);
+                        console.log(searchedResults[i]);
+                    }*/
+
+                }
+                
+
+            } else {
+
                 //show all
                 hideSlider();
                 //create marker
@@ -416,7 +531,7 @@
                 clearMarkers(nearestMarker);
                 clearMarkers(mostRatedMarker);
                 showMarkers(markers);
-
+               
 
                 if (searchedResults.length != 0) {
                     document.getElementById('demo').innerHTML = (`<b>Click on the marker to see detailed informations.</b><br/><br/>
@@ -424,9 +539,46 @@
                                                                You are able to click the link in the google map to send location
                                                                to your smartphone and proceed to your destination. <br/><br/>
                                                                Have a nice day~~~`);
-                } 
+                }
             }
 
+        }
+                                        //user_rating_total      //rating
+        function calculateBayesAverage(product_ratings_count, product_ratings_average, m_allLocationAverage, C_lowerQuartile) {
+            if (product_ratings_count == 0) {
+                return 0;
+            } else {
+                return (product_ratings_count * product_ratings_average + m_allLocationAverage * C_lowerQuartile)
+                    / (product_ratings_count + C_lowerQuartile)
+            }            
+        }
+
+        function mean(numbers) {
+            var total = 0, i;
+            for (i = 0; i < numbers.length; i += 1) {
+                total += numbers[i];
+            }
+            return total / numbers.length;
+        }
+
+        //sort array
+        function Array_Sort_Numbers(inputarray) {
+            return inputarray.sort(function (a, b) {
+                return a - b;
+            });
+        }
+
+        //get rating quartile
+        function Quartile(data, q) {
+            data = Array_Sort_Numbers(data);
+            var pos = ((data.length) - 1) * q;
+            var base = Math.floor(pos);
+            var rest = pos - base;
+            if ((data[base + 1] !== undefined)) {
+                return data[base] + rest * (data[base + 1] - data[base]);
+            } else {
+                return data[base];
+            }
         }
 
         // marker functions
