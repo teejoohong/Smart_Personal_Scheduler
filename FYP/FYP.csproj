@@ -121,6 +121,7 @@
     <Compile Include="InfoCenter.aspx.designer.cs">
       <DependentUpon>InfoCenter.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Location.cs" />
     <Compile Include="LogIn.aspx.cs">
       <DependentUpon>LogIn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
