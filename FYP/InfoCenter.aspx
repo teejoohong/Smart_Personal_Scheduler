@@ -373,7 +373,7 @@
 
                     document.getElementById("demo").innerHTML = (`Location : ${nearestLocation.name} is the nearest location around you. <br/><br/>
                                                                   Distance : ${nearestDistance.toFixed(2)} meters <br/><br/>
-                                                                  Rating : ${nearestLocation.rating}</b> on google. <br/><br/>
+                                                                  Rating : ${nearestLocation.rating} on google. <br/><br/>
                                                                 Location Address : ${nearestLocation.formatted_address}<br/><br/>
                                                                 <a href="${nearestLocationLink}" class="navigateButton">Navigate Now</a>`);
                 }
@@ -428,7 +428,7 @@
 
                     document.getElementById("demo").innerHTML = (`Location : ${mostRatedLocation.name} is the most rated location in ${radius}m.<br/><br/>
                                                                   Number of rating(s) : ${mostRatedLocation.user_ratings_total} ratings <br/><br/> 
-                                                                    Rating : ${mostRatedLocation.rating}on google. <br/><br/>
+                                                                    Rating : ${mostRatedLocation.rating} on google. <br/><br/>
                                                                 Location Address : ${mostRatedLocation.formatted_address}<br/><br/>
                                                                 <a href="${mostRatedLink}" class="navigateButton">Navigate Now</a>`);
 
