@@ -116,6 +116,7 @@
         var highestRatingMarker = [];
         var mostRatedMarker = [];
         var nearestMarker = [];
+        var recommendedMarker = [];
         let map;
         let service;
         let infowindow;
@@ -184,7 +185,7 @@
                 placeLink = googleMapLink + lat + "," + long + "/" + place.geometry.location;
 
                 document.getElementById('autoComplete').innerHTML = (`${place.name} is the searched location with a rating of ${place.rating} on google. <br/><br/>
-                                                                Location Address : ${place.formatted_address}<br/>
+                                                                Location Address : ${place.formatted_address}<br/><br/>
                                                                 <a href="${placeLink}" class="navigateButton">Navigate Now</a>`);
                 //var d = distance(LatLng, place.geometry.location);
                 
@@ -356,6 +357,7 @@
                 clearMarkers(highestRatingMarker);
                 clearMarkers(markers);
                 clearMarkers(mostRatedMarker);
+                clearMarkers(recommendedMarker);
 
                 var nearestLocationLink;
 
@@ -369,9 +371,10 @@
 
                     nearestLocationLink = googleMapLink + lat + "," + long + "/" + nearestLocation.geometry.location;
 
-                    document.getElementById("demo").innerHTML = (`${nearestLocation.name} is the nearest location around you 
-                                                                    with distance of ${nearestDistance.toFixed(2)} meters and a rating of <b> ${nearestLocation.rating}</b> on google. <br/><br/>
-                                                                Location Address : ${nearestLocation.formatted_address}<br/>
+                    document.getElementById("demo").innerHTML = (`Location : ${nearestLocation.name} is the nearest location around you. <br/><br/>
+                                                                  Distance : ${nearestDistance.toFixed(2)} meters <br/><br/>
+                                                                  Rating : ${nearestLocation.rating}</b> on google. <br/><br/>
+                                                                Location Address : ${nearestLocation.formatted_address}<br/><br/>
                                                                 <a href="${nearestLocationLink}" class="navigateButton">Navigate Now</a>`);
                 }
 
@@ -381,6 +384,7 @@
                 clearMarkers(markers);//clear all google place searched markers
                 clearMarkers(nearestMarker);
                 clearMarkers(mostRatedMarker);
+                clearMarkers(recommendedMarker);
 
                 var highestRatingLink = googleMapLink;
 
@@ -390,9 +394,9 @@
 
                     highestRatingLink = googleMapLink + lat + "," + long + "/" + highestRatingLocation.geometry.location;
 
-                    document.getElementById("demo").innerHTML = (`${highestRatingLocation.name} is the highest rated location in ${radius}m
-                                                                    with a rating of <b> ${highestRatingLocation.rating}</b> on google. <br/><br/>
-                                                                Location Address : ${highestRatingLocation.formatted_address}<br/>
+                    document.getElementById("demo").innerHTML = (`Location : ${highestRatingLocation.name} is the highest rated location in ${radius}m<br/><br/>
+                                                                   Rating : ${highestRatingLocation.rating} on google. <br/><br/>
+                                                                Location Address : ${highestRatingLocation.formatted_address}<br/><br/>
                                                                 <a href="${highestRatingLink}" class="navigateButton">Navigate Now</a>`);
 
                     deleteMarkers(highestRatingMarker);
@@ -412,6 +416,7 @@
                 clearMarkers(markers);//clear all google place searched markers
                 clearMarkers(nearestMarker);
                 clearMarkers(highestRatingMarker);
+                clearMarkers(recommendedMarker);
 
                 var mostRatedLink = googleMapLink;
 
@@ -421,9 +426,10 @@
 
                     mostRatedLink = googleMapLink + lat + "," + long + "/" + mostRatedLocation.geometry.location;
 
-                    document.getElementById("demo").innerHTML = (`With ${mostRatedLocation.user_ratings_total} ratings, ${mostRatedLocation.name} is the most rated location in ${radius}m.
-                                                                    with a rating of <b> ${mostRatedLocation.rating}</b> on google. <br/><br/>
-                                                                Location Address : ${mostRatedLocation.formatted_address}<br/>
+                    document.getElementById("demo").innerHTML = (`Location : ${mostRatedLocation.name} is the most rated location in ${radius}m.<br/><br/>
+                                                                  Number of rating(s) : ${mostRatedLocation.user_ratings_total} ratings <br/><br/> 
+                                                                    Rating : ${mostRatedLocation.rating}on google. <br/><br/>
+                                                                Location Address : ${mostRatedLocation.formatted_address}<br/><br/>
                                                                 <a href="${mostRatedLink}" class="navigateButton">Navigate Now</a>`);
 
                     deleteMarkers(mostRatedMarker);
@@ -443,83 +449,88 @@
                 var recommendedLocation; var m_allLocationAverage; var totalRatings = 0;
                 var ratingList = []; var C_lowerQuartile;var limitRange = 10000;var count = 0;
                 var isFirstTime = true; var highestBayesianRating; var newHighestBayesianRating;
+                var recommendedLink;
 
                 //recommended location considering three factors 
-                var mostRatedLocation = getMostRatedLocation();
-                var highestRatingLocation = getHighestRatingLocation();
-                var nearestValues = getNearestLocation();
-                var nearestLocation = nearestValues[0];
-                var nearestDistance = nearestValues[1];
+                clearMarkers(markers);//clear all google place searched markers
+                clearMarkers(nearestMarker);
+                clearMarkers(highestRatingMarker);
+                clearMarkers(mostRatedMarker);
 
-                if (mostRatedLocation == highestRatingLocation && highestRatingLocation == nearestLocation) {
-                    // if three location are the same means the best location
-                    recommendedLocation = highestRatingLocation;
-                    console.log("best location = ");
-                    console.log(recommendedLocation);
+                for (var i = 0; i < searchedResults.length; i++) {
 
-                } else {
+                    var d = distance(LatLng, searchedResults[i].geometry.location);
 
-                    for (var i = 0; i < searchedResults.length; i++) {
-
-                        var d = distance(LatLng, searchedResults[i].geometry.location);
-                        
-                        if (d < limitRange) {
-                            totalRatings += searchedResults[i].rating;
-                            ratingList.push(searchedResults[i].user_ratings_total);
-                            count++;
-                            //console.log(searchedResults[i]);
-                        }
+                    if (d < limitRange) {
+                        totalRatings += searchedResults[i].rating;
+                        ratingList.push(searchedResults[i].user_ratings_total);
+                        count++;
+                        //console.log(searchedResults[i]);
                     }
+                }
 
-                    m_allLocationAverage = totalRatings / count;
-                    C_lowerQuartile = mean(ratingList);
+                m_allLocationAverage = totalRatings / count;
+                C_lowerQuartile = mean(ratingList);
+
+                /*C_lowerQuartile = Quartile(ratingList, 0.25);
+
+                if (C_lowerQuartile == 0) {
                     
-                    /*C_lowerQuartile = Quartile(ratingList, 0.25);
+                }*/
 
-                    if (C_lowerQuartile == 0) {
-                        
-                    }*/
+                //console.log(`m = ${m_allLocationAverage} and c = ${C_lowerQuartile} count= ${count} total rating = ${totalRatings}`);
 
-                    console.log(`m = ${m_allLocationAverage} and c = ${C_lowerQuartile} count= ${count} total rating = ${totalRatings}`);
-                    
-                    for (var i = 0; i < searchedResults.length; i++) {
-                        var d = distance(LatLng, searchedResults[i].geometry.location);
+                for (var i = 0; i < searchedResults.length; i++) {
+                    var d = distance(LatLng, searchedResults[i].geometry.location);
 
-                        if (d < limitRange) {
-                            if (isFirstTime) {
-                                recommendedLocation = searchedResults[i];
-                                highestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
-                                    , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
-                                console.log("first = " + highestBayesianRating);
-                                isFirstTime = false;
-                            }
-
-                            newHighestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
+                    if (d < limitRange) {
+                        if (isFirstTime) {
+                            recommendedLocation = searchedResults[i];
+                            highestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
                                 , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
-
-                            console.log("new= "+newHighestBayesianRating);
-                            console.log(searchedResults[i]);
-
-                            if (newHighestBayesianRating > highestBayesianRating) {
-                                highestBayesianRating = newHighestBayesianRating;
-                                recommendedLocation = searchedResults[i];
-                            }
-                            
-                        }
-                    } console.log("Highest = "+highestBayesianRating);
-                    /*
-                    for (var i = 0; i < searchedResults.length; i++) {
-                        if (C_lowerQuartile == 0) {
-                            C_lowerQuartile = 2;
+                            console.log("first = " + highestBayesianRating);
+                            isFirstTime = false;
                         }
 
                         newHighestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
                             , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
-                        console.log(i + 1 + "Rating = " + newHighestBayesianRating);
-                        console.log(searchedResults[i]);
-                    }*/
 
+                        console.log("new= " + newHighestBayesianRating);
+                        console.log(searchedResults[i]);
+
+                        if (newHighestBayesianRating > highestBayesianRating) {
+                            highestBayesianRating = newHighestBayesianRating;
+                            recommendedLocation = searchedResults[i];
+                        }
+
+                    }
+                } console.log("Highest = " + highestBayesianRating);
+
+                /*
+                for (var i = 0; i < searchedResults.length; i++) {
+                if (C_lowerQuartile == 0) {
+                    C_lowerQuartile = 2;
                 }
+
+                newHighestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
+                    , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
+                console.log(i + 1 + "Rating = " + newHighestBayesianRating);
+                console.log(searchedResults[i]);
+                }*/
+
+                if (recommendedLocation != null) {
+                    if (recommendedMarker.length == 0) { createMarker(recommendedLocation, recommendedMarker); }
+
+                    recommendedLink = googleMapLink + lat + "," + long + "/" + recommendedLocation.geometry.location;
+                    document.getElementById("demo").innerHTML = (`Location: ${recommendedLocation.name}
+                                                                    <br/><br/> Bayesian Rating : ${highestBayesianRating.toFixed(2)}
+                                                                    <br/><br/> Location Address : ${recommendedLocation.formatted_address}
+                                                                    <br/><br/><a href="${recommendedLink}" class="navigateButton">Navigate Now</a> `);
+                } else {
+                    document.getElementById("demo").innerHTML = "No location found...";
+                }
+
+                showMarkers(recommendedMarker);
                 
 
             } else {
@@ -530,6 +541,7 @@
                 clearMarkers(highestRatingMarker);
                 clearMarkers(nearestMarker);
                 clearMarkers(mostRatedMarker);
+                clearMarkers(recommendedMarker);
                 showMarkers(markers);
                
 
