@@ -36,10 +36,10 @@
         </tr>
         <tr class="rowLink">
             <td>
-                <asp:HyperLink ID="linkRegister" runat="server">Register</asp:HyperLink>
+                <asp:HyperLink ID="linkRegister" runat="server" NavigateUrl="~/Register.aspx">Register</asp:HyperLink>
             </td>
             <td class="linkForgetPassword" >
-                <asp:HyperLink ID="HyperLink9" CssClass="" runat="server">Forget Password</asp:HyperLink>
+                <asp:HyperLink ID="linkForgetPassword" CssClass="" runat="server" >Forget Password</asp:HyperLink>
             </td>
         </tr>
     </table>
