@@ -19,14 +19,17 @@ namespace FYP
         {
             //IICalendarCollection calendars = iCalendar.LoadFromFile(timeTableFile.FileName);
             
-            string latitude = "";
-            string longitude = "";
-            GetLocation(ref latitude, ref longitude);
-            GetWeatherInfo(latitude, longitude);
+           
+            
         }
 
         protected void GenerationOfTimetable_Click(object sender, EventArgs e)
         {
+            string latitude = HiddenField1.Value;
+            string longitude = HiddenField2.Value;
+
+            GetWeatherInfo(latitude, longitude);
+
             if (timeTableFile.HasFile)
             {
                 string fileExtension = System.IO.Path.GetExtension(timeTableFile.FileName);
@@ -1836,6 +1839,8 @@ namespace FYP
         }
 
         private readonly Random _random = new Random();
+
+  
     }
 
 }
