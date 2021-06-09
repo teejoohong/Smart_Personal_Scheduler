@@ -15,6 +15,15 @@ namespace FYP
     {
 
         /// <summary>
+        /// fileUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fileUpload;
+
+        /// <summary>
         /// timeTableFile control.
         /// </summary>
         /// <remarks>
@@ -22,6 +31,15 @@ namespace FYP
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload timeTableFile;
+
+        /// <summary>
+        /// FileUploading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox FileUploading;
 
         /// <summary>
         /// modeGeneration control.
