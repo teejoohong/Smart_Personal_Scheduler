@@ -447,7 +447,7 @@
             } else if (document.getElementById('recommended').checked) {
 
                 var recommendedLocation; var m_allLocationAverage; var totalRatings = 0;
-                var ratingList = []; var C_lowerQuartile;var limitRange = 10000;var count = 0;
+                var ratingList = []; var C_lowerQuartile;var limitRange = 1000;var count = 0;
                 var isFirstTime = true; var highestBayesianRating; var newHighestBayesianRating;
                 var recommendedLink;
 
@@ -457,54 +457,58 @@
                 clearMarkers(highestRatingMarker);
                 clearMarkers(mostRatedMarker);
 
-                for (var i = 0; i < searchedResults.length; i++) {
-
-                    var d = distance(LatLng, searchedResults[i].geometry.location);
-
-                    if (d < limitRange) {
-                        totalRatings += searchedResults[i].rating;
-                        ratingList.push(searchedResults[i].user_ratings_total);
-                        count++;
-                        //console.log(searchedResults[i]);
-                    }
-                }
-
-                m_allLocationAverage = totalRatings / count;
-                C_lowerQuartile = mean(ratingList);
-
                 /*C_lowerQuartile = Quartile(ratingList, 0.25);
 
                 if (C_lowerQuartile == 0) {
-                    
+               
                 }*/
 
                 //console.log(`m = ${m_allLocationAverage} and c = ${C_lowerQuartile} count= ${count} total rating = ${totalRatings}`);
+                do { // do until location found
 
-                for (var i = 0; i < searchedResults.length; i++) {
-                    var d = distance(LatLng, searchedResults[i].geometry.location);
+                    for (var i = 0; i < searchedResults.length; i++) {
 
-                    if (d < limitRange) {
-                        if (isFirstTime) {
-                            recommendedLocation = searchedResults[i];
-                            highestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
-                                , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
-                            console.log("first = " + highestBayesianRating);
-                            isFirstTime = false;
+                        var d = distance(LatLng, searchedResults[i].geometry.location);
+
+                        if (d < limitRange) {
+                            totalRatings += searchedResults[i].rating;
+                            ratingList.push(searchedResults[i].user_ratings_total);
+                            count++;
+                            //console.log(searchedResults[i]);
                         }
-
-                        newHighestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
-                            , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
-
-                        console.log("new= " + newHighestBayesianRating);
-                        console.log(searchedResults[i]);
-
-                        if (newHighestBayesianRating > highestBayesianRating) {
-                            highestBayesianRating = newHighestBayesianRating;
-                            recommendedLocation = searchedResults[i];
-                        }
-
                     }
-                } console.log("Highest = " + highestBayesianRating);
+
+                    m_allLocationAverage = totalRatings / count;
+                    C_lowerQuartile = mean(ratingList);
+                   
+                    for (var i = 0; i < searchedResults.length; i++) {
+                        var d = distance(LatLng, searchedResults[i].geometry.location);
+
+                        if (d < limitRange) {
+                            if (isFirstTime) {
+                                recommendedLocation = searchedResults[i];
+                                highestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
+                                    , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
+                                console.log("first = " + highestBayesianRating);
+                                isFirstTime = false;
+                            }
+
+                            newHighestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
+                                , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
+
+                            console.log("new= " + newHighestBayesianRating);
+                            console.log(searchedResults[i]);
+
+                            if (newHighestBayesianRating > highestBayesianRating) {
+                                highestBayesianRating = newHighestBayesianRating;
+                                recommendedLocation = searchedResults[i];
+                            }
+
+                        }
+                    }
+                    limitRange += 1000;
+                    console.log("Highest = " + highestBayesianRating);
+                }while(recommendedLocation == null)
 
                 /*
                 for (var i = 0; i < searchedResults.length; i++) {
