@@ -11,7 +11,7 @@ namespace FYP
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Session["url"] = HttpContext.Current.Request.Url.AbsoluteUri;
         }
 
     }

@@ -91,6 +91,7 @@
     <Content Include="Tutorial.aspx" />
     <Content Include="Web.config" />
     <Content Include="HomePage.aspx" />
+    <Content Include="WebForm2.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutUs.aspx.cs">
@@ -178,6 +179,13 @@
     </Compile>
     <Compile Include="Tutorial.aspx.designer.cs">
       <DependentUpon>Tutorial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm2.aspx.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm2.aspx.designer.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

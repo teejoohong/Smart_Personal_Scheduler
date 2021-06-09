@@ -17,9 +17,7 @@ namespace FYP
         string[] weatherWeeklyForecast = new string[8];
         protected void Page_Load(object sender, EventArgs e)
         {
-            //IICalendarCollection calendars = iCalendar.LoadFromFile(timeTableFile.FileName);
-            
-           
+                               
             
         }
 
@@ -147,6 +145,7 @@ namespace FYP
                 }
                
             }*/
+
                      
         }
 
@@ -211,8 +210,7 @@ namespace FYP
             
             while (datesEnd.Count != 0)
             {
-                string dateDataEnd = datesEnd.Pop().ToString();
-                string dateEnd = dateDataEnd.Split(' ')[0].ToString();
+                string dateDataEnd = datesEnd.Pop().ToString();          
                 string timeEnd = dateDataEnd.Split(' ')[1].ToString() + " " + dateDataEnd.Split(' ')[2].ToString();
 
                 //round up the time
@@ -237,7 +235,7 @@ namespace FYP
                         if (dayDetails[i, 24].Equals(dateStart))
                         {
                             int start = int.Parse(DateTime.Parse(timeStart).ToString("HH:mm:ss").Split(':')[0]);
-                            int end = int.Parse(DateTime.Parse(timeEnd).ToString("HH:mm:ss").Split(':')[0]);
+                           
 
                             string occupiedTime = (DateTime.Parse(timeEnd) - DateTime.Parse(timeStart)).TotalHours.ToString();
                             if (recursionData.Equals("0"))
@@ -255,6 +253,9 @@ namespace FYP
                                 if (recursionDataDetail.Contains("FREQ=WEEKLY"))
                                 {
                                     recursiveWeekly(i, ref occurDays, ref dayDetails, recursionDataDetail, start, occupiedTime, dateStart);                            
+                                }else if (recursionDataDetail.Contains("FREQ=DAILY"))
+                                {
+                                    //recursiveWeekly(i, ref occurDays, ref dayDetails, recursionDataDetail, start, occupiedTime, dateStart);
                                 }
                             }
                             
@@ -291,6 +292,10 @@ namespace FYP
                                 {
                                     recursiveWeekly(j, ref occurDays, ref dayDetails, recursionDataDetail, start, occupiedTime, dateStart);
                                 }
+                                else if (recursionDataDetail.Contains("FREQ=DAILY"))
+                                {
+                                    //recursiveWeekly(i, ref occurDays, ref dayDetails, recursionDataDetail, start, occupiedTime, dateStart);
+                                }
                             }
                                                                 
                             break;
@@ -298,8 +303,7 @@ namespace FYP
 
                     }
                 }
-                //string all = "";
-
+               
                 for (int i = 0; i < occurDays.Length; i++)
                 {
                     if (dayDetails[i, 24] != null)
@@ -315,23 +319,16 @@ namespace FYP
                             {
                                 dayDetails[i, j] = "0";
                             }
-                            /*if(dayDetails[i, j] != null)
-                             {
-                                 all = all + dayDetails[i, j];
-                             }
-                             else
-                             {
-                                 all = all + " 0 ";
-                             }*/
+
                         }
                     }
                     else
                     {
                         break;
                     }
-                    //all = all + "\n\\n";
+                    
                 }
-                //Label1.Text = all;
+               
             }
 
 
@@ -341,6 +338,7 @@ namespace FYP
         {
             string count = "";
             string dateUntil = "";
+            string[] byday = new string[7];
             //check for total count recursive
             
             for (int j = 0; j < recursionDataDetail.Length; j++)
@@ -348,6 +346,7 @@ namespace FYP
                 if (recursionDataDetail[j].Contains("COUNT"))
                 {
                     count = recursionDataDetail[j].Split('=')[1];
+                    
                     break;
                 }
                 else if(recursionDataDetail[j].Contains("UNTIL")){
@@ -358,16 +357,50 @@ namespace FYP
                     string[] formats = { "yyyyMMddTHHmmssZ", "yyyyMMddTHHmmss" };
                     dateUntil = DateTime.ParseExact(dateUntil, formats, provider, DateTimeStyles.AssumeLocal).ToString().Split(' ')[0];
                     break;
-                    
-                }else
-                {
 
                 }
+                else
+                {
+                    //unlimited repeat
+                }
+
+                
             }
             
             if (count!="")
             {
                 string nextDateStart = "";
+                string nextDateStartTemp = "";
+
+                //calculate for maximum date until
+                for (int o =0; o < int.Parse(count); o++)
+                {
+
+                    if (o == 0)
+                    {
+                        nextDateStartTemp = dateStart;
+                    }
+                    else
+                    {
+                        nextDateStartTemp = DateTime.Parse(nextDateStartTemp).AddDays(7).ToString("d");
+                    }
+                }
+
+                if((DateTime.Parse(nextDateStartTemp) - DateTime.Today).TotalDays >= 0)
+                {
+                    // insert time for loop
+                    for(int o = 0; o < recursionDataDetail.Length; o++)
+                    {
+                        if (recursionDataDetail[o].Contains("BYDAY"))
+                        {
+                            byday = recursionDataDetail[o].Split('=')[1].Split(',');
+                            break;
+                        }
+                    }
+                }
+                
+
+
                 // insert time for loop
                 for (int j = 0; j < int.Parse(count); j++)
                 {
@@ -770,10 +803,7 @@ namespace FYP
         protected void FileUpload(Stack<Stack<string[]>> timeTablesWeekly)
         {
             DateTime DateStart = DateTime.Now;
-            DateTime DateEnd = DateStart.AddMinutes(105);
-            string Summary = "Small summary text";
-            string Location = "Event location";
-            string Description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.";
+           
             string FileName = "CalendarItem";
 
             //create a new stringbuilder instance
@@ -812,7 +842,7 @@ namespace FYP
                         sb += "DTEND;TZID=Asia/Kuala_Lumpur:" + timetableDeatils[2] + Environment.NewLine;
                         sb += "UID:" + timetableDeatils[3] + Environment.NewLine;
                         sb += "SUMMARY:" + timetableDeatils[4] + Environment.NewLine;
-                    //}
+                        sb += "DESCRIPTION:" + timetableDeatils[5] + Environment.NewLine;
                     sb += "END:VEVENT" + Environment.NewLine;
                     
 
@@ -1834,13 +1864,13 @@ namespace FYP
 
         private string[] ScheduleTimeTable(int startTime, int endTime, string activitity, string date)// 7,8,"breakfast",dat
         {
-            string[] timeTable = new string[5];
+            string[] timeTable = new string[6];
             timeTable[0] = DateTime.Parse(date).ToString("yyyyMMddTHH0000Z"); // DStamp
             timeTable[1] = DateTime.Parse(date).AddHours(startTime).ToString("yyyyMMddTHH0000"); // DStart
             timeTable[2] = DateTime.Parse(date).AddHours(endTime).ToString("yyyyMMddTHH0000"); //DEnd
             timeTable[3] = Guid.NewGuid().ToString() + DateTime.Parse(date).ToString("yyyyMMddTHHmm00Z"); //UID
             timeTable[4] = activitity; //Summary
-            //timetable[5] = session + "?name=" + activity;   //description
+            timeTable[5] = HttpContext.Current.Request.Url.AbsoluteUri.Replace("TimeTableGenerator", "InfoCenter") + "?name=" + "activity";   //description         
             return timeTable;
         }
 
