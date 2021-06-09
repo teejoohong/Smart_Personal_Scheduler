@@ -30,14 +30,103 @@ namespace FYP
 
             GetWeatherInfo(latitude, longitude);
 
-            if (timeTableFile.HasFile)
+            string[,] dayDetails = new string[1000, 25];
+            if (modeGeneration.SelectedItem == null)
+            {
+                //javascript error message
+            }
+            else
+            {
+                if(FileUploading.Checked == true)
+                {
+                    // with ics file
+                    if (timeTableFile.HasFile)
+                    {
+                        string fileExtension = System.IO.Path.GetExtension(timeTableFile.FileName);
+                       
+                        if (fileExtension.ToLower() != ".ics")
+                        {
+                            //error message
+                            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Wrong File " + "');", true);
+                        }
+                        else
+                        {
+                               
+                            Stack<DateTime> datesStart = new Stack<DateTime>();
+                            Stack<DateTime> datesEnd = new Stack<DateTime>();
+                            Stack<string> recursion = new Stack<string>();
+
+                            //use to read the ics file given by user 
+                            ReadFile(ref datesStart, ref datesEnd, ref recursion);
+                           
+                            string[] occurDays = new string[1000];
+
+
+                            //Allocate all the used time as occupied space
+                            CollationOfTime(ref dayDetails, ref occurDays, datesStart, datesEnd, recursion);
+
+                            //Label1.Text = dayDetails[0, 24];
+                            Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
+
+
+                            FileUpload(timeTablesWeekly);
+                                
+                        }
+                    }
+                }
+                else
+                {
+                    //without ics file
+                    
+
+                    Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
+                    FileUpload(timeTablesWeekly);
+                }
+            }
+            /*if (timeTableFile.HasFile)
             {
                 string fileExtension = System.IO.Path.GetExtension(timeTableFile.FileName);
-
-                if (fileExtension.ToLower() != ".ics")
+                
+                if(FileUploading.Checked == true)
                 {
-                    //error message
-                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Wrong File " + "');", true);
+                    if (fileExtension.ToLower() != ".ics")
+                    {
+                        //error message
+                        ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Wrong File " + "');", true);
+                    }
+                    else
+                    {
+                        // initialization 
+                        if (modeGeneration.SelectedItem == null)
+                        {
+
+                            Label1.Text = "Please select a mode you want.";
+
+                        }
+                        else
+                        {
+                            Stack<DateTime> datesStart = new Stack<DateTime>();
+                            Stack<DateTime> datesEnd = new Stack<DateTime>();
+                            Stack<string> recursion = new Stack<string>();
+
+                            //use to read the ics file given by user 
+                            ReadFile(ref datesStart, ref datesEnd, ref recursion);
+
+
+                            string[,] dayDetails = new string[1000, 25];
+                            string[] occurDays = new string[1000];
+
+
+                            //Allocate all the used time as occupied space
+                            CollationOfTime(ref dayDetails, ref occurDays, datesStart, datesEnd, recursion);
+
+                            //Label1.Text = dayDetails[0, 24];
+                            Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
+
+
+                            FileUpload(timeTablesWeekly);
+                        }
+                    }
                 }
                 else
                 {
@@ -46,39 +135,19 @@ namespace FYP
                     {
 
                         Label1.Text = "Please select a mode you want.";
-                        
+
                     }
                     else
                     {
-                        Stack<DateTime> datesStart = new Stack<DateTime>();
-                        Stack<DateTime> datesEnd = new Stack<DateTime>();
-                        Stack<string> recursion = new Stack<string>();
-
-                        //use to read the ics file given by user 
-                        ReadFile(ref datesStart, ref datesEnd, ref recursion);
-                        
-                        
                         string[,] dayDetails = new string[1000, 25];
-                        string[] occurDays = new string[1000];
-                        
-                       
-                        //Allocate all the used time as occupied space
-                        CollationOfTime(ref dayDetails, ref occurDays, datesStart, datesEnd, recursion);
 
-                        //Label1.Text = dayDetails[0, 24];
-                        Stack<Stack<string[]>> timeTablesWeekly =  Timetable(dayDetails, modeGeneration.SelectedValue);
+                        Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
 
-
-                        FileUpload(timeTablesWeekly);
                     }
                 }
-            }
-            
-            else
-            {
-                //error message
-                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Please insert file first " + "');", true);
-            }
+               
+            }*/
+                     
         }
 
         protected void ReadFile(ref Stack<DateTime> datesStart, ref Stack<DateTime> datesEnd, ref Stack<string> recursion)
@@ -471,7 +540,7 @@ namespace FYP
                 }
 
 
-                string test = "";
+                
                 int referenceDate = new int();
                 bool containedDate = false;
                 
@@ -1840,7 +1909,17 @@ namespace FYP
 
         private readonly Random _random = new Random();
 
-  
+        protected void FileUploading_CheckedChanged(object sender, EventArgs e)
+        {
+            if(FileUploading.Checked == true)
+            {
+                fileUpload.Visible = true;
+            }
+            else
+            {
+                fileUpload.Visible = false;
+            }
+        }
     }
 
 }
