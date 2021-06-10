@@ -15,7 +15,7 @@
         <div id="fileUpload" runat="server" visible="false">
             <asp:FileUpload ID="timeTableFile" runat="server" />
         </div>
-             <br />
+            
 
         <asp:RadioButtonList ID="modeGeneration" runat="server">
             <asp:ListItem>Study Mode</asp:ListItem>
