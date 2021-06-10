@@ -6,8 +6,6 @@
     
     <div>
         
-        
-       
          <asp:Button runat="server" Text="Generate" OnClick="GenerationOfTimetable_Click"/>
         <br />
         <asp:CheckBox ID="FileUploading" runat="server" OnCheckedChanged="FileUploading_CheckedChanged" text="Click to include ics file upload" AutoPostBack="true"/>
