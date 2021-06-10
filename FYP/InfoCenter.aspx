@@ -7,73 +7,97 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h2>Google Map</h2><br />
-    <!--  <p id="demo"></p>  -->
-    <table class="topTable">
-        <tr>
-            <td><input id="input" type="text" style="height:75px;width:99%;float:left"/></td>
-            <td>
-                <div class="main">
-                    <input id="slider" type="range" min="0" max="10000" value="5000" onclick ="suggestedResult()"/>
-                        <div id="selector">
-                            <div id="selectBtn"></div>
-                            <div id="selectValue"></div>
-                        </div>
-                    <div id="progressBar"></div>
-                </div>
+    <div class ="googleMapSection">
+        <h1 class="googleMapHeader">Google Map</h1><br />
+        <!--  <p id="demo"></p>  -->
+        <table class="topTable">
+            <tr>
+                <td><input id="input" type="text" style="height:75px;width:99%;float:left"/></td>
+                <td>
+                    <div class="main">
+                        <input id="slider" type="range" min="0" max="10000" value="5000" onclick ="suggestedResult()"/>
+                            <div id="selector">
+                                <div id="selectBtn"></div>
+                                <div id="selectValue"></div>
+                            </div>
+                        <div id="progressBar"></div>
+                    </div>
                 
-            </td>
-        </tr>
-    </table>
+                </td>
+            </tr>
+        </table>
     
    
-    <table class="table">
-        <tr>
-            <td><div id="googleMap" class="googleMapCss"></div> </td>
-            <td>
-                <!-- Radio button -->
+        <table class="table">
+            <tr>
+                <td><div id="googleMap" class="googleMapCss"></div> </td>
+                <td>
+                    <!-- Radio button -->
                 
-                <div class="searchedResults">
+                    <div class="searchedResults">
 
-                    <input type="radio" id="recommended" name="option" value="recommended" checked="checked" onclick ="suggestedResult()">
-                    <label for="recommended">Recommended</label>
+                        <input type="radio" id="recommended" name="option" value="recommended" checked="checked" onclick ="suggestedResult()">
+                        <label for="recommended">Recommended</label>
 
-                    <input type="radio" id="nearest" name="option" value="male" onclick ="suggestedResult()">
-                    <label for="nearest">Nearest</label>
+                        <input type="radio" id="nearest" name="option" value="male" onclick ="suggestedResult()">
+                        <label for="nearest">Nearest</label>
 
-                    <input type="radio" id="mostRated" name="option" value="mostRated" onclick ="suggestedResult()">
-                    <label for="mostRated">Most Rated</label>
+                        <input type="radio" id="mostRated" name="option" value="mostRated" onclick ="suggestedResult()">
+                        <label for="mostRated">Most Rated</label>
 
-                    <input type="radio" id="highestRating" name="option" value="highestRating"  onclick ="suggestedResult()">
-                    <label for="highestRating">Highest Rating</label>
+                        <input type="radio" id="highestRating" name="option" value="highestRating"  onclick ="suggestedResult()">
+                        <label for="highestRating">Highest Rating</label>
 
-                    <input type="radio" id="showAll" name="option" value="showAll" onclick ="suggestedResult()">
-                    <label for="showAll">Show All</label>
+                        <input type="radio" id="showAll" name="option" value="showAll" onclick ="suggestedResult()">
+                        <label for="showAll">Show All</label>
                     
-                    <h2>Suggested location</h2>
+                        <h2>Suggested location</h2>
 
-                    <p id="demo"></p>
+                        <p id="demo"></p>
                     
-                </div>
+                    </div>
 
-                <div class="autoCompleteResult">
-                    <h2>Searched location</h2>
-                    <p id="autoComplete"></p>
-                </div>
-
-                
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-    </table>
-        
+                    <div class="autoCompleteResult">
+                        <h2>Searched location</h2>
+                        <p id="autoComplete"></p>
+                    </div>
+                </td>
+            </tr>
+        </table><br />
+    </div>
+    
+    <div class ="weatherSection">
+        <h1 class="weatherHeader">Weather</h1>
+        <table class="table">
+            <tr>
+                <td>
+                    <div class="container">
+                        <div class="app-title">
+                            <p>Weather</p>
+                        </div>
+                        <div class="notification"> </div>
+                        <div class="weather-container">
+                            <div class="weather-icon">
+                                <img src="icons/unknown.png" alt="">
+                            </div>
+                            <div class="temperature-value">
+                                <p>- °<span>C</span></p>
+                            </div>
+                            <div class="temperature-description">
+                                <p> - </p>
+                            </div>
+                            <div class="location">
+                                <p>-</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id="weatherInfo"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
  
 <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOs73MjrEETY_b9lbU9QCco5DoMll2UOY&sensor=false">  
 </script>   -->
@@ -85,7 +109,11 @@
 
   
     <script type="text/javascript">  
-        
+
+
+        //===============================================================
+        //Google Map=====================================================
+        //===============================================================
         var slider = document.getElementById('slider');
         var radius = slider.value;
         var selector = document.getElementById('selector');
@@ -126,12 +154,13 @@
         const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
 
         function success(position) {
-
             //GOOGLE_MAP--------
             var name = getParameterByName('name');
             lat = position.coords.latitude;
             long = position.coords.longitude;
             LatLng = new google.maps.LatLng(lat, long);
+
+            getWeather(lat, long);
             
 
             //https://www.google.com/maps/dir/2.8000601238492435,%2B101.49562181470077/hospital%20banting
@@ -670,10 +699,103 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
+        //===============================================================
+        //Weather=====================================================
+        //===============================================================
 
+        const iconElement = document.querySelector(".weather-icon");
+        const tempElement = document.querySelector(".temperature-value p");
+        const descElement = document.querySelector(".temperature-description p");
+        const locationElement = document.querySelector(".location p");
+        const notificationElement = document.querySelector(".notification");
+
+        // App data
+        const weather = {};
+
+        weather.temperature = {
+            unit: "celsius"
+        }
+
+        // APP CONSTS AND VARS
+        const KELVIN = 273;
+        // API KEY
+        const key = "f3f718fb3d54bf852baf842135e157c5";
+
+        // GET WEATHER FROM API PROVIDER
+        function getWeather(latitude, longitude) {
+            let api = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
+
+            fetch(api)
+                .then(function (response) {
+                    let data = response.json();
+                    
+                    return data;
+                })
+                .then(function (data) {
+                    console.log(data);
+                    weather.temperature.maxTemp = data.main.temp_max - KELVIN;
+                    weather.temperature.minTemp = data.main.temp_min - KELVIN;
+                    weather.humidity = data.main.humidity;
+                    weather.wind = data.wind.speed;
+                    weather.temperature.value = Math.floor(data.main.temp - KELVIN);// get celcius
+                    weather.description = data.weather[0].description;
+                    weather.iconId = data.weather[0].icon;
+                    weather.city = data.name;
+                    weather.country = data.sys.country;
+                })
+                .then(function () {
+                    displayWeather();
+                });
+        }
+
+        // DISPLAY WEATHER TO UI
+        function displayWeather() {
+            document.getElementById('weatherInfo').innerHTML = (`Humudity : ${weather.humidity}% <br/><br/>
+                                                                 Maximum Temperature : ${weather.temperature.maxTemp.toFixed(2)}°<span>C</span><br/><br/>
+                                                                 Minimum Temperature : ${weather.temperature.minTemp.toFixed(2)}°<span>C</span><br/><br/>
+                                                                 Wind Speed : ${weather.wind} meter per second <br/><br/>
+                                                                 `);
+
+            iconElement.innerHTML = `<img src="icons/${weather.iconId}.png"/>`;
+            tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
+            descElement.innerHTML = weather.description;
+            locationElement.innerHTML = `${weather.city}, ${weather.country}`;
+        }
+
+        // C to F conversion
+        function celsiusToFahrenheit(temperature) {
+            return (temperature * 9 / 5) + 32;
+        }
+
+        // WHEN THE USER CLICKS ON THE TEMPERATURE ELEMENET
+        tempElement.addEventListener("click", function () {
+            if (weather.temperature.value === undefined) return;
+
+            if (weather.temperature.unit == "celsius") {
+                let fahrenheit = celsiusToFahrenheit(weather.temperature.value);
+                let maxFahrenheit = celsiusToFahrenheit(weather.temperature.maxTemp);
+                let minFahrenheit = celsiusToFahrenheit(weather.temperature.minTemp);
+
+                fahrenheit = Math.floor(fahrenheit);
+                document.getElementById('weatherInfo').innerHTML = (`Humudity : ${weather.humidity}% <br/><br/>
+                                                                 Maximum Temperature : ${maxFahrenheit.toFixed(2)}°<span>F</span><br/><br/>
+                                                                 Minimum Temperature : ${minFahrenheit.toFixed(2)}°<span>F</span><br/><br/>
+                                                                 Wind Speed : ${weather.wind} meter per second <br/><br/>
+                                                                 `);
+                tempElement.innerHTML = `${fahrenheit}°<span>F</span>`;
+                weather.temperature.unit = "fahrenheit";
+            } else {
+                document.getElementById('weatherInfo').innerHTML = (`Humudity : ${weather.humidity}% <br/><br/>
+                                                                 Maximum Temperature : ${weather.temperature.maxTemp.toFixed(2)}°<span>C</span><br/><br/>
+                                                                 Minimum Temperature : ${weather.temperature.minTemp.toFixed(2)}°<span>C</span><br/><br/>
+                                                                 Wind Speed : ${weather.wind} meter per second <br/><br/>
+                                                                 `);
+                tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
+                weather.temperature.unit = "celsius"
+            }
+        });
 
     </script>  
-
 
 <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOs73MjrEETY_b9lbU9QCco5DoMll2UOY&callback=myMap"></script>-->
 
