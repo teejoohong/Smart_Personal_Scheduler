@@ -6,8 +6,6 @@
     
     <div>
         
-        
-       
          <asp:Button runat="server" Text="Generate" OnClick="GenerationOfTimetable_Click"/>
         <br />
         <asp:CheckBox ID="FileUploading" runat="server" OnCheckedChanged="FileUploading_CheckedChanged" text="Click to include ics file upload" AutoPostBack="true"/>
@@ -15,7 +13,7 @@
         <div id="fileUpload" runat="server" visible="false">
             <asp:FileUpload ID="timeTableFile" runat="server" />
         </div>
-             <br />
+            
 
         <asp:RadioButtonList ID="modeGeneration" runat="server">
             <asp:ListItem>Study Mode</asp:ListItem>

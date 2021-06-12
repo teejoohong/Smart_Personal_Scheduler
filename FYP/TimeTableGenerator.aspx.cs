@@ -13,7 +13,7 @@ namespace FYP
 {
     
     public partial class TimeTableGenerator : System.Web.UI.Page
-    {
+    {//activity
         string[] weatherWeeklyForecast = new string[8];
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,6 +29,7 @@ namespace FYP
             GetWeatherInfo(latitude, longitude);
 
             string[,] dayDetails = new string[1000, 25];
+
             if (modeGeneration.SelectedItem == null)
             {
                 //javascript error message
@@ -62,7 +63,15 @@ namespace FYP
 
                             //Allocate all the used time as occupied space
                             CollationOfTime(ref dayDetails, ref occurDays, datesStart, datesEnd, recursion);
-
+                            string all = "";
+                            for(int i =0; i<1000; i++)
+                            {
+                                for(int j=0; j<25; j++)
+                                {
+                                    all = all + dayDetails[i, j] + " ";
+                                }
+                            }
+                            Label1.Text = all;
                             //Label1.Text = dayDetails[0, 24];
                             Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
 
@@ -81,70 +90,7 @@ namespace FYP
                     FileUpload(timeTablesWeekly);
                 }
             }
-            /*if (timeTableFile.HasFile)
-            {
-                string fileExtension = System.IO.Path.GetExtension(timeTableFile.FileName);
-                
-                if(FileUploading.Checked == true)
-                {
-                    if (fileExtension.ToLower() != ".ics")
-                    {
-                        //error message
-                        ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Wrong File " + "');", true);
-                    }
-                    else
-                    {
-                        // initialization 
-                        if (modeGeneration.SelectedItem == null)
-                        {
-
-                            Label1.Text = "Please select a mode you want.";
-
-                        }
-                        else
-                        {
-                            Stack<DateTime> datesStart = new Stack<DateTime>();
-                            Stack<DateTime> datesEnd = new Stack<DateTime>();
-                            Stack<string> recursion = new Stack<string>();
-
-                            //use to read the ics file given by user 
-                            ReadFile(ref datesStart, ref datesEnd, ref recursion);
-
-
-                            string[,] dayDetails = new string[1000, 25];
-                            string[] occurDays = new string[1000];
-
-
-                            //Allocate all the used time as occupied space
-                            CollationOfTime(ref dayDetails, ref occurDays, datesStart, datesEnd, recursion);
-
-                            //Label1.Text = dayDetails[0, 24];
-                            Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
-
-
-                            FileUpload(timeTablesWeekly);
-                        }
-                    }
-                }
-                else
-                {
-                    // initialization 
-                    if (modeGeneration.SelectedItem == null)
-                    {
-
-                        Label1.Text = "Please select a mode you want.";
-
-                    }
-                    else
-                    {
-                        string[,] dayDetails = new string[1000, 25];
-
-                        Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
-
-                    }
-                }
-               
-            }*/
+           
 
                      
         }
@@ -236,7 +182,6 @@ namespace FYP
                         {
                             int start = int.Parse(DateTime.Parse(timeStart).ToString("HH:mm:ss").Split(':')[0]);
                            
-
                             string occupiedTime = (DateTime.Parse(timeEnd) - DateTime.Parse(timeStart)).TotalHours.ToString();
                             if (recursionData.Equals("0"))
                             {
@@ -255,7 +200,7 @@ namespace FYP
                                     recursiveWeekly(i, ref occurDays, ref dayDetails, recursionDataDetail, start, occupiedTime, dateStart);                            
                                 }else if (recursionDataDetail.Contains("FREQ=DAILY"))
                                 {
-                                    //recursiveWeekly(i, ref occurDays, ref dayDetails, recursionDataDetail, start, occupiedTime, dateStart);
+                                    recursiveDaily(ref occurDays, ref dayDetails, recursionDataDetail, start, occupiedTime, dateStart);
                                 }
                             }
                             
@@ -294,7 +239,7 @@ namespace FYP
                                 }
                                 else if (recursionDataDetail.Contains("FREQ=DAILY"))
                                 {
-                                    //recursiveWeekly(i, ref occurDays, ref dayDetails, recursionDataDetail, start, occupiedTime, dateStart);
+                                    recursiveDaily(ref occurDays, ref dayDetails, recursionDataDetail, start, occupiedTime, dateStart);
                                 }
                             }
                                                                 
@@ -334,6 +279,100 @@ namespace FYP
 
         }
 
+        protected void recursiveDaily( ref string[] occurDays, ref string[,] dayDetails, string[] recursionDataDetail, int start, string occupiedTime, string dateStart)
+        {
+
+            string[] byday = new string[7];
+
+            for (int o = 0; o < recursionDataDetail.Length; o++)
+            {
+                if (recursionDataDetail[o].Contains("BYDAY"))
+                {
+                    byday = recursionDataDetail[o].Split('=')[1].Split(',');
+                    break;
+                }
+            }
+
+            for (int o = 0; o < byday.Length; o++)
+            {
+                byday[o] = byday[o].Replace("\r", "");
+            }
+
+            for (int o = 0; o < byday.Length; o++)
+            {
+                DateTime nextDateStart = new DateTime();
+                if (byday[o] == null)
+                {
+                    break;
+                }
+                else
+                {
+                    nextDateStart = DateTime.Today;
+                    if (byday[o].Equals("SU"))
+                    {
+
+                        while (!nextDateStart.ToString("dddd").Equals("Sunday"))
+                        {
+                            nextDateStart = nextDateStart.AddDays(1);
+                        }
+                        countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+
+                    }
+                    else if (byday[o].Equals("MO"))
+                    {
+                        while (!nextDateStart.ToString("dddd").Equals("Monday"))
+                        {
+                            nextDateStart = nextDateStart.AddDays(1);
+                        }
+                        countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+
+                    }
+                    else if (byday[o].Equals("TU"))
+                    {
+
+                        while (!nextDateStart.ToString("dddd").Equals("Tuesday"))
+                        {
+                            nextDateStart = nextDateStart.AddDays(1);
+                        }
+                        countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                    }
+                    else if (byday[o].Equals("WE"))
+                    {
+                        while (!nextDateStart.ToString("dddd").Equals("Wednesday"))
+                        {
+                            nextDateStart = nextDateStart.AddDays(1);
+                        }
+                        countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                    }
+                    else if (byday[o].Equals("TH"))
+                    {
+                        while (!nextDateStart.ToString("dddd").Equals("Thursday"))
+                        {
+                            nextDateStart = nextDateStart.AddDays(1);
+                        }
+                        countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                    }
+                    else if (byday[o].Equals("FR"))
+                    {
+                        while (!nextDateStart.ToString("dddd").Equals("Friday"))
+                        {
+                            nextDateStart = nextDateStart.AddDays(1);
+                        }
+                        countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                    }
+                    else
+                    {
+                        while (!nextDateStart.ToString("dddd").Equals("Saturday"))
+                        {
+                            nextDateStart = nextDateStart.AddDays(1);
+                        }
+                        countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                    }
+                }
+            }
+
+        }
+
         protected void recursiveWeekly(int i, ref string[] occurDays, ref string[,] dayDetails, string[] recursionDataDetail, int start, string occupiedTime, string dateStart)
         {
             string count = "";
@@ -345,8 +384,7 @@ namespace FYP
             {
                 if (recursionDataDetail[j].Contains("COUNT"))
                 {
-                    count = recursionDataDetail[j].Split('=')[1];
-                    
+                    count = recursionDataDetail[j].Split('=')[1];              
                     break;
                 }
                 else if(recursionDataDetail[j].Contains("UNTIL")){
@@ -358,18 +396,12 @@ namespace FYP
                     dateUntil = DateTime.ParseExact(dateUntil, formats, provider, DateTimeStyles.AssumeLocal).ToString().Split(' ')[0];
                     break;
 
-                }
-                else
-                {
-                    //unlimited repeat
-                }
-
-                
+                }            
             }
             
             if (count!="")
             {
-                string nextDateStart = "";
+                
                 string nextDateStartTemp = "";
 
                 //calculate for maximum date until
@@ -397,59 +429,100 @@ namespace FYP
                             break;
                         }
                     }
-                }
-                
 
+                    for (int o = 0; o < byday.Length; o++)
+                    {
+                        byday[o] = byday[o].Replace("\r", "");
+                    }
 
-                // insert time for loop
-                for (int j = 0; j < int.Parse(count); j++)
-                {
-                   
-                    if (j == 0)
+                    for (int o=0; o < byday.Length; o++)
                     {
-                        nextDateStart = dateStart;
-                    }
-                    else
-                    {
-                        nextDateStart = DateTime.Parse(nextDateStart).AddDays(7).ToString("d");
-                    }
-                    
-                    if (occurDays.Contains(nextDateStart))
-                    {
-                        for (int k = 0; k < Math.Ceiling(double.Parse(occupiedTime)); k++)
+                        DateTime nextDateStart = new DateTime();
+
+                        if (byday[o] == null)
                         {
-                            dayDetails[i, start + k] = "1";
+                            break;
                         }
-                    }
-                    else
-                    {   
-                        for (int k = 0; k < occurDays.Length; k++)
+                        else
                         {
-                            if (occurDays[k] == null)
+                            nextDateStart = DateTime.Today;
+                            if (byday[o].Equals("SU"))
                             {
-                                occurDays[k] = nextDateStart;
-                                dayDetails[k, 24] = nextDateStart;
                                 
-                                for (int l = 0; l < Math.Ceiling(double.Parse(occupiedTime)); l++)
+                                while (!nextDateStart.ToString("dddd").Equals("Sunday"))
                                 {
-                                    dayDetails[k, start + l] = "1";
+                                    nextDateStart = nextDateStart.AddDays(1);       
                                 }
-                                break;
+                                countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);                             
+
+                            }
+                            else if (byday[o].Equals("MO"))
+                            {
+                                while (!nextDateStart.ToString("dddd").Equals("Monday"))
+                                {
+                                    nextDateStart = nextDateStart.AddDays(1);
+                                }
+                                countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+
+                            }
+                            else if (byday[o].Equals("TU"))
+                            {
+                               
+                                while (!nextDateStart.ToString("dddd").Equals("Tuesday"))
+                                {
+                                    nextDateStart = nextDateStart.AddDays(1);
+                                }
+                                countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                            }
+                            else if (byday[o].Equals("WE"))
+                            {
+                                while (!nextDateStart.ToString("dddd").Equals("Wednesday"))
+                                {
+                                    nextDateStart = nextDateStart.AddDays(1);
+                                }
+                                countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                            }
+                            else if (byday[o].Equals("TH"))
+                            {
+                                while (!nextDateStart.ToString("dddd").Equals("Thursday"))
+                                {
+                                    nextDateStart = nextDateStart.AddDays(1);
+                                }
+                                countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                            }
+                            else if (byday[o].Equals("FR"))
+                            {
+                                while (!nextDateStart.ToString("dddd").Equals("Friday"))
+                                {
+                                    nextDateStart = nextDateStart.AddDays(1);
+                                }
+                                countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                            }                          
+                            else
+                            {
+                                while (!nextDateStart.ToString("dddd").Equals("Saturday"))
+                                {
+                                    nextDateStart = nextDateStart.AddDays(1);
+                                }
+                                countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
                             }
                         }
                     }
                 }
+                
             }
             else if (dateUntil!="")
             {
 
                 //check for recursive until what date
-                string nextDateStart = "";
+               
+                string nextDateStartTemp = "";
                 double loopTime = (DateTime.Parse(dateUntil) - DateTime.Parse(dateStart)).TotalDays;
                 
                 loopTime = Math.Floor(loopTime / 7);
-
-                if(loopTime == 0)
+                
+                //0 equal to less than a week
+                if (loopTime == 0)
                 {
                     for (int k = 0; k < Math.Ceiling(double.Parse(occupiedTime)); k++)
                     {
@@ -457,98 +530,249 @@ namespace FYP
 
                     }
                 }
-                //insert occupied time for loop
-                for (int j = 0; j < loopTime; j++)
+
+                //get the maximum date until
+                for(int j = 0; j<loopTime; j++)
                 {
-                    
                     if (j == 0)
                     {
-                        nextDateStart = dateStart;
+                        nextDateStartTemp = dateStart;
                     }
                     else
                     {
-                        nextDateStart = DateTime.Parse(nextDateStart).AddDays(7).ToString("d");
+                        nextDateStartTemp = DateTime.Parse(nextDateStartTemp).AddDays(7).ToString("d");
                     }
+                }
+                
 
-                    if (occurDays.Contains(nextDateStart))
+                if ((DateTime.Parse(nextDateStartTemp) - DateTime.Today).TotalDays >= 0)
+                {
+                    // insert time for loop
+                    for (int o = 0; o < recursionDataDetail.Length; o++)
                     {
-                        for (int k = 0; k < Math.Ceiling(double.Parse(occupiedTime)); k++)
+                        if (recursionDataDetail[o].Contains("BYDAY"))
                         {
-                            dayDetails[i, start + k] = "1";
-
+                            
+                            byday = recursionDataDetail[o].Split('=')[1].Split(',');                          
+                            break;
                         }
                     }
-                    else
+
+                    for(int o = 0; o < byday.Length; o++)
                     {
-                        for (int k = 0; k < occurDays.Length; k++)
+                        byday[o] = byday[o].Replace("\r", "");
+                    }
+                   
+                    for (int o = 0; o < byday.Length; o++)
+                    {
+                        
+                        DateTime nextDateStart = new DateTime();
+
+                        
+                        nextDateStart = DateTime.Today;
+                        
+                        if (byday[o].Equals("SU"))
                         {
-                            if (occurDays[k] == null)
+
+                            while (!nextDateStart.ToString("dddd").Equals("Sunday"))
                             {
-                                occurDays[k] = nextDateStart;
-                                dayDetails[k, 24] = nextDateStart;
-                                for (int l = 0; l < Math.Ceiling(double.Parse(occupiedTime)); l++)
-                                {
-                                    dayDetails[k, start + l] = "1";
-                                }
-                                break;
+                                nextDateStart = nextDateStart.AddDays(1);
                             }
+                            countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+
+                        }
+                        else if (byday[o].Equals("MO"))
+                        {
+                            while (!nextDateStart.ToString("dddd").Equals("Monday"))
+                            {
+                                nextDateStart = nextDateStart.AddDays(1);
+                            }
+                            countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+
+                        }
+                        else if (byday[o].Equals("TU"))
+                        {
+                            
+                            while (!nextDateStart.ToString("dddd").Equals("Tuesday"))
+                            {
+                                nextDateStart = nextDateStart.AddDays(1);
+                            }
+                           
+                            countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                            
+                        }
+                        else if (byday[o].Equals("WE"))
+                        {                         
+                            while (!nextDateStart.ToString("dddd").Equals("Wednesday"))
+                            {
+                                nextDateStart = nextDateStart.AddDays(1);
+                            }
+                            
+                            countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                        }
+                        else if (byday[o].Equals("TH"))
+                        {
+                            while (!nextDateStart.ToString("dddd").Equals("Thursday"))
+                            {
+                                nextDateStart = nextDateStart.AddDays(1);
+                            }
+                            countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                        }
+                        else if (byday[o].Equals("FR"))
+                        {
+                            while (!nextDateStart.ToString("dddd").Equals("Friday"))
+                            {
+                                nextDateStart = nextDateStart.AddDays(1);
+                            }
+                            countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                        }
+                        else
+                        {
+                            
+                            while (!nextDateStart.ToString("dddd").Equals("Saturday"))
+                            {
+                                nextDateStart = nextDateStart.AddDays(1);
+                            }
+                            countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                        }
+                        
+                    }
+                }
+
+            }
+            else
+            {
+                    
+            // insert time for loop
+                for (int o = 0; o < recursionDataDetail.Length; o++)
+                {
+                    if (recursionDataDetail[o].Contains("BYDAY"))
+                    {
+                        byday = recursionDataDetail[o].Split('=')[1].Split(',');                      
+                        break;
+                    }
+                }
+
+                for (int o = 0; o < byday.Length; o++)
+                {
+                    byday[o] = byday[o].Replace("\r", "");
+                }
+
+                for (int o = 0; o < byday.Length; o++)
+                {
+                    DateTime nextDateStart = new DateTime();
+                    if (byday[o] == null)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        nextDateStart = DateTime.Today;
+                        if (byday[o].Equals("SU"))
+                        {
+
+                            while (!nextDateStart.ToString("dddd").Equals("Sunday"))
+                            {
+                                nextDateStart = nextDateStart.AddDays(1);
+                            }
+                            countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+
+                        }
+                        else if (byday[o].Equals("MO"))
+                        {
+                            while (!nextDateStart.ToString("dddd").Equals("Monday"))
+                            {
+                                nextDateStart = nextDateStart.AddDays(1);
+                            }
+                            countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+
+                        }
+                        else if (byday[o].Equals("TU"))
+                        {
+                            
+                            while (!nextDateStart.ToString("dddd").Equals("Tuesday"))
+                            {
+                                nextDateStart = nextDateStart.AddDays(1);
+                            }
+                            countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                        }
+                        else if (byday[o].Equals("WE"))
+                        {
+                            while (!nextDateStart.ToString("dddd").Equals("Wednesday"))
+                            {
+                                nextDateStart = nextDateStart.AddDays(1);
+                            }
+                            countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                        }
+                        else if (byday[o].Equals("TH"))
+                        {
+                            while (!nextDateStart.ToString("dddd").Equals("Thursday"))
+                            {
+                                nextDateStart = nextDateStart.AddDays(1);
+                            }
+                            countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                        }
+                        else if (byday[o].Equals("FR"))
+                        {
+                            while (!nextDateStart.ToString("dddd").Equals("Friday"))
+                            {
+                                nextDateStart = nextDateStart.AddDays(1);
+                            }
+                            countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
+                        }
+                        else
+                        {
+                            while (!nextDateStart.ToString("dddd").Equals("Saturday"))
+                            {
+                                nextDateStart = nextDateStart.AddDays(1);
+                            }
+                            countWeekly(ref occurDays, ref dayDetails, nextDateStart, start, occupiedTime);
                         }
                     }
+                }
+                
+            }
+        }
+
+        protected void countWeekly(ref string[] occurDays, ref string[,] dayDetails, DateTime nextDateStart,int start, string occupiedTime)
+        {
+            int reference = 0;
+            bool contain = false;
+            for(int k = 0; k < occurDays.Length; k++)
+            {
+                if(occurDays[k] != null)
+                {
+                    if (occurDays[k].Equals(nextDateStart.ToString("d")))
+                    {
+                        reference = k;
+                        contain = true;
+                    }
+                }
+                
+            }
+
+
+            if (contain)
+            {
+                for (int k = 0; k < Math.Ceiling(double.Parse(occupiedTime)); k++)
+                {
+                    dayDetails[reference, start + k] = "1";
                 }
             }
             else
             {
-                //check for recursive until what date
-                string nextDateStart = "";
-                int loopTime = 2;              
-
-                //insert occupied time for loop
-                for (int j = 0; j < loopTime; j++)
+                for (int k = 0; k < occurDays.Length; k++)
                 {
+                    if (occurDays[k] == null)
+                    {
+                        occurDays[k] = nextDateStart.ToString("d");
+                        dayDetails[k, 24] = nextDateStart.ToString("d");
 
-                    if (j == 0)
-                    {
-                        nextDateStart = dateStart;
-                    }
-                    else
-                    {
-                        bool smaller = true;
-                        while (smaller)
+                        for (int l = 0; l < Math.Ceiling(double.Parse(occupiedTime)); l++)
                         {
-                            nextDateStart = DateTime.Parse(nextDateStart).AddDays(7).ToString("d");
-
-                           int total =  DateTime.Parse(nextDateStart).CompareTo(DateTime.Today);
-                            if (total >= 0)
-                            {
-                                smaller = false;                              
-                            }
+                            dayDetails[k, start + l] = "1";
                         }
-                       
-                    }
-
-                    if (occurDays.Contains(nextDateStart))
-                    {
-                        for (int k = 0; k < Math.Ceiling(double.Parse(occupiedTime)); k++)
-                        {
-                            dayDetails[i, start + k] = "1";
-
-                        }
-                    }
-                    else
-                    {
-                        for (int k = 0; k < occurDays.Length; k++)
-                        {
-                            if (occurDays[k] == null)
-                            {
-                                occurDays[k] = nextDateStart;
-                                dayDetails[k, 24] = nextDateStart;
-                                for (int l = 0; l < Math.Ceiling(double.Parse(occupiedTime)); l++)
-                                {
-                                    dayDetails[k, start + l] = "1";
-                                }
-                                break;
-                            }
-                        }
+                        break;
                     }
                 }
             }
@@ -757,28 +981,6 @@ namespace FYP
                 }
             }
             return timeTablesWeekly;
-        }
-
-        protected void GetLocation(ref string latitude, ref string longitude)
-        {
-            
-            string ipAddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-            if (string.IsNullOrEmpty(ipAddress))
-            {
-                ipAddress = Request.ServerVariables["REMOTE_ADDR"];
-            }
-
-            string APIKey = "a4f70f75711c87fd41f368b493ebaa38c8f3d532122fe3887fdb5efc6c55585a";
-            string url = string.Format("http://api.ipinfodb.com/v3/ip-city/?key={0}&ip={1}&format=json", APIKey, "124.13.82.236");//ipAddress
-            using (WebClient client = new WebClient())
-            {
-                string json = client.DownloadString(url);
-                Location location = new JavaScriptSerializer().Deserialize<Location>(json);
-                List<Location> locations = new List<Location>();
-                locations.Add(location);
-                latitude = location.Latitude.ToString();
-                longitude = location.Longitude.ToString();
-            }
         }
 
         protected void GetWeatherInfo(string latitude, string longitude)
@@ -1458,11 +1660,12 @@ namespace FYP
                 }
                 else if (i == 1)
                 {//7-8
-                    timeTables.Push(ScheduleTimeTable(7, 9, "Exercise", date));
+                    timeTables.Push(ScheduleTimeTable(7, 8, "Exercise", date));
                 }
                 else if (i == 2)
                 {
                     //8-9
+                    timeTables.Push(ScheduleTimeTable(8, 9, "Exercise", date));
                     // i == 1
                 }
                 else if (i == 3)
@@ -1764,7 +1967,7 @@ namespace FYP
             int exerciseTime = 1;
             int houseChore = 1;
             int lunch = 1, dinner = 1;
-            int bath = 1;
+           // int bath = 1;
 
             Stack<string[]> timeTables = new Stack<string[]>();
             for (int i = 0; i < 16; i++)
