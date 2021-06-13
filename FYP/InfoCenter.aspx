@@ -162,9 +162,6 @@
             lat = position.coords.latitude;
             long = position.coords.longitude;
             LatLng = new google.maps.LatLng(lat, long);
-
-            //javascript version weather
-            getWeather(lat, long);
             
 
             //https://www.google.com/maps/dir/2.8000601238492435,%2B101.49562181470077/hospital%20banting
@@ -193,7 +190,6 @@
             initMarker.addListener("click", () => {
                 getInfoWindow.open(map, initMarker);
             });
-
 
             //AUTO_COMPLETE------------------------------
             document.getElementById('autoComplete').innerHTML = "Search a location using the search bar above the google map.";
@@ -260,6 +256,9 @@
                 hideSlider();
                 document.getElementById('demo').innerHTML = "No location found...";
             }
+
+            //javascript version weather
+            getWeather(lat, long);
 
         }
 

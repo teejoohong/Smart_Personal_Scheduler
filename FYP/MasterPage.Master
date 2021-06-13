@@ -29,7 +29,9 @@
                    <asp:MenuItem NavigateUrl="~/Tutorial.aspx" Text="Tutorial" Value="Wishlist" />
                    <asp:MenuItem NavigateUrl="~/BMI.aspx" Text="BMI" Value="Cart"/>
                    <asp:MenuItem NavigateUrl="~/Calories.aspx" Text="Calories" Value="Order History" />
+                    <asp:MenuItem NavigateUrl="~/InfoCenter.aspx" Text="Search" Value="Search"/>
                    <asp:MenuItem NavigateUrl="~/Profile.aspx" Text="Profile" Value="Profile"/>
+                   
               </Items>
         </asp:Menu>
 
@@ -53,7 +55,9 @@
                             <li><asp:HyperLink ID="HyperLink4" NavigateUrl="~/Tutorial.aspx" runat="server">Tutorial</asp:HyperLink></li>
                             <li><asp:HyperLink ID="HyperLink5" NavigateUrl="~/BMI.aspx" runat="server">BMI</asp:HyperLink></li>
                             <li><asp:HyperLink ID="HyperLink6" NavigateUrl="~/Calories.aspx" runat="server">Calories</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="HyperLink8" NavigateUrl="~/InfoCenter.aspx" runat="server">Search</asp:HyperLink></li>
                             <li><asp:HyperLink ID="HyperLink7" NavigateUrl="~/Profile.aspx" runat="server">Profile</asp:HyperLink></li>
+                            
                         </ul>
                     </div>
                 </div>
