@@ -786,9 +786,8 @@ namespace FYP
             Stack<Stack<string[]>> timeTablesWeekly = new Stack<Stack<string[]>>();
 
             string[] randomMode = new string[7]{ "a", "a","a","a","b","b","c"};
-            List<string> sunnyActivity = new List<string>();
-            Queue<string> rainnyActivity = new Queue<string>();
-
+            string[] indoor = new string[6];
+            string[] outdoor = new string[12];
             Random r = new Random();
 
             randomMode = randomMode.OrderBy(x => r.Next()).ToArray();
@@ -807,12 +806,20 @@ namespace FYP
                 while (dtr.Read())
                 {
                     //dtr["Activity_1"].ToString()
-                    rainnyActivity.Enqueue( dtr["Activity_1"].ToString());
-                    rainnyActivity.Enqueue(dtr["Activity_2"].ToString());
-                    rainnyActivity.Enqueue(dtr["Activity_3"].ToString());
-                    sunnyActivity.Add(dtr["Activity_1"].ToString());
-                    sunnyActivity.Add(dtr["Activity_2"].ToString());
-                    sunnyActivity.Add(dtr["Activity_3"].ToString());
+                    indoor[0] = dtr["Activity_1"].ToString();
+                    indoor[1] = dtr["Activity_1"].ToString();
+                    indoor[2] = dtr["Activity_1"].ToString();
+                    indoor[3] = dtr["Activity_2"].ToString();
+                    indoor[4] = dtr["Activity_2"].ToString();
+                    indoor[5] = dtr["Activity_3"].ToString();
+
+                    outdoor[0] = dtr["Activity_1"].ToString();
+                    outdoor[1] = dtr["Activity_1"].ToString();
+                    outdoor[2] = dtr["Activity_1"].ToString();
+                    outdoor[3] = dtr["Activity_2"].ToString();
+                    outdoor[4] = dtr["Activity_2"].ToString();
+                    outdoor[5] = dtr["Activity_3"].ToString();
+
                 }
             }
             con.Close();
@@ -827,15 +834,18 @@ namespace FYP
                 while (dtr1.Read())
                 {
                     //dtr["Activity_1"].ToString()
-                    sunnyActivity.Add(dtr1["Activity_1"].ToString());
-                    sunnyActivity.Add(dtr1["Activity_2"].ToString());
-                    sunnyActivity.Add(dtr1["Activity_3"].ToString());
+                    outdoor[6] = dtr["Activity_1"].ToString();
+                    outdoor[7] = dtr["Activity_1"].ToString();
+                    outdoor[8] = dtr["Activity_1"].ToString();
+                    outdoor[9] = dtr["Activity_2"].ToString();
+                    outdoor[10] = dtr["Activity_2"].ToString();
+                    outdoor[11] = dtr["Activity_3"].ToString();
                 }
             }
             con.Close();
 
-            string[] indoor = new string[6];
-            string[] outdoor = new string[12];
+            outdoor = outdoor.OrderBy(x => r.Next()).ToArray();
+            indoor = indoor.OrderBy(x => r.Next()).ToArray();
 
             for (int i = 0; i < 7; i++)
             {
@@ -877,22 +887,22 @@ namespace FYP
                         if (randomMode[i].Equals("a"))
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate,outdoor));
                             else
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, outdoor));
                         }else if (randomMode[i].Equals("b"))
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate,outdoor));
                             else
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails,outdoor));
                         }
                         else
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate,outdoor));
                             else
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails,outdoor));
                         }
                         
                     }
@@ -901,23 +911,23 @@ namespace FYP
                         if (randomMode[i].Equals("a"))
                         {                            
                             if (containedDate)
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, outdoor));
                             else
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, outdoor));
                         }
                         else if (randomMode[i].Equals("b"))
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate, outdoor));
                             else
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, outdoor));
                         }
                         else
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, outdoor));
                             else
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, outdoor));
                         }
                     }
                     else
@@ -926,25 +936,25 @@ namespace FYP
                         {
 
                             if (containedDate)
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, outdoor));
                             else
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, outdoor));
                             
                         }
                         else if (randomMode[i].Equals("b"))
                         {
 
                             if (containedDate)
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, outdoor));
                             else
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails));                         
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, outdoor));                         
                         }
                         else
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate, outdoor));
                             else
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, outdoor));
                         }
                     }
                 }
@@ -955,23 +965,23 @@ namespace FYP
                         if (randomMode[i].Equals("a"))
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate,indoor));
                             else
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, indoor));
                         }
                         else if (randomMode[i].Equals("b"))
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, indoor));
                             else
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, indoor));
                         }
                         else
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, indoor));
                             else
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, indoor));
                         }
 
                     }
@@ -980,23 +990,23 @@ namespace FYP
                         if (randomMode[i].Equals("a"))
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, indoor));
                             else
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, indoor));
                         }
                         else if (randomMode[i].Equals("b"))
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate, indoor));
                             else
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, indoor));
                         }
                         else
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, indoor));
                             else
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, indoor));
                         }
                     }
                     else
@@ -1005,25 +1015,25 @@ namespace FYP
                         {
 
                             if (containedDate)
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, indoor));
                             else
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, indoor));
 
                         }
                         else if (randomMode[i].Equals("b"))
                         {
 
                             if (containedDate)
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, indoor));
                             else
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, indoor));
                         }
                         else
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate, indoor));
                             else
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, indoor));
                         }
                     }
                 }
@@ -1087,15 +1097,18 @@ namespace FYP
                     sb += "BEGIN:VEVENT" + Environment.NewLine;
                     //for (int j = 0; j < timetableDeatils.Length; j++)
                     //{
-                        sb += "DTSTAMP:" + timetableDeatils[0] + Environment.NewLine;
-                        sb += "DTSTART;TZID=Asia/Kuala_Lumpur:" + timetableDeatils[1] + Environment.NewLine;
-                        sb += "DTEND;TZID=Asia/Kuala_Lumpur:" + timetableDeatils[2] + Environment.NewLine;
-                        sb += "UID:" + timetableDeatils[3] + Environment.NewLine;
-                        sb += "SUMMARY:" + timetableDeatils[4] + Environment.NewLine;
+                    sb += "DTSTAMP:" + timetableDeatils[0] + Environment.NewLine;
+                    sb += "DTSTART;TZID=Asia/Kuala_Lumpur:" + timetableDeatils[1] + Environment.NewLine;
+                    sb += "DTEND;TZID=Asia/Kuala_Lumpur:" + timetableDeatils[2] + Environment.NewLine;
+                    sb += "UID:" + timetableDeatils[3] + Environment.NewLine;
+                    sb += "SUMMARY:" + timetableDeatils[4] + Environment.NewLine;
+
+                    if(timetableDeatils.Length == 6)
+                    {
                         sb += "DESCRIPTION:" + timetableDeatils[5] + Environment.NewLine;
+                    }
                     sb += "END:VEVENT" + Environment.NewLine;
                     
-
                 }
 
                 
@@ -1141,7 +1154,26 @@ namespace FYP
             Response.End();
         }
 
-        private Stack<string[]> StudyMode(string date,ref string[,] dayDetails, int referenceDate)
+        private string ChooseActivity(ref string[] activity)
+        {
+            string choosenActivity = "";
+            for (int i = 0; i < activity.Length; i++)
+            {
+                if (!activity[i].Equals("None"))
+                {
+                    choosenActivity = activity[i];
+                    for (int j = i; j < activity.Length - 1; j++)
+                    {
+                        activity[j] = activity[j + 1];
+                    }
+                    break;
+                }
+
+            }
+            return choosenActivity;
+        }
+
+        private Stack<string[]> StudyMode(string date,ref string[,] dayDetails, int referenceDate, string[] activity)
         {
             int studyTime = 4;
             int exercise = 1;
@@ -1153,15 +1185,9 @@ namespace FYP
             {
                 if(i == 0)
                 {
-                    /*string[] timeTable = new string[5];
-                    timeTable[0] = DateTime.Parse(date).ToString("yyyyMMddTHH0000Z"); // DStamp
-                    timeTable[1] = DateTime.Parse(date).AddHours(7).ToString("yyyyMMddTHH0000Z"); // DStart
-                    timeTable[2] = DateTime.Parse(date).AddHours(8).ToString("yyyyMMddTHH0000Z"); //DEnd
-                    timeTable[3] = Guid.NewGuid().ToString() + DateTime.Parse(date).ToString("yyyyMMddTHHmm00Z"); //UID
-                    timeTable[4] = "Breakfast"; //Summary*/
                     timeTables.Push(ScheduleTimeTable(7,8,"breakfast",date));
                     dayDetails[referenceDate, 7] = "1";
-                    //timeTables.Push(timeTable);
+                    
                 }
                 else if(i == 1){
                     if(dayDetails[referenceDate, 8].Equals("0"))
@@ -1264,7 +1290,8 @@ namespace FYP
                     if(dayDetails[referenceDate,16].Equals("0")&& dayDetails[referenceDate, 17].Equals("0"))
                     {
                         // bath + exercise at 16-17
-                        timeTables.Push(ScheduleTimeTable(16, 17, "Activity", date));
+                        string choosenActivity = ChooseActivity(ref activity);
+                        timeTables.Push(ScheduleTimeTableDescription(16, 17, choosenActivity, date));
                         exercise = exercise - 1;
                         dayDetails[referenceDate, 16] = "1";
                     }
@@ -1279,7 +1306,8 @@ namespace FYP
                     }else if(dayDetails[referenceDate, 17].Equals("0") && dayDetails[referenceDate, 18].Equals("0"))
                     {
                         // bath + exercise at 17-18
-                        timeTables.Push(ScheduleTimeTable(17, 18, "Activity", date));
+                        string choosenActivity = ChooseActivity(ref activity);
+                        timeTables.Push(ScheduleTimeTableDescription(17, 18, choosenActivity, date));
                         exercise = exercise - 1;
                         dayDetails[referenceDate, 17] = "1";
                     }
@@ -1338,8 +1366,8 @@ namespace FYP
 
             return timeTables;
         }
-
-        private Stack<string[]> StudyMode(string date, ref string[,] dayDetails)
+        
+        private Stack<string[]> StudyMode(string date, ref string[,] dayDetails, string[] activity)
         {
             int studyTime = 6;
             int exercise = 1;
@@ -1394,7 +1422,8 @@ namespace FYP
                     int number = RandomNumber(1, 2);
                     if(number == 10)
                     {
-                        timeTables.Push(ScheduleTimeTable(16, 17, "Exercise", date));
+                        string choosenActivity = ChooseActivity(ref activity);
+                        timeTables.Push(ScheduleTimeTableDescription(16, 17, choosenActivity, date));
                         exercise = exercise - 1;
                     }
                     else
@@ -1407,7 +1436,8 @@ namespace FYP
                     //17-18
                     if(exercise == 1)
                     {
-                        timeTables.Push(ScheduleTimeTable(17, 18, "Exercise", date));
+                        string choosenActivity = ChooseActivity(ref activity);
+                        timeTables.Push(ScheduleTimeTableDescription(17, 18, choosenActivity, date));
                         exercise = exercise - 1;
                     }
                     else
@@ -1463,7 +1493,7 @@ namespace FYP
             return timeTables;
         }    
 
-        private Stack<string[]> TrainingMode(string date, ref string[,] dayDetails, int referenceDate)
+        private Stack<string[]> TrainingMode(string date, ref string[,] dayDetails, int referenceDate, string[] activity)
         {
             int studyTime = 2;
             int exerciseTime = 2;
@@ -1497,12 +1527,14 @@ namespace FYP
                     if (dayDetails[referenceDate, 8].Equals("0") || dayDetails[referenceDate, 9].Equals("0"))
                     {
                         //7-8
-                        timeTables.Push(ScheduleTimeTable(7, 8, "Exercise", date));
+                        string choosenActivity = ChooseActivity(ref activity);
+                        timeTables.Push(ScheduleTimeTableDescription(7, 8, choosenActivity, date));
                         exerciseTime = exerciseTime - 1;
                     }
                     else
                     {   //6-7
-                        timeTables.Push(ScheduleTimeTable(6, 7, "Exercise", date));
+                        string choosenActivity = ChooseActivity(ref activity);
+                        timeTables.Push(ScheduleTimeTableDescription(6, 7, choosenActivity, date));
                         exerciseTime = exerciseTime - 1;
                     }
 
@@ -1627,7 +1659,8 @@ namespace FYP
                     {
                         if (dayDetails[referenceDate, 16].Equals("0"))
                         {
-                            timeTables.Push(ScheduleTimeTable(16, 17, "Exercise", date));
+                            string choosenActivity = ChooseActivity(ref activity);
+                            timeTables.Push(ScheduleTimeTableDescription(16, 17, choosenActivity, date));
                             exerciseTime = exerciseTime - 1;
                             dayDetails[referenceDate, 16] = "1";
                         }
@@ -1638,7 +1671,8 @@ namespace FYP
                     //17-18
                     if(dayDetails[referenceDate, 17].Equals("0") && exerciseTime == 1)
                     {
-                        timeTables.Push(ScheduleTimeTable(17, 18, "Exercise", date));
+                        string choosenActivity = ChooseActivity(ref activity);
+                        timeTables.Push(ScheduleTimeTableDescription(17, 18, choosenActivity, date));
                         exerciseTime = exerciseTime - 1;
                         dayDetails[referenceDate, 17] = "1";
                     }
@@ -1690,7 +1724,7 @@ namespace FYP
             return timeTables;
         }
 
-        private Stack<string[]> TrainingMode(string date, ref string[,] dayDetails)
+        private Stack<string[]> TrainingMode(string date, ref string[,] dayDetails, string[] activity)
         {
             int studyTime = 3;
             int exerciseTime = 3;
@@ -1708,12 +1742,14 @@ namespace FYP
                 }
                 else if (i == 1)
                 {//7-8
-                    timeTables.Push(ScheduleTimeTable(7, 8, "Exercise", date));
+                    string choosenActivity = ChooseActivity(ref activity);
+                    timeTables.Push(ScheduleTimeTableDescription(7, 8, choosenActivity, date));
                 }
                 else if (i == 2)
                 {
                     //8-9
-                    timeTables.Push(ScheduleTimeTable(8, 9, "Exercise", date));
+                    string choosenActivity = ChooseActivity(ref activity);
+                    timeTables.Push(ScheduleTimeTableDescription(8, 9, choosenActivity, date));
                     // i == 1
                 }
                 else if (i == 3)
@@ -1764,7 +1800,8 @@ namespace FYP
                 else if(i == 10)
                 {
                     //16-17
-                    timeTables.Push(ScheduleTimeTable(16, 17, "Exercise", date));
+                    string choosenActivity = ChooseActivity(ref activity);
+                    timeTables.Push(ScheduleTimeTableDescription(16, 17, choosenActivity, date));
                     exerciseTime = exerciseTime - 1;
                 }else if( i == 11)
                 {
@@ -1801,7 +1838,8 @@ namespace FYP
             return timeTables;
         }
 
-        private Stack<string[]> RelaxMode(string date, ref string[,] dayDetails, int referenceDate){
+        private Stack<string[]> RelaxMode(string date, ref string[,] dayDetails, int referenceDate, string[] activity)
+        {
             int studyTime = 3;
             int exerciseTime = 1;
             int houseChore = 1;
@@ -1936,7 +1974,8 @@ namespace FYP
                     {
                         if (dayDetails[referenceDate, 16].Equals("0"))
                         {
-                            timeTables.Push(ScheduleTimeTable(16, 17, "Exercise", date));
+                            string choosenActivity = ChooseActivity(ref activity);
+                            timeTables.Push(ScheduleTimeTableDescription(16, 17, choosenActivity, date));
                             exerciseTime = exerciseTime - 1;
                             dayDetails[referenceDate, 16] = "1";
                         }
@@ -1952,7 +1991,8 @@ namespace FYP
                         dayDetails[referenceDate, 17] = "1";
                     }else if (dayDetails[referenceDate, 17].Equals("0") && exerciseTime > 0)
                     {
-                        timeTables.Push(ScheduleTimeTable(17, 18, "Exercise", date));
+                        string choosenActivity = ChooseActivity(ref activity);
+                        timeTables.Push(ScheduleTimeTableDescription(17, 18, choosenActivity, date));
                         exerciseTime = exerciseTime - 1;
                         dayDetails[referenceDate, 17] = "1";
                     }
@@ -2009,7 +2049,7 @@ namespace FYP
             return timeTables;
         }
 
-        private Stack<string[]> RelaxMode(string date, ref string[,] dayDetails)
+        private Stack<string[]> RelaxMode(string date, ref string[,] dayDetails, string[] activity)
         {
             int studyTime = 3;
             int exerciseTime = 1;
@@ -2033,7 +2073,8 @@ namespace FYP
                     int random = RandomNumber(1, 2);
                     if(random == 1)
                     {
-                        timeTables.Push(ScheduleTimeTable(8, 9, "Exercise", date));
+                        string choosenActivity = ChooseActivity(ref activity);
+                        timeTables.Push(ScheduleTimeTableDescription(8, 9, choosenActivity, date));
                         exerciseTime = exerciseTime - 1;
                     }
                     
@@ -2084,7 +2125,8 @@ namespace FYP
                 {//16-17
                     if(exerciseTime == 1)
                     {
-                        timeTables.Push(ScheduleTimeTable(16, 17, "Exercise", date));
+                        string choosenActivity = ChooseActivity(ref activity);
+                        timeTables.Push(ScheduleTimeTableDescription(16, 17, choosenActivity, date));
                         exerciseTime = exerciseTime - 1;
                     }
                 }else if(i == 11)
@@ -2115,13 +2157,25 @@ namespace FYP
 
         private string[] ScheduleTimeTable(int startTime, int endTime, string activitity, string date)// 7,8,"breakfast",dat
         {
+            string[] timeTable = new string[5];
+            timeTable[0] = DateTime.Parse(date).ToString("yyyyMMddTHH0000Z"); // DStamp
+            timeTable[1] = DateTime.Parse(date).AddHours(startTime).ToString("yyyyMMddTHH0000"); // DStart
+            timeTable[2] = DateTime.Parse(date).AddHours(endTime).ToString("yyyyMMddTHH0000"); //DEnd
+            timeTable[3] = Guid.NewGuid().ToString() + DateTime.Parse(date).ToString("yyyyMMddTHHmm00Z"); //UID
+            timeTable[4] = activitity; //Summary
+            //timeTable[5] = HttpContext.Current.Request.Url.AbsoluteUri.Replace("TimeTableGenerator", "InfoCenter") + "?name=" + "activity";   //description         
+            return timeTable;
+        }
+
+        private string[] ScheduleTimeTableDescription(int startTime, int endTime, string activitity, string date)// 7,8,"breakfast",dat
+        {
             string[] timeTable = new string[6];
             timeTable[0] = DateTime.Parse(date).ToString("yyyyMMddTHH0000Z"); // DStamp
             timeTable[1] = DateTime.Parse(date).AddHours(startTime).ToString("yyyyMMddTHH0000"); // DStart
             timeTable[2] = DateTime.Parse(date).AddHours(endTime).ToString("yyyyMMddTHH0000"); //DEnd
             timeTable[3] = Guid.NewGuid().ToString() + DateTime.Parse(date).ToString("yyyyMMddTHHmm00Z"); //UID
             timeTable[4] = activitity; //Summary
-            timeTable[5] = HttpContext.Current.Request.Url.AbsoluteUri.Replace("TimeTableGenerator", "InfoCenter") + "?name=" + "activity";   //description         
+            timeTable[5] = HttpContext.Current.Request.Url.AbsoluteUri.Replace("TimeTableGenerator", "InfoCenter") + "?name=" + activity;   //description         
             return timeTable;
         }
 
