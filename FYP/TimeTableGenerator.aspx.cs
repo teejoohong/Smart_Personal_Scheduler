@@ -8,6 +8,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Net;
 using System.Web.Script.Serialization;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace FYP
 {
@@ -784,10 +786,56 @@ namespace FYP
             Stack<Stack<string[]>> timeTablesWeekly = new Stack<Stack<string[]>>();
 
             string[] randomMode = new string[7]{ "a", "a","a","a","b","b","c"};
+            List<string> sunnyActivity = new List<string>();
+            Queue<string> rainnyActivity = new Queue<string>();
 
             Random r = new Random();
 
             randomMode = randomMode.OrderBy(x => r.Next()).ToArray();
+
+            SqlConnection con;
+            string strcon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            con = new SqlConnection(strcon);
+
+            con.Open();
+            string strSelect = "Select * From IndoorPreference Where UserID = @UserID";
+            SqlCommand cmdSelect = new SqlCommand(strSelect, con);
+            cmdSelect.Parameters.AddWithValue("@UserID", Session["User"]);
+            SqlDataReader dtr = cmdSelect.ExecuteReader();
+            if (dtr.HasRows)
+            {
+                while (dtr.Read())
+                {
+                    //dtr["Activity_1"].ToString()
+                    rainnyActivity.Enqueue( dtr["Activity_1"].ToString());
+                    rainnyActivity.Enqueue(dtr["Activity_2"].ToString());
+                    rainnyActivity.Enqueue(dtr["Activity_3"].ToString());
+                    sunnyActivity.Add(dtr["Activity_1"].ToString());
+                    sunnyActivity.Add(dtr["Activity_2"].ToString());
+                    sunnyActivity.Add(dtr["Activity_3"].ToString());
+                }
+            }
+            con.Close();
+
+            con.Open();
+            string strSelect1 = "Select * From OutdoorPreference Where UserID = @UserID1";
+            SqlCommand cmdSelect1 = new SqlCommand(strSelect1, con);
+            cmdSelect1.Parameters.AddWithValue("@UserID1", Session["User"]);
+            SqlDataReader dtr1 = cmdSelect1.ExecuteReader();
+            if (dtr1.HasRows)
+            {
+                while (dtr1.Read())
+                {
+                    //dtr["Activity_1"].ToString()
+                    sunnyActivity.Add(dtr1["Activity_1"].ToString());
+                    sunnyActivity.Add(dtr1["Activity_2"].ToString());
+                    sunnyActivity.Add(dtr1["Activity_3"].ToString());
+                }
+            }
+            con.Close();
+
+            string[] indoor = new string[6];
+            string[] outdoor = new string[12];
 
             for (int i = 0; i < 7; i++)
             {

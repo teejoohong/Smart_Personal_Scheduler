@@ -3,7 +3,14 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
    
-    
+      <% if (Session["Value"] == null)
+          { %>
+            <div >
+            <p>Please log in first.</p>
+            </div>
+        <%}
+            else
+            { %>
     <div>
         
          <asp:Button runat="server" Text="Generate" OnClick="GenerationOfTimetable_Click"/>
@@ -32,7 +39,7 @@
     </div>
     
 
-   
+    
 
   
 
@@ -56,7 +63,7 @@
     getLocation()
 </script>
 
-
+    <%} %>
        
 
 </asp:Content>
