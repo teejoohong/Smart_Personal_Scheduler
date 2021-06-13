@@ -7,5 +7,12 @@
     <p>
         <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
     </p>
+     <asp:DropDownList CssClass="list" ID="DropDownList6" runat="server">
+                        <asp:ListItem>None</asp:ListItem>
+                        <asp:ListItem>Badminton</asp:ListItem>
+                        <asp:ListItem>Swimming</asp:ListItem>
+                        <asp:ListItem>Ping Pong</asp:ListItem>
+                        <asp:ListItem>GYM</asp:ListItem>
+                    </asp:DropDownList>
     
 </asp:Content>

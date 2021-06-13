@@ -21,6 +21,7 @@ namespace FYP
             }
             Label1.Text = (!nextDateStart.ToString("dddd").Equals("Wednesday")).ToString();
 
+            DropDownList6.SelectedValue = "Swimming";
             //Label1.Text = TimeTableGenerator.weatherInfo.daily[i].weather[0].main;
         }
     }

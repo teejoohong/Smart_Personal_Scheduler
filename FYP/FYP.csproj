@@ -71,6 +71,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutUs.aspx" />
+    <Content Include="App_Data\Timetable.mdf" />
+    <Content Include="App_Data\Timetable_log.ldf">
+      <DependentUpon>Timetable.mdf</DependentUpon>
+    </Content>
     <Content Include="BuildInPicturess\ywh.jpg" />
     <Content Include="CSS\AboutUs.css" />
     <Content Include="BMI.aspx" />
@@ -79,6 +83,7 @@
     <Content Include="CSS\HomePage.css" />
     <Content Include="CSS\InfoCenter.css" />
     <Content Include="CSS\LogIn.css" />
+    <Content Include="CSS\UserPreference.css" />
     <Content Include="icons\01d.png" />
     <Content Include="icons\01n.png" />
     <Content Include="icons\02d.png" />
@@ -108,6 +113,7 @@
     <Content Include="Timetable.aspx" />
     <Content Include="TimeTableGenerator.aspx" />
     <Content Include="Tutorial.aspx" />
+    <Content Include="UserPreference.aspx" />
     <Content Include="Web.config" />
     <Content Include="HomePage.aspx" />
     <Content Include="WebForm2.aspx" />
@@ -198,6 +204,13 @@
     </Compile>
     <Compile Include="Tutorial.aspx.designer.cs">
       <DependentUpon>Tutorial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserPreference.aspx.cs">
+      <DependentUpon>UserPreference.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserPreference.aspx.designer.cs">
+      <DependentUpon>UserPreference.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebForm2.aspx.cs">
       <DependentUpon>WebForm2.aspx</DependentUpon>
