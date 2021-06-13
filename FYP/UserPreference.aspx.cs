@@ -81,14 +81,14 @@ namespace FYP
                 conn.Open();
 
                 string strDelete = "Delete * From IndoorPreference Where UserID = @UserID";
-                SqlCommand cmdDelete = new SqlCommand(strDelete, con);
+                SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
                 cmdDelete.Parameters.AddWithValue("@UserID", Session["User"]);
                 int numRowAffected = cmdDelete.ExecuteNonQuery();
                 conn.Close();
 
                 conn.Open();
                 string strDelete1 = "Delete * From OutdoorPreference Where UserID = @UserID1";
-                SqlCommand cmdDelete1 = new SqlCommand(strDelete1, con);
+                SqlCommand cmdDelete1 = new SqlCommand(strDelete1, conn);
                 cmdDelete1.Parameters.AddWithValue("@UserID1", Session["User"]);
                 int numRowAffected1 = cmdDelete1.ExecuteNonQuery();
                 conn.Close();

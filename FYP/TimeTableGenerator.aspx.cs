@@ -17,6 +17,7 @@ namespace FYP
     public partial class TimeTableGenerator : System.Web.UI.Page
     {//activity
         string[] weatherWeeklyForecast = new string[8];
+        string allocatedActivity = "";
         protected void Page_Load(object sender, EventArgs e)
         {
                                
@@ -89,6 +90,25 @@ namespace FYP
                     
 
                     Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
+
+                    SqlConnection conn;
+                    string strconn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                    conn = new SqlConnection(strconn);
+                    conn.Open();
+                    string strDelete = "Delete * From AllocatedActivities Where UserID = @UserID";
+                    SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
+                    cmdDelete.Parameters.AddWithValue("@UserID", Session["User"]);
+                    int numRowAffected = cmdDelete.ExecuteNonQuery();
+                    conn.Close();
+
+                    conn.Open();
+                    string strInsert = "Insert into AllocatedActivities (Activity, UserID) Values (@Activity, @UserID)";
+                    SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
+                    cmdInsert.Parameters.AddWithValue("@UserID", Session["Value"]);
+                    cmdInsert.Parameters.AddWithValue("@Activity", allocatedActivity);
+                    int numRowAffected1 = cmdInsert.ExecuteNonQuery();
+                    conn.Close();
+
                     FileUpload(timeTablesWeekly);
                 }
             }
@@ -2169,6 +2189,15 @@ namespace FYP
 
         private string[] ScheduleTimeTableDescription(int startTime, int endTime, string activitity, string date)// 7,8,"breakfast",dat
         {
+            if(allocatedActivity != "")
+            {
+                allocatedActivity = allocatedActivity + "," + activitity;
+            }
+            else
+            {
+                allocatedActivity = allocatedActivity + activitity;
+            }
+           
             string[] timeTable = new string[6];
             timeTable[0] = DateTime.Parse(date).ToString("yyyyMMddTHH0000Z"); // DStamp
             timeTable[1] = DateTime.Parse(date).AddHours(startTime).ToString("yyyyMMddTHH0000"); // DStart
