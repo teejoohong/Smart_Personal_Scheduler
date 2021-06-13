@@ -22,7 +22,6 @@
                             </div>
                         <div id="progressBar"></div>
                     </div>
-                
                 </td>
             </tr>
         </table>
@@ -88,12 +87,15 @@
                             </div>
                             <div class="location">
                                 <p>-</p>
+                                
                             </div>
                         </div>
                     </div>
                 </td>
                 <td>
                     <div id="weatherInfo"></div>
+                    <div><p>*Enable https connection to get weather Info.<br/><br/>
+                    <a href="https://cors-anywhere.herokuapp.com/}" class="navigateButton">Enable Https connection</a></p></div>
                 </td>
             </tr>
         </table>
@@ -160,6 +162,7 @@
             long = position.coords.longitude;
             LatLng = new google.maps.LatLng(lat, long);
 
+            //javascript version weather
             getWeather(lat, long);
             
 
@@ -474,9 +477,9 @@
 
                 //RECOMMENDED=======================================
             } else if (document.getElementById('recommended').checked) {
-
+                hideSlider();
                 var recommendedLocation; var m_allLocationAverage; var totalRatings = 0;
-                var ratingList = []; var C_lowerQuartile;var limitRange = 1000;var count = 0;
+                var ratingList = []; var C_lowerQuartile;var limitRange = 2500;var count = 0;
                 var isFirstTime = true; var highestBayesianRating; var newHighestBayesianRating;
                 var recommendedLink;
 
@@ -537,7 +540,7 @@
                     }
                     limitRange += 1000;
                     console.log("Highest = " + highestBayesianRating);
-                }while(recommendedLocation == null)
+                }while(recommendedLocation == null || highestBayesianRating < 3.5)
 
                 /*
                 for (var i = 0; i < searchedResults.length; i++) {
@@ -565,7 +568,6 @@
 
                 showMarkers(recommendedMarker);
                 
-
             } else {
 
                 //show all
@@ -753,7 +755,7 @@
             document.getElementById('weatherInfo').innerHTML = (`Humudity : ${weather.humidity}% <br/><br/>
                                                                  Maximum Temperature : ${weather.temperature.maxTemp.toFixed(2)}°<span>C</span><br/><br/>
                                                                  Minimum Temperature : ${weather.temperature.minTemp.toFixed(2)}°<span>C</span><br/><br/>
-                                                                 Wind Speed : ${weather.wind} meter per second <br/><br/>
+                                                                 Wind Speed : ${weather.wind} meter per second <br/><br/>  
                                                                  `);
 
             iconElement.innerHTML = `<img src="icons/${weather.iconId}.png"/>`;
@@ -781,6 +783,7 @@
                                                                  Maximum Temperature : ${maxFahrenheit.toFixed(2)}°<span>F</span><br/><br/>
                                                                  Minimum Temperature : ${minFahrenheit.toFixed(2)}°<span>F</span><br/><br/>
                                                                  Wind Speed : ${weather.wind} meter per second <br/><br/>
+                                                               
                                                                  `);
                 tempElement.innerHTML = `${fahrenheit}°<span>F</span>`;
                 weather.temperature.unit = "fahrenheit";
@@ -788,7 +791,8 @@
                 document.getElementById('weatherInfo').innerHTML = (`Humudity : ${weather.humidity}% <br/><br/>
                                                                  Maximum Temperature : ${weather.temperature.maxTemp.toFixed(2)}°<span>C</span><br/><br/>
                                                                  Minimum Temperature : ${weather.temperature.minTemp.toFixed(2)}°<span>C</span><br/><br/>
-                                                                 Wind Speed : ${weather.wind} meter per second <br/><br/>
+                                                                 Wind Speed : ${weather.wind} meter per second <br/><br/>   
+                                                              
                                                                  `);
                 tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
                 weather.temperature.unit = "celsius"
