@@ -1,27 +1,4 @@
-﻿
-
-/* Create two equal columns that floats next to each other */
-.column {
-    width: 50%;
-    height: 300px; /* Should be removed. Only for demonstration */
-    box-sizing: border-box;
-    text-align: center;
-    margin: 0px auto 0px auto;
-}
-.column h2{
-    text-align:center;
-}
-
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    box-sizing: border-box;
-    clear: both;
-}
-
-
-.loginTable{
+﻿.loginTable{
     width:50%;
     margin:50px auto 100px auto;
     border:1px solid black;
@@ -36,7 +13,7 @@
 }
 
 .rowInput{
-    height:100px
+    height:80px
 }
 
 .rowInput input{

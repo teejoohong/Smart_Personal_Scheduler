@@ -95,7 +95,7 @@
                 </td>
                 <td>
                     <div id="weatherInfo"></div>
-                    <div><p>*Enable https connection to get weather Info.<br/><br/>
+                    <div style="padding-left:1%"><p>*Enable https connection to get weather Info.<br/><br/>
                     <a href="https://cors-anywhere.herokuapp.com/}" class="navigateButton">Enable Https connection</a></p></div>
                 </td>
             </tr>

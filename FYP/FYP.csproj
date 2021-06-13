@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutUs.aspx" />
+    <Content Include="BuildInPicturess\baseline_person_black_48dp.png" />
     <Content Include="BuildInPicturess\ywh.jpg" />
     <Content Include="CSS\AboutUs.css" />
     <Content Include="BMI.aspx" />
@@ -79,6 +80,7 @@
     <Content Include="CSS\HomePage.css" />
     <Content Include="CSS\InfoCenter.css" />
     <Content Include="CSS\LogIn.css" />
+    <Content Include="CSS\Register.css" />
     <Content Include="CSS\UserPreference.css" />
     <Content Include="icons\01d.png" />
     <Content Include="icons\01n.png" />
