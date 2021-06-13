@@ -71,10 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutUs.aspx" />
-    <Content Include="App_Data\Timetable.mdf" />
-    <Content Include="App_Data\Timetable_log.ldf">
-      <DependentUpon>Timetable.mdf</DependentUpon>
-    </Content>
     <Content Include="BuildInPicturess\ywh.jpg" />
     <Content Include="CSS\AboutUs.css" />
     <Content Include="BMI.aspx" />

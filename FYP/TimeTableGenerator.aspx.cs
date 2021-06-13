@@ -2175,7 +2175,7 @@ namespace FYP
             timeTable[2] = DateTime.Parse(date).AddHours(endTime).ToString("yyyyMMddTHH0000"); //DEnd
             timeTable[3] = Guid.NewGuid().ToString() + DateTime.Parse(date).ToString("yyyyMMddTHHmm00Z"); //UID
             timeTable[4] = activitity; //Summary
-            timeTable[5] = HttpContext.Current.Request.Url.AbsoluteUri.Replace("TimeTableGenerator", "InfoCenter") + "?name=" + activity;   //description         
+            timeTable[5] = HttpContext.Current.Request.Url.AbsoluteUri.Replace("TimeTableGenerator", "InfoCenter") + "?name=" + activitity;   //description         
             return timeTable;
         }
 
