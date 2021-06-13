@@ -34,22 +34,23 @@
                     <!-- Radio button -->
                 
                     <div class="searchedResults">
+                        <div class="radio-container">
+                            <input type="radio" id="recommended" name="option" value="recommended" checked="checked" onclick ="suggestedResult()">
+                            <label for="recommended">Recommended</label>
 
-                        <input type="radio" id="recommended" name="option" value="recommended" checked="checked" onclick ="suggestedResult()">
-                        <label for="recommended">Recommended</label>
+                            <input type="radio" id="nearest" name="option" value="male" onclick ="suggestedResult()">
+                            <label for="nearest">Nearest</label>
 
-                        <input type="radio" id="nearest" name="option" value="male" onclick ="suggestedResult()">
-                        <label for="nearest">Nearest</label>
+                            <input type="radio" id="mostRated" name="option" value="mostRated" onclick ="suggestedResult()">
+                            <label for="mostRated">Most Rated</label>
 
-                        <input type="radio" id="mostRated" name="option" value="mostRated" onclick ="suggestedResult()">
-                        <label for="mostRated">Most Rated</label>
+                            <input type="radio" id="highestRating" name="option" value="highestRating"  onclick ="suggestedResult()">
+                            <label for="highestRating">Highest Rating</label>
 
-                        <input type="radio" id="highestRating" name="option" value="highestRating"  onclick ="suggestedResult()">
-                        <label for="highestRating">Highest Rating</label>
-
-                        <input type="radio" id="showAll" name="option" value="showAll" onclick ="suggestedResult()">
-                        <label for="showAll">Show All</label>
-                    
+                            <input type="radio" id="showAll" name="option" value="showAll" onclick ="suggestedResult()">
+                            <label for="showAll">Show All</label>
+                        </div>
+                                           
                         <h2>Suggested location</h2>
 
                         <p id="demo"></p>
