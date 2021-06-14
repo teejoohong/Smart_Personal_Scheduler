@@ -259,11 +259,9 @@
                 document.getElementById('demo').innerHTML = "No location found...";
             }
 
-           
+            //javascript version weather
+            getWeather(lat, long);
         }
-
-        //javascript version weather
-        getWeather(lat, long);
 
         function hideSlider() {
             var x = document.getElementsByClassName('main');

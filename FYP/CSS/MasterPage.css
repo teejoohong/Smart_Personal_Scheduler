@@ -20,7 +20,7 @@
 .logInLink{
     float :right;
     color:white;
-    padding-top:15px;
+    padding-top:10px;
     padding-right:15px;
     
 }
@@ -209,13 +209,13 @@ img{
     transition : color 0.4s ease;
 }
 
-    @media only screen and (min-width :950px) {
+    @media only screen and (min-width :1250px) {
         .menuWrap{
         display : none;
     }
 
     .menuBar {
-        width: 75%;
+        width: 70%;
         display: block;
         float:right;
         padding-top:60px
