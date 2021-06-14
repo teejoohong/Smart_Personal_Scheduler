@@ -54,12 +54,14 @@
                         <h2>Suggested location</h2>
 
                         <p id="demo"></p>
-                    
+
+                                          
                     </div>
 
                     <div class="autoCompleteResult">
                         <h2>Searched location</h2>
                         <p id="autoComplete"></p>
+                        <p>*Make sure location on device and browser is enabled to get accurate location.</p>
                     </div>
                 </td>
             </tr>
@@ -257,10 +259,11 @@
                 document.getElementById('demo').innerHTML = "No location found...";
             }
 
-            //javascript version weather
-            getWeather(lat, long);
-
+           
         }
+
+        //javascript version weather
+        getWeather(lat, long);
 
         function hideSlider() {
             var x = document.getElementsByClassName('main');
@@ -353,6 +356,8 @@
 
             return highestRatingLocation;
         }
+
+
 
         function getMostRatedLocation() {
             //most rated 
