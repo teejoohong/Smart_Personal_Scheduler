@@ -138,6 +138,8 @@
         //document.getElementById("demo").innerHTML = 5 + 6;
         $(document).ready(function () {
             // Add your function call here
+            //javascript version weather
+            
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(success);
             } else {
@@ -258,9 +260,7 @@
                 hideSlider();
                 document.getElementById('demo').innerHTML = "No location found...";
             }
-
-            //javascript version weather
-            getWeather(lat, long);
+            getWeather();
         }
 
         function hideSlider() {
@@ -301,7 +301,6 @@
         function getNearestLocation() {
             hideSlider();
             //nearest location 
-            
             var nearestDistance = distance(LatLng, searchedResults[0].geometry.location);
             var newNearestDistance;
             var nearestLocation = searchedResults[0];
@@ -524,15 +523,15 @@
                                 recommendedLocation = searchedResults[i];
                                 highestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
                                     , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
-                                console.log("first = " + highestBayesianRating);
+                                //console.log("first = " + highestBayesianRating);
                                 isFirstTime = false;
                             }
 
                             newHighestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
                                 , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
 
-                            console.log("new= " + newHighestBayesianRating);
-                            console.log(searchedResults[i]);
+                            //console.log("new= " + newHighestBayesianRating);
+                            //console.log(searchedResults[i]);
 
                             if (newHighestBayesianRating > highestBayesianRating) {
                                 highestBayesianRating = newHighestBayesianRating;
@@ -542,7 +541,7 @@
                         }
                     }
                     limitRange += 1000;
-                    console.log("Highest = " + highestBayesianRating);
+                    //console.log("Highest = " + highestBayesianRating);
                 }while(recommendedLocation == null || highestBayesianRating < 3.5)
 
                 /*
@@ -725,10 +724,11 @@
         const KELVIN = 273;
         // API KEY
         const key = "f3f718fb3d54bf852baf842135e157c5";
-
+        getWeather();
         // GET WEATHER FROM API PROVIDER
-        function getWeather(latitude, longitude) {
-            let api = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
+        function getWeather() {
+                        
+            let api = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${key}`;
 
             fetch(api)
                 .then(function (response) {
