@@ -136,6 +136,7 @@
     <Compile Include="Calories.aspx.designer.cs">
       <DependentUpon>Calories.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CulturxeInfo.cs" />
     <Compile Include="InfoCenter.aspx.cs">
       <DependentUpon>InfoCenter.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

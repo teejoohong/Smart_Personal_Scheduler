@@ -18,6 +18,7 @@ namespace FYP
     {//activity
         string[] weatherWeeklyForecast = new string[8];
         string allocatedActivity = "";
+        const string space = "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
         protected void Page_Load(object sender, EventArgs e)
         {
                                
@@ -78,8 +79,9 @@ namespace FYP
                             //Label1.Text = dayDetails[0, 24];
                             Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
 
-
-                            FileUpload(timeTablesWeekly);
+                           string[] previewDetail =  preview(timeTablesWeekly);
+                            Label1.Text = previewDetail[0];
+                           // FileUpload(timeTablesWeekly);
                                 
                         }
                     }
@@ -1078,6 +1080,69 @@ namespace FYP
                     weatherWeeklyForecast[i]= weatherInfo.daily[i].weather[0].main;
                 }   
             }
+        }
+
+        protected string[] preview(Stack<Stack<string[]>> timeTablesWeekly)
+        {
+            string[] day = new string[7];
+            while (timeTablesWeekly.Count != 0)
+            {
+                Stack<string[]> timeTablesDetail = timeTablesWeekly.Pop();
+
+                while (timeTablesDetail.Count != 0)
+                {
+                    string[] timetableDeatils = timeTablesDetail.Pop();
+
+                    string[] formats = { "yyyyMMddTHHmmssZ", "yyyyMMddTHHmmss" };
+                    CultureInfo provider = CultureInfo.InvariantCulture;
+                    string temp = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+
+                    if (DateTime.Parse(temp.Split(' ')[0]).Equals(DateTime.Today.ToString("d")))
+                    {
+                        string tempStart = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+                        string tempEnd = DateTime.ParseExact(timetableDeatils[2], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+                        day[0] = day[0] + Environment.NewLine + tempStart.Split(' ')[1] + " - " + tempEnd.Split(' ')[1] + space + timetableDeatils[4];
+
+                    }
+                    else if (DateTime.Parse(temp.Split(' ')[0]).Equals(DateTime.Today.AddDays(1).ToString("d")))
+                    {
+                        string tempStart = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+                        string tempEnd = DateTime.ParseExact(timetableDeatils[2], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+                        day[1] = day[1] + Environment.NewLine + tempStart.Split(' ')[1] + " - " + tempEnd.Split(' ')[1] + space + timetableDeatils[4];
+                    }
+                    else if (DateTime.Parse(temp.Split(' ')[0]).Equals(DateTime.Today.AddDays(2).ToString("d")))
+                    {
+                        string tempStart = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+                        string tempEnd = DateTime.ParseExact(timetableDeatils[2], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+                        day[2] = day[2] + Environment.NewLine + tempStart.Split(' ')[1] + " - " + tempEnd.Split(' ')[1] + space + timetableDeatils[4];
+                    }
+                    else if (DateTime.Parse(temp.Split(' ')[0]).Equals(DateTime.Today.AddDays(3).ToString("d")))
+                    {
+                        string tempStart = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+                        string tempEnd = DateTime.ParseExact(timetableDeatils[2], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+                        day[3] = day[3] + Environment.NewLine + tempStart.Split(' ')[1] + " - " + tempEnd.Split(' ')[1] + space + timetableDeatils[4];
+                    }
+                    else if (DateTime.Parse(temp.Split(' ')[0]).Equals(DateTime.Today.AddDays(4).ToString("d")))
+                    {
+                        string tempStart = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+                        string tempEnd = DateTime.ParseExact(timetableDeatils[2], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+                        day[4] = day[4] + Environment.NewLine + tempStart.Split(' ')[1] + " - " + tempEnd.Split(' ')[1] + space + timetableDeatils[4];
+                    }
+                    else if (DateTime.Parse(temp.Split(' ')[0]).Equals(DateTime.Today.AddDays(5).ToString("d")))
+                    {
+                        string tempStart = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+                        string tempEnd = DateTime.ParseExact(timetableDeatils[2], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+                        day[5] = day[5] + Environment.NewLine + tempStart.Split(' ')[1] + " - " + tempEnd.Split(' ')[1] + space + timetableDeatils[4];
+                    }
+                    else if (DateTime.Parse(temp.Split(' ')[0]).Equals(DateTime.Today.AddDays(6).ToString("d")))
+                    {
+                        string tempStart = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+                        string tempEnd = DateTime.ParseExact(timetableDeatils[2], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+                        day[6] = day[6] + Environment.NewLine + tempStart.Split(' ')[1] + " - " + tempEnd.Split(' ')[1] + space + timetableDeatils[4];
+                    }
+                }
+            }
+            return day;
         }
 
         protected void FileUpload(Stack<Stack<string[]>> timeTablesWeekly)

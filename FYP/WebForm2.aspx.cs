@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,15 +12,14 @@ namespace FYP
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string day = "mon,tues";
+            string day = "20210615T190000";
 
-            string[] testing = day.Split(','); 
-            DateTime nextDateStart = DateTime.Today;
-            while (!nextDateStart.ToString("dddd").Equals("Sunday"))
-            {
-               nextDateStart =  nextDateStart.AddDays(1);
-            }
-            Label1.Text = (!nextDateStart.ToString("dddd").Equals("Wednesday")).ToString();
+            string[] formats = { "yyyyMMddTHHmmssZ", "yyyyMMddTHHmmss" };
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            day = DateTime.ParseExact(day, formats, provider, DateTimeStyles.AssumeLocal).ToString();
+
+
+            Label1.Text = (day.Split(' ')[0]).Equals(DateTime.Today.ToString("d")).ToString();
 
             DropDownList6.SelectedValue = "Swimming";
             //Label1.Text = TimeTableGenerator.weatherInfo.daily[i].weather[0].main;
