@@ -1,0 +1,33 @@
+﻿.rowInput {
+    height: 80px
+}
+.text {
+    width: 40%;
+    text-align: right;
+}
+    .rowInput input {
+        border: none;
+        border-bottom: 1px solid black;
+        width: 35%;
+        height: 30px
+    }
+
+.buttonLogin {
+    background-color: black;
+    color: white;
+    width: 20%;
+    height: 80%;
+    font-size: 18px;
+}
+
+.rowButtonLogin {
+    text-align: center;
+    height: 50px;
+}
+.linkForgetPassword {
+    text-align: right
+}
+
+.rowLink {
+    height: 50px;
+}
