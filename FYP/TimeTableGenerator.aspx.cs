@@ -4,20 +4,24 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Net;
 using System.Web.Script.Serialization;
 using System.Data.SqlClient;
 using System.Configuration;
 
+
 namespace FYP
 {
-    
+
+
     public partial class TimeTableGenerator : System.Web.UI.Page
     {//activity
+        const string space = "&nbsp";
+        const string nextLine = "<br />";
+        
         string[] weatherWeeklyForecast = new string[8];
         string allocatedActivity = "";
+       
         protected void Page_Load(object sender, EventArgs e)
         {
                                
@@ -30,7 +34,7 @@ namespace FYP
             string longitude = HiddenField2.Value;
 
             GetWeatherInfo(latitude, longitude);
-
+            
             string[,] dayDetails = new string[1000, 25];
 
             if (modeGeneration.SelectedItem == null)
@@ -74,13 +78,33 @@ namespace FYP
                                     all = all + dayDetails[i, j] + " ";
                                 }
                             }
-                            Label1.Text = all;
+                            
                             //Label1.Text = dayDetails[0, 24];
                             Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
 
+                            SqlConnection conn;
+                            string strconn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                            conn = new SqlConnection(strconn);
+                            conn.Open();
+                            string strDelete = "Delete From AllocatedActivities Where UserID = @UserID";
+                            SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
+                            cmdDelete.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                            int numRowAffected = cmdDelete.ExecuteNonQuery();
+                            conn.Close();
 
-                            FileUpload(timeTablesWeekly);
-                                
+                            conn.Open();
+                            string strInsert = "Insert into AllocatedActivities (Activity, UserID) Values (@Activity, @UserID)";
+                            SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
+                            cmdInsert.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                            cmdInsert.Parameters.AddWithValue("@Activity", allocatedActivity);
+                            int numRowAffected1 = cmdInsert.ExecuteNonQuery();
+                            conn.Close();
+
+                            string[] previewDetail =  preview(timeTablesWeekly);
+                            OutputPreview(previewDetail);
+
+                            //FileUpload(timeTablesWeekly);
+
                         }
                     }
                 }
@@ -95,28 +119,58 @@ namespace FYP
                     string strconn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                     conn = new SqlConnection(strconn);
                     conn.Open();
-                    string strDelete = "Delete * From AllocatedActivities Where UserID = @UserID";
+                    string strDelete = "Delete From AllocatedActivities Where UserID = @UserID";
                     SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
-                    cmdDelete.Parameters.AddWithValue("@UserID", Session["User"]);
+                    cmdDelete.Parameters.AddWithValue("@UserID", Session["UserID"]);
                     int numRowAffected = cmdDelete.ExecuteNonQuery();
                     conn.Close();
 
                     conn.Open();
                     string strInsert = "Insert into AllocatedActivities (Activity, UserID) Values (@Activity, @UserID)";
                     SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
-                    cmdInsert.Parameters.AddWithValue("@UserID", Session["Value"]);
+                    cmdInsert.Parameters.AddWithValue("@UserID", Session["UserID"]);
                     cmdInsert.Parameters.AddWithValue("@Activity", allocatedActivity);
                     int numRowAffected1 = cmdInsert.ExecuteNonQuery();
                     conn.Close();
 
-                    FileUpload(timeTablesWeekly);
+                   
+                    string[] previewDetail = preview(timeTablesWeekly);
+                    OutputPreview(previewDetail);
+                    
+
+                    //FileUpload(timeTablesWeekly);
                 }
             }
            
 
                      
         }
+        protected void OutputPreview(string[] previewDetail)
+        {
+           
+            day1.Text = DateTime.Today.ToString("d");
+            detail1.Text = previewDetail[0];
 
+            day2.Text = DateTime.Today.AddDays(1).ToString("d");
+            detail2.Text = previewDetail[1];
+
+            day3.Text = DateTime.Today.AddDays(2).ToString("d");
+            detail3.Text = previewDetail[2];
+
+            day4.Text = DateTime.Today.AddDays(3).ToString("d");
+            detail4.Text = previewDetail[3];
+
+            day5.Text = DateTime.Today.AddDays(4).ToString("d");
+            detail5.Text = previewDetail[4];
+
+            day6.Text = DateTime.Today.AddDays(5).ToString("d");
+            detail6.Text = previewDetail[5];
+
+            day7.Text = DateTime.Today.AddDays(6).ToString("d");
+            detail7.Text = previewDetail[6];
+
+            previewTable.Visible = true;
+        }
         protected void ReadFile(ref Stack<DateTime> datesStart, ref Stack<DateTime> datesEnd, ref Stack<string> recursion)
         {
             string inputContent;
@@ -802,6 +856,7 @@ namespace FYP
 
         protected Stack<Stack<string[]>> Timetable(string[,] dayDetails, string selectedMode)
         {
+            
             string date = DateTime.Today.ToString("d");
             Stack<Stack<string[]>> timeTablesWeekly = new Stack<Stack<string[]>>();
 
@@ -819,7 +874,7 @@ namespace FYP
             con.Open();
             string strSelect = "Select * From IndoorPreference Where UserID = @UserID";
             SqlCommand cmdSelect = new SqlCommand(strSelect, con);
-            cmdSelect.Parameters.AddWithValue("@UserID", Session["User"]);
+            cmdSelect.Parameters.AddWithValue("@UserID", Session["UserID"]);
             SqlDataReader dtr = cmdSelect.ExecuteReader();
             if (dtr.HasRows)
             {
@@ -847,19 +902,19 @@ namespace FYP
             con.Open();
             string strSelect1 = "Select * From OutdoorPreference Where UserID = @UserID1";
             SqlCommand cmdSelect1 = new SqlCommand(strSelect1, con);
-            cmdSelect1.Parameters.AddWithValue("@UserID1", Session["User"]);
+            cmdSelect1.Parameters.AddWithValue("@UserID1", Session["UserID"]);
             SqlDataReader dtr1 = cmdSelect1.ExecuteReader();
             if (dtr1.HasRows)
             {
                 while (dtr1.Read())
                 {
                     //dtr["Activity_1"].ToString()
-                    outdoor[6] = dtr["Activity_1"].ToString();
-                    outdoor[7] = dtr["Activity_1"].ToString();
-                    outdoor[8] = dtr["Activity_1"].ToString();
-                    outdoor[9] = dtr["Activity_2"].ToString();
-                    outdoor[10] = dtr["Activity_2"].ToString();
-                    outdoor[11] = dtr["Activity_3"].ToString();
+                    outdoor[6] = dtr1["Activity_1"].ToString();
+                    outdoor[7] = dtr1["Activity_1"].ToString();
+                    outdoor[8] = dtr1["Activity_1"].ToString();
+                    outdoor[9] = dtr1["Activity_2"].ToString();
+                    outdoor[10] = dtr1["Activity_2"].ToString();
+                    outdoor[11] = dtr1["Activity_3"].ToString();
                 }
             }
             con.Close();
@@ -1078,12 +1133,138 @@ namespace FYP
                     weatherWeeklyForecast[i]= weatherInfo.daily[i].weather[0].main;
                 }   
             }
+           
+        }
+
+        protected string[] preview(Stack<Stack<string[]>> timeTablesWeekly)
+        {
+            string[] day = new string[7];
+            string sb = "";
+            
+            //start the calendar item
+            sb = sb + "BEGIN:VCALENDAR" + Environment.NewLine;
+            sb += "VERSION:2.0" + Environment.NewLine;
+            sb += "PRODID:stackoverflow.com" + Environment.NewLine;
+            sb += "CALSCALE:GREGORIAN" + Environment.NewLine;
+            sb += "METHOD:PUBLISH" + Environment.NewLine;
+
+            //create a time zone if needed, TZID to be used in the event itself
+            sb += "BEGIN:VTIMEZONE" + Environment.NewLine;
+            sb += "TZID:Asia/Kuala_Lumpur" + Environment.NewLine;
+            sb += "BEGIN:STANDARD" + Environment.NewLine;
+            sb += "TZOFFSETTO:+0800" + Environment.NewLine;
+            sb += "TZOFFSETFROM:+0800" + Environment.NewLine;
+            sb += "END:STANDARD" + Environment.NewLine;
+            sb += "END:VTIMEZONE" + Environment.NewLine;
+
+            while (timeTablesWeekly.Count != 0)
+            {
+                Stack<string[]> timeTablesDetail = timeTablesWeekly.Pop();
+                
+
+                while (timeTablesDetail.Count != 0)
+                {
+                    string[] timetableDeatils = timeTablesDetail.Pop();
+
+                    sb += "BEGIN:VEVENT" + Environment.NewLine;
+                    //for (int j = 0; j < timetableDeatils.Length; j++)
+                    //{
+                    sb += "DTSTAMP:" + timetableDeatils[0] + Environment.NewLine;
+                    sb += "DTSTART;TZID=Asia/Kuala_Lumpur:" + timetableDeatils[1] + Environment.NewLine;
+                    sb += "DTEND;TZID=Asia/Kuala_Lumpur:" + timetableDeatils[2] + Environment.NewLine;
+                    sb += "UID:" + timetableDeatils[3] + Environment.NewLine;
+                    sb += "SUMMARY:" + timetableDeatils[4] + Environment.NewLine;
+
+                    if (timetableDeatils.Length == 6)
+                    {
+                        sb += "DESCRIPTION:" + timetableDeatils[5] + Environment.NewLine;
+                    }
+                    sb += "END:VEVENT" + Environment.NewLine;
+
+
+                    string[] formats = { "yyyyMMddTHHmmssZ", "yyyyMMddTHHmmss" };
+                    CultureInfo provider = CultureInfo.InvariantCulture;
+                    string temp = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString();
+
+                    if (temp.Split(' ')[0].Equals(DateTime.Today.ToString("d")))
+                    {
+                        string tempStart = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString("u");
+                        string tempEnd = DateTime.ParseExact(timetableDeatils[2], formats, provider, DateTimeStyles.AssumeLocal).ToString("u");
+                        if(day[0] == "")
+                            day[0] =  tempStart.Split(' ')[1].Split(':')[0] + ":00" + " - " + tempEnd.Split(' ')[1].Split(':')[0] + ":00" + space + timetableDeatils[4] + day[0];
+                       else
+                            day[0] = nextLine + tempStart.Split(' ')[1].Split(':')[0] +":00"  + " - " + tempEnd.Split(' ')[1].Split(':')[0] + ":00" + space + timetableDeatils[4] + day[0] ;
+
+                    }
+                    else if (temp.Split(' ')[0].Equals(DateTime.Today.AddDays(1).ToString("d")))
+                    {
+                        string tempStart = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString("u");
+                        string tempEnd = DateTime.ParseExact(timetableDeatils[2], formats, provider, DateTimeStyles.AssumeLocal).ToString("u");
+                        if (day[1] == "")
+                            day[1] =tempStart.Split(' ')[1].Split(':')[0] + ":00" + " - " + tempEnd.Split(' ')[1].Split(':')[0] + ":00" + space + timetableDeatils[4] + day[1];
+                        else
+                            day[1] = nextLine + tempStart.Split(' ')[1].Split(':')[0] + ":00" + " - " + tempEnd.Split(' ')[1].Split(':')[0] + ":00" + space + timetableDeatils[4] + day[1] ;
+                        //day[1] = day[1] + nextLine + tempStart.Split(' ')[1] + " - " + tempEnd.Split(' ')[1] + space + timetableDeatils[4];
+                    }
+                    else if (temp.Split(' ')[0].Equals(DateTime.Today.AddDays(2).ToString("d")))
+                    {
+                        string tempStart = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString("u");
+                        string tempEnd = DateTime.ParseExact(timetableDeatils[2], formats, provider, DateTimeStyles.AssumeLocal).ToString("u");
+                        if (day[2] == "")
+                            day[2] = tempStart.Split(' ')[1].Split(':')[0] + ":00" + " - " + tempEnd.Split(' ')[1].Split(':')[0] + ":00" + space + timetableDeatils[4] + day[2];
+                        else
+                            day[2] = nextLine + tempStart.Split(' ')[1].Split(':')[0] + ":00" + " - " + tempEnd.Split(' ')[1].Split(':')[0] + ":00" + space + timetableDeatils[4] + day[2];
+                        //day[2] = day[2] + nextLine + tempStart.Split(' ')[1] + " - " + tempEnd.Split(' ')[1] + space + timetableDeatils[4];
+                    }
+                    else if (temp.Split(' ')[0].Equals(DateTime.Today.AddDays(3).ToString("d")))
+                    {
+                        string tempStart = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString("u");
+                        string tempEnd = DateTime.ParseExact(timetableDeatils[2], formats, provider, DateTimeStyles.AssumeLocal).ToString("u");
+                        if (day[3] == "")
+                            day[3] = tempStart.Split(' ')[1].Split(':')[0] + ":00" + " - " + tempEnd.Split(' ')[1].Split(':')[0] + ":00" + space + timetableDeatils[4] + day[3];
+                        else
+                            day[3] = nextLine + tempStart.Split(' ')[1].Split(':')[0] + ":00" + " - " + tempEnd.Split(' ')[1].Split(':')[0] + ":00" + space + timetableDeatils[4] + day[3];
+                        //day[3] = day[3] + nextLine + tempStart.Split(' ')[1] + " - " + tempEnd.Split(' ')[1] + space + timetableDeatils[4];
+                    }
+                    else if (temp.Split(' ')[0].Equals(DateTime.Today.AddDays(4).ToString("d")))
+                    {
+                        string tempStart = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString("u");
+                        string tempEnd = DateTime.ParseExact(timetableDeatils[2], formats, provider, DateTimeStyles.AssumeLocal).ToString("u");
+                        if (day[4] == "")
+                            day[4] = tempStart.Split(' ')[1].Split(':')[0] + ":00" + " - " + tempEnd.Split(' ')[1].Split(':')[0] + ":00" + space + timetableDeatils[4] + day[4];
+                        else
+                            day[4] = nextLine + tempStart.Split(' ')[1].Split(':')[0] + ":00" + " - " + tempEnd.Split(' ')[1].Split(':')[0] + ":00" + space + timetableDeatils[4] + day[4] ;
+                        //day[4] = day[4] + nextLine + tempStart.Split(' ')[1] + " - " + tempEnd.Split(' ')[1] + space + timetableDeatils[4];
+                    }
+                    else if (temp.Split(' ')[0].Equals(DateTime.Today.AddDays(5).ToString("d")))
+                    {
+                        string tempStart = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString("u");
+                        string tempEnd = DateTime.ParseExact(timetableDeatils[2], formats, provider, DateTimeStyles.AssumeLocal).ToString("u");
+                        if (day[5] == "")
+                            day[5] = tempStart.Split(' ')[1].Split(':')[0] + ":00" + " - " + tempEnd.Split(' ')[1].Split(':')[0] + ":00" + space + timetableDeatils[4] + day[5];
+                        else
+                            day[5] = nextLine + tempStart.Split(' ')[1].Split(':')[0] + ":00" + " - " + tempEnd.Split(' ')[1].Split(':')[0] + ":00" + space + timetableDeatils[4] + day[5];
+                    }
+                    else if (temp.Split(' ')[0].Equals(DateTime.Today.AddDays(6).ToString("d")))
+                    {
+                        string tempStart = DateTime.ParseExact(timetableDeatils[1], formats, provider, DateTimeStyles.AssumeLocal).ToString("u");
+                        string tempEnd = DateTime.ParseExact(timetableDeatils[2], formats, provider, DateTimeStyles.AssumeLocal).ToString("u");
+                        if (day[6] == "")
+                            day[6] = tempStart.Split(' ')[1].Split(':')[0] + ":00" + " - " + tempEnd.Split(' ')[1].Split(':')[0] + ":00" + space + timetableDeatils[4] + day[6];
+                        else
+                            day[6] = nextLine + tempStart.Split(' ')[1].Split(':')[0] + ":00" + " - " + tempEnd.Split(' ')[1].Split(':')[0] + ":00" + space + timetableDeatils[4] + day[6] ;
+                        //day[6] = day[6] + nextLine + tempStart.Split(' ')[1] + " - " + tempEnd.Split(' ')[1] + space + timetableDeatils[4];
+                    }
+                }
+            }
+            sb += "END:VCALENDAR" + Environment.NewLine;
+            //create a string from the stringbuilder
+             Session["calendarItem"] = sb;
+            return day;
         }
 
         protected void FileUpload(Stack<Stack<string[]>> timeTablesWeekly)
-        {
-            DateTime DateStart = DateTime.Now;
-           
+        {  
             string FileName = "CalendarItem";
 
             //create a new stringbuilder instance
@@ -1133,34 +1314,13 @@ namespace FYP
 
                 
 
-                //with time zone specified
-                //sb.AppendLine("DTSTART;TZID=Europe/Amsterdam:" + DateStart.ToString("yyyyMMddTHHmm00"));
-                //sb.AppendLine("DTEND;TZID=Europe/Amsterdam:" + DateEnd.ToString("yyyyMMddTHHmm00"));
-                //or without
-                
-
-                /*sb += "SUMMARY:" + Summary + Environment.NewLine;
-                sb += "LOCATION:" + Location + Environment.NewLine;
-                sb += "DESCRIPTION:" + Description + Environment.NewLine;
-                sb += "PRIORITY:3" + Environment.NewLine;*/
-                
-                //end calendar item
                
             }
             sb += "END:VCALENDAR" + Environment.NewLine;
             //create a string from the stringbuilder
             string CalendarItem = sb;
            
-            //send the calendar item to the browser
-/*            Response.ClearHeaders();
-            Response.Clear();
-            Response.Buffer = true;
-            Response.ContentType = "text/calendar";
-            Response.AddHeader("content-length", CalendarItem.Length.ToString());
-            Response.AddHeader("content-disposition", "attachment; filename=\"" + FileName + ".ics\"");
-            Response.Write(CalendarItem);
-            Response.Flush();
-            HttpContext.Current.ApplicationInstance.CompleteRequest();*/
+            
 
             Response.Clear();
             Response.ClearHeaders();
@@ -1203,20 +1363,25 @@ namespace FYP
 
             for (int i = 0; i < 17; i++)
             {
-                if(i == 0)
+                if (i == 0)
+                {
+                    timeTables.Push(ScheduleTimeTable(6, 7, "Wake Up + Bath", date));
+                    dayDetails[referenceDate, 6] = "1";
+                }
+                else if (i == 1)
                 {
                     timeTables.Push(ScheduleTimeTable(7,8,"breakfast",date));
                     dayDetails[referenceDate, 7] = "1";
                     
                 }
-                else if(i == 1){
+                else if(i == 2){
                     if(dayDetails[referenceDate, 8].Equals("0"))
                     {                     
                         timeTables.Push(ScheduleTimeTable(8, 9, "breakfast", date));
                         studyTime = studyTime - 1;
                         dayDetails[referenceDate, 8] = "1";
                     }
-                }else if(i == 2)
+                }else if(i == 3)
                 {
                     if (dayDetails[referenceDate, 9].Equals("0"))
                     {
@@ -1225,7 +1390,7 @@ namespace FYP
                         dayDetails[referenceDate, 9] = "1";
                         
                     }
-                }else if(i == 3)
+                }else if(i == 4)
                 {
                     if (dayDetails[referenceDate, 10].Equals("0") && studyTime > 2)
                     {
@@ -1235,7 +1400,7 @@ namespace FYP
                         dayDetails[referenceDate, 10] = "1";
                         
                     }
-                }else if(i == 4)
+                }else if(i == 5)
                 {
                     if(dayDetails[referenceDate, 11].Equals("0"))
                     {
@@ -1246,7 +1411,7 @@ namespace FYP
                             dayDetails[referenceDate, 11] = "1";
                         }
                     }
-                }else if(i == 5)
+                }else if(i == 6)
                 {
                     if(dayDetails[referenceDate,12].Equals("1") && dayDetails[referenceDate, 13].Equals("1"))
                     {
@@ -1260,7 +1425,7 @@ namespace FYP
                         lunch = lunch - 1;
                         dayDetails[referenceDate, 12] = "1";
                     }
-                }else if( i == 6)
+                }else if( i == 7)
                 {
                     if (dayDetails[referenceDate, 13].Equals("0") && lunch == 1)
                     {
@@ -1274,7 +1439,7 @@ namespace FYP
                         houseChore = houseChore - 1;
                         dayDetails[referenceDate, 13] = "1";
                     }
-                }else if( i == 7)
+                }else if( i == 8)
                 {
                     if (dayDetails[referenceDate, 14].Equals("0")&& houseChore == 1)
                     {
@@ -1305,7 +1470,7 @@ namespace FYP
                     }
                     
                 }
-                else if (i == 9)
+                else if (i == 10)
                 {
                     if(dayDetails[referenceDate,16].Equals("0")&& dayDetails[referenceDate, 17].Equals("0"))
                     {
@@ -1316,7 +1481,7 @@ namespace FYP
                         dayDetails[referenceDate, 16] = "1";
                     }
                     
-                }else if(i == 10)
+                }else if(i == 11)
                 {
                     if (dayDetails[referenceDate, 17].Equals("0") && exercise == 0)
                     {
@@ -1331,7 +1496,7 @@ namespace FYP
                         exercise = exercise - 1;
                         dayDetails[referenceDate, 17] = "1";
                     }
-                }else if( i == 11)
+                }else if( i == 12)
                 {
                     if (dayDetails[referenceDate, 18].Equals("0") && exercise == 0)
                     {
@@ -1345,7 +1510,7 @@ namespace FYP
                         dinner = dinner - 1;
                         dayDetails[referenceDate, 18] = "1";
                     }
-                }else if(i == 12)
+                }else if(i == 13)
                 {
                     if(dayDetails[referenceDate, 19].Equals("0") && dinner == 1)
                     {
@@ -1353,7 +1518,7 @@ namespace FYP
                         dinner = dinner - 1;
                         dayDetails[referenceDate, 19] = "1";
                     }
-                }else if(i == 13)
+                }else if(i == 14)
                 {
                     if (dayDetails[referenceDate, 19].Equals("1") && dayDetails[referenceDate,20].Equals("1") && dinner == 1)
                     {
@@ -1361,7 +1526,7 @@ namespace FYP
                         dinner = dinner - 1;
                         dayDetails[referenceDate, 20] = "1";
                     }
-                }else if(i == 14)
+                }else if(i == 15)
                 {
                     if(dayDetails[referenceDate, 20].Equals("0"))
                     {
@@ -1369,7 +1534,7 @@ namespace FYP
                         studyTime = studyTime - 1;
                         dayDetails[referenceDate, 21] = "1";
                     }
-                }else if( i == 15)
+                }else if( i == 16)
                 {
                     if (dayDetails[referenceDate, 21].Equals("0"))
                     {
@@ -1377,10 +1542,6 @@ namespace FYP
                         studyTime = studyTime - 1;
                         dayDetails[referenceDate, 22] = "1";
                     }
-                }else if(i == 16)
-                {
-                    timeTables.Push(ScheduleTimeTable(6, 7, "Wake Up + Bath", date));
-                    dayDetails[referenceDate, 6] = "1";
                 }
             }
 
@@ -1398,10 +1559,15 @@ namespace FYP
             
             for (int i = 0; i < 17; i++)
             {
-               if(i == 0)
+                if (i == 0)
+                {
+                    timeTables.Push(ScheduleTimeTable(6, 7, "Wake Up + Bath", date));
+
+                }
+                else if (i == 1)
                 {
                     timeTables.Push(ScheduleTimeTable(7, 8, "breakfast", date));
-                }else if(i == 1)
+                }else if(i == 2)
                 {
                     timeTables.Push(ScheduleTimeTable(8, 9, "Study", date));
                     studyTime = studyTime - 1;
@@ -1409,38 +1575,38 @@ namespace FYP
                 {
                     timeTables.Push(ScheduleTimeTable(9, 10, "Study", date));
                     studyTime = studyTime - 1;
-                }else if(i == 3)
+                }else if(i == 4)
                 {
                     //10-11
                     continue;
-                }else if(i == 4)
+                }else if(i == 5)
                 {
                     //11-12
                     continue;
-                }else if (i == 5)
+                }else if (i == 6)
                 {
                     //12-13
                     timeTables.Push(ScheduleTimeTable(12, 13, "Lunch", date));
                     lunch = lunch - 1;
-                }else if( i == 6)
+                }else if( i == 7)
                 {
                     //13-14
                     timeTables.Push(ScheduleTimeTable(13, 14, "House Chore", date));
                     houseChore = houseChore - 1;
-                }else if( i == 7)
+                }else if( i == 8)
                 {   //14-15
                     timeTables.Push(ScheduleTimeTable(14, 15, "Study", date));
                     studyTime = studyTime - 1;
                 }
-                else if (i == 8)
+                else if (i == 9)
                 {   //15-16
                     timeTables.Push(ScheduleTimeTable(15, 16, "Study", date));
                     studyTime = studyTime - 1;
-                }else if(i == 9)
+                }else if(i == 10)
                 {
                     //16-17
                     int number = RandomNumber(1, 2);
-                    if(number == 10)
+                    if(number == 1)
                     {
                         string choosenActivity = ChooseActivity(ref activity);
                         timeTables.Push(ScheduleTimeTableDescription(16, 17, choosenActivity, date));
@@ -1503,10 +1669,6 @@ namespace FYP
                     //21-22
                     timeTables.Push(ScheduleTimeTable(21, 22, "Study", date));
                     studyTime = studyTime - 1;
-                }else if(i == 16)
-                {
-                    timeTables.Push(ScheduleTimeTable(6, 7, "Wake Up + Bath", date));
-                    
                 }
             }
 
@@ -2283,6 +2445,23 @@ namespace FYP
             {
                 fileUpload.Visible = false;
             }
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            string FileName = DateTime.Today.ToString("d") + " - " + DateTime.Today.AddDays(6).ToString("d");
+            string CalendarItem = Session["calendarItem"].ToString();
+
+            Response.Clear();
+            Response.ClearHeaders();
+            Response.ClearContent();
+            Response.AddHeader("content-length", CalendarItem.Length.ToString());
+            Response.AddHeader("content-disposition", "attachment; filename=\"" + FileName + ".ics\"");
+            Response.ContentType = "text/calendar";
+            Response.Write(CalendarItem);
+            Response.Flush();
+            //Response.TransmitFile(file.FullName);
+            Response.End();
         }
     }
 

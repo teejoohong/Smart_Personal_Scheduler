@@ -24,7 +24,7 @@
                 <asp:Image ID="Image1" runat="server" 
                     ImageUrl="~/BuildInPicturess/logo.JPG" 
                 AlternateText="Smart Personal Scheduler" Width ="100%" Height="70%" /><br />
-                <asp:Button ID="btnTimetable" CssClass="btnContainer" runat="server" Text="Generate now" />
+                <asp:Button ID="btnTimetable" CssClass="btnContainer" runat="server" Text="Generate now" OnClick="btnTimetable_Click" />
             
             </div>
             </td>
