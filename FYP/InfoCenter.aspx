@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="InfoCenter.aspx.cs" Inherits="FYP.InfoCenter" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     <link href="CSS/InfoCenter.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 

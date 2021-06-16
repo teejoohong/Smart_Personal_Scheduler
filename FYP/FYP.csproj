@@ -47,6 +47,7 @@
       <HintPath>D:\Downloads\DDay-iCal-1_0_2-BetaCandidate2-bin\DDay.iCal.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -77,6 +78,7 @@
     <Content Include="BMI.aspx" />
     <Content Include="BuildInPicturess\calculator.jpg" />
     <Content Include="Calories.aspx" />
+    <Content Include="CSS\Calories.css" />
     <Content Include="CSS\HomePage.css" />
     <Content Include="CSS\InfoCenter.css" />
     <Content Include="CSS\LogIn.css" />

@@ -1,0 +1,38 @@
+﻿#caloriesTable {
+    width:100%;
+}
+
+#caloriesTable td {
+    width: 50%;
+}
+
+.inputForm {
+    margin: 50px auto 100px auto;
+    width: 50%;
+    border: 1px solid black;
+}
+    .inputForm th {
+        border-bottom: 1px solid black;
+        background-color: black;
+        color: white;
+        font-size: 18px;
+    }
+
+.txtWeight {
+    border: none;
+    border-bottom: 1px solid black;
+    width:35%
+    ;height:30px;
+}
+
+#inputForm td{
+    width: 50%;
+}
+
+.buttonLogin {
+    background-color: black;
+    color: white;
+    width: 20%;
+    height: 80%;
+    font-size: 18px;
+}
