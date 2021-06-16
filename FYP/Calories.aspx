@@ -86,9 +86,9 @@
                             </asp:Chart>
                         </div>
                     </td>
-                    <td style="vertical-align:top">
+                    <td style="vertical-align:top ; padding-top:3.5%">
                         <asp:Label ID="lblTitle" runat="server" Text="Estimated Activity Calories <br/>" CssClass="lblTitle"></asp:Label>
-                        <asp:Label ID="lblActivityCalories" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="lblActivityCalories" runat="server" Text="" CssClass="lblActivityCalories"></asp:Label>
                     </td>
                 </tr>
             </table>

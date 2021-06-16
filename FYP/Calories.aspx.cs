@@ -167,8 +167,8 @@ namespace FYP
                 {
                     calories = calculateActivityCalories(time, swimmingMin, testKG);
                     maxCalories = calculateActivityCalories(time, swimmingMax, testKG);
-                    series.Points.AddXY("Min" + item, calories);
-                    series.Points.AddXY("Max" + item, maxCalories);
+                    series.Points.AddXY("Min " + item, calories);
+                    series.Points.AddXY("Max " + item, maxCalories);
                 }
                 else if (item == "jogging")
                 {
