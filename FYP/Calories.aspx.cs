@@ -73,8 +73,8 @@ namespace FYP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Session["UserID"] = "US1";
-            //Session["UserName"] = "ali123";
+            Session["UserID"] = "US1";
+            Session["UserName"] = "ali123";
 
             if (Session["UserName"] != null && Session["UserID"]!= null)
             {
@@ -217,9 +217,11 @@ namespace FYP
                 {
                     series.Points.AddXY(item, 200);
                 }
-                total += calories; 
+                total += calories;
+                lblActivityCalories.Text += "<br/>" + item + " : " + calories.ToString("0.00") + " calories <br/> ";
             }
-            
+
+            lblActivityCalories.Text += "<br/>Total : " + total.ToString("0.00") + " calories."; 
         }
 
         private double calculateActivityCalories(double duration, double MET, double KG)

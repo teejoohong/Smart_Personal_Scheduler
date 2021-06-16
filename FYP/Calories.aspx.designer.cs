@@ -114,6 +114,24 @@ namespace FYP
         protected global::System.Web.UI.DataVisualization.Charting.Chart chartCalories;
 
         /// <summary>
+        /// lblTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTitle;
+
+        /// <summary>
+        /// lblActivityCalories control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblActivityCalories;
+
+        /// <summary>
         /// timetableView control.
         /// </summary>
         /// <remarks>

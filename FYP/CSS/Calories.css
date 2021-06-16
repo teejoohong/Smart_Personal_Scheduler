@@ -36,3 +36,8 @@
     height: 80%;
     font-size: 18px;
 }
+.lblTitle {
+    font-size:18px;
+    font-weight:bold;
+    text-decoration:underline;
+}

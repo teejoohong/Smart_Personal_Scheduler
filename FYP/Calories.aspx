@@ -65,23 +65,35 @@
         </asp:View>
 
         <asp:View ID="caloriesView" runat="server">
-           <div id="chartdiv" style="overflow-x: scroll;">
-                <asp:Chart ID="chartCalories" runat="server" CssClass="chartCalories" Width="500px" Height="500px" >
-                    <Titles>  
-                        <asp:Title Text="Estimated Calory burn for event allocated"></asp:Title>  
-                    </Titles>  
-                    <Series>
-                        <asp:Series Name="Series1" YValueType="Int32" YValuesPerPoint="2">
-                        </asp:Series>
-                    </Series>
-                    <ChartAreas>
-                        <asp:ChartArea Name="ChartArea1">
-                            <AxisX Title="Activity"></AxisX>  
-                            <AxisY Title="Calories"></AxisY>  
-                        </asp:ChartArea>
-                    </ChartAreas>
-                </asp:Chart>
-            </div>
+            <table id="caloriesTable">
+                <tr>
+                    <td>
+                       <div id="chartdiv" style="overflow-x: scroll;">
+                            <asp:Chart ID="chartCalories" runat="server" CssClass="chartCalories" Width="500px" Height="500px" >
+                                <Titles>  
+                                    <asp:Title Text="Estimated Calory burn for event allocated"></asp:Title>  
+                                </Titles>  
+                                <Series>
+                                    <asp:Series Name="Series1" YValueType="Int32" YValuesPerPoint="2">
+                                    </asp:Series>
+                                </Series>
+                                <ChartAreas>
+                                    <asp:ChartArea Name="ChartArea1">
+                                        <AxisX Title="Activity"></AxisX>  
+                                        <AxisY Title="Calories"></AxisY>  
+                                    </asp:ChartArea>
+                                </ChartAreas>
+                            </asp:Chart>
+                        </div>
+                    </td>
+                    <td style="vertical-align:top">
+                        <asp:Label ID="lblTitle" runat="server" Text="Estimated Activity Calories <br/>" CssClass="lblTitle"></asp:Label>
+                        <asp:Label ID="lblActivityCalories" runat="server" Text=""></asp:Label>
+                    </td>
+                </tr>
+            </table>
+
+
         </asp:View>
 
         <asp:View ID="timetableView" runat="server">
