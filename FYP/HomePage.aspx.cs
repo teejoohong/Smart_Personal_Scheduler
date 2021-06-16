@@ -13,5 +13,10 @@ namespace FYP
         {
             Session["User"] = null;
         }
+
+        protected void btnTimetable_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("TimeTableGenerator.aspx");
+        }
     }
 }

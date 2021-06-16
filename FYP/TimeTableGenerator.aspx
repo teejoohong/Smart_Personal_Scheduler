@@ -2,8 +2,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-   
-      <% if (Session["Value"] == null)
+ <style>
+table.preview td{
+    width:14%;
+  border: 1px solid black;
+}
+
+ </style>
+
+
+      <% if (Session["UserID"] == null)
           { %>
             <div >
             <p>Please log in first.</p>
@@ -12,6 +20,7 @@
             else
             { %>
     <div>
+
         
          <asp:Button runat="server" Text="Generate" OnClick="GenerationOfTimetable_Click"/>
         <br />
@@ -29,7 +38,34 @@
         </asp:RadioButtonList>
         <br />
         
-        <br />
+        
+        <div runat="server" visible="false" id="previewTable">
+            <p>Preview</p>
+
+            <table class="preview">
+                <tr>
+                    
+                     <td><asp:Label ID="day1" runat="server" Text="Label"></asp:Label></td>
+                    <td><asp:Label ID="day2" runat="server" Text="Label"></asp:Label></td>
+                    <td><asp:Label ID="day3" runat="server" Text="Label"></asp:Label></td>
+                    <td><asp:Label ID="day4" runat="server" Text="Label"></asp:Label></td>
+                    <td><asp:Label ID="day5" runat="server" Text="Label"></asp:Label></td>
+                    <td><asp:Label ID="day6" runat="server" Text="Label"></asp:Label></td>
+                    <td><asp:Label ID="day7" runat="server" Text="Label"></asp:Label></td>
+                </tr>
+                <tr>
+                    <td><asp:Label ID="detail1" runat="server" Text="Label"></asp:Label></td>
+                    <td><asp:Label ID="detail2" runat="server" Text="Label"></asp:Label></td>
+                    <td><asp:Label ID="detail3" runat="server" Text="Label"></asp:Label></td>
+                    <td><asp:Label ID="detail4" runat="server" Text="Label"></asp:Label></td>
+                    <td><asp:Label ID="detail5" runat="server" Text="Label"></asp:Label></td>
+                    <td><asp:Label ID="detail6" runat="server" Text="Label"></asp:Label></td>
+                    <td><asp:Label ID="detail7" runat="server" Text="Label"></asp:Label></td>
+                </tr>
+            </table>
+
+            <asp:Button ID="Button1" runat="server" Text="Download" style="" OnClick="Button1_Click"/>
+        </div>
         <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
         <br />
         <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
