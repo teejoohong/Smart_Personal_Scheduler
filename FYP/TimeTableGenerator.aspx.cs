@@ -919,12 +919,14 @@ namespace FYP
             }
             con.Close();
 
-            outdoor = outdoor.OrderBy(x => r.Next()).ToArray();
-            indoor = indoor.OrderBy(x => r.Next()).ToArray();
+            
 
             for (int i = 0; i < 7; i++)
             {
-                if(i != 0)
+                outdoor = outdoor.OrderBy(x => r.Next()).ToArray();
+                indoor = indoor.OrderBy(x => r.Next()).ToArray();
+
+                if (i != 0)
                 {
                     date = DateTime.Parse(date).AddDays(1).ToString();
                 }
