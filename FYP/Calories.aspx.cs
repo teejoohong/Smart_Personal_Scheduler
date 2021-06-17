@@ -46,7 +46,8 @@ namespace FYP
         //METS
         const double basketball = 8.0, runningMin = 13.5, runningMax =16.0, jogging = 8.0,football = 7.0,
             volleyball = 4.0, tennis = 7.0, bodybuilding = 7.0, swimmingMin = 6.0, swimmingMax =10.0,
-            kungfu = 10.0,ropeJumpingMin = 10.0, ropeJumpingMax=10.0,badminton = 7.0;
+            kungfu = 10.0,ropeJumpingMin = 10.0, ropeJumpingMax=10.0,badminton = 7.0,dancing =6.0,
+            cycling = 5.0, gymnastics = 5.0, eating = 1.7, studying = 1.5,houseChores = 5.0 ; 
 
         protected void btnTimetable_Click(object sender, EventArgs e)
         {
@@ -73,8 +74,8 @@ namespace FYP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["UserID"] = "US1";
-            Session["UserName"] = "ali123";
+            //Session["UserID"] = "US1";
+            //Session["UserName"] = "ali123";
 
             if (Session["UserName"] != null && Session["UserID"]!= null)
             {
@@ -187,7 +188,8 @@ namespace FYP
                     calories = calculateActivityCalories(time, bodybuilding, testKG);
                     series.Points.AddXY(item, calories);
                 }
-                else if (item == "volleyball") {
+                else if (item == "volleyball")
+                {
                     calories = calculateActivityCalories(time, volleyball, testKG);
                     series.Points.AddXY(item, calories);
                 }
@@ -213,6 +215,34 @@ namespace FYP
                     series.Points.AddXY("Min " + item, calories);
                     series.Points.AddXY("Max " + item, maxCalories);
                 }
+                else if (item == "dancing")
+                {
+                    calories = calculateActivityCalories(time, dancing, testKG);
+                    series.Points.AddXY(item, calories);
+                }
+                else if (item == "gymnastics")
+                {
+                    calories = calculateActivityCalories(time, gymnastics, testKG);
+                    series.Points.AddXY(item, calories);
+                }
+                else if (item == "cycling")
+                {
+                    calories = calculateActivityCalories(time, cycling, testKG);
+                    series.Points.AddXY(item, calories);
+                }
+                else if (item == "eating") {
+                    calories = calculateActivityCalories(time, eating, testKG);
+                    series.Points.AddXY(item, calories);
+                }
+                else if (item == "studying") {
+                    calories = calculateActivityCalories(time, studying, testKG);
+                    series.Points.AddXY(item, calories);
+                }
+                else if (item == "houseChores") {
+                    calories = calculateActivityCalories(time, houseChores, testKG);
+                    series.Points.AddXY(item, calories);
+                }
+                
                 else
                 {
                     series.Points.AddXY(item, 200);
@@ -220,7 +250,6 @@ namespace FYP
                 total += calories;
                 lblActivityCalories.Text += "<br/>" + item + " : " + calories.ToString("0.00") + " calories <br/> ";
             }
-
             lblActivityCalories.Text += "<br/>Total : " + total.ToString("0.00") + " calories."; 
         }
 
