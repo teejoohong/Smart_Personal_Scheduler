@@ -2341,6 +2341,37 @@ namespace FYP
 
         private string[] ScheduleTimeTable(int startTime, int endTime, string activitity, string date)// 7,8,"breakfast",dat
         {
+            if (allocatedActivity != "")
+            {
+                if (activitity.Equals("Breakfast") || activitity.Equals("Dinner") || activitity.Equals("Lunch"))
+                {
+                    allocatedActivity = allocatedActivity + "," + "eating";
+                }
+                else if (activitity.Equals("House Chore"))
+                {
+                    allocatedActivity = allocatedActivity + "," + "houseChores";
+                }
+                else if (activitity.Equals("Study"))
+                {
+                    allocatedActivity = allocatedActivity + "," + "studying";
+                }
+            }
+            else
+            {
+                if (activitity.Equals("Breakfast") || activitity.Equals("Dinner") || activitity.Equals("Lunch"))
+                {
+                    allocatedActivity = allocatedActivity + "eating";
+                }
+                else if (activitity.Equals("House Chore"))
+                {
+                    allocatedActivity = allocatedActivity + "houseChores";
+                }
+                else if (activitity.Equals("Study"))
+                {
+                    allocatedActivity = allocatedActivity + "studying";
+                }
+                
+            }
             string[] timeTable = new string[5];
             timeTable[0] = DateTime.Parse(date).ToString("yyyyMMddTHH0000Z"); // DStamp
             timeTable[1] = DateTime.Parse(date).AddHours(startTime).ToString("yyyyMMddTHH0000"); // DStart
