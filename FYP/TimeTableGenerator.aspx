@@ -22,7 +22,7 @@
         <asp:CheckBox ID="FileUploading" runat="server" OnCheckedChanged="FileUploading_CheckedChanged" text="Click to include ics file upload" AutoPostBack="true"/>
              <br />
         <div id="fileUpload" runat="server" visible="false">
-            <asp:FileUpload ID="timeTableFile" runat="server" />
+            <asp:FileUpload ID="timeTableFile" runat="server" Width="279px" />
         </div>
             
 
@@ -33,7 +33,7 @@
         </asp:RadioButtonList>
         <br />
         
-           </ContentTemplate></asp:UpdatePanel>
+           
 
         <div runat="server" visible="false" id="previewTable">
             <p>Preview</p>
@@ -77,7 +77,7 @@
 <script>
 
 
-    var x = document.getElementById("demo");
+    
 
     function getLocation() {
         if (navigator.geolocation) {

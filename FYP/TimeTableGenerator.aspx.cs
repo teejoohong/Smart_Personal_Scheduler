@@ -30,6 +30,35 @@ namespace FYP
 
         protected void GenerationOfTimetable_Click(object sender, EventArgs e)
         {
+            bool indoorPreferece = false;
+            bool outdoorPreferece = false;
+
+            SqlConnection con;
+            string strcon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            con = new SqlConnection(strcon);
+
+            con.Open();
+            string strSelect = "Select * From IndoorPreference Where UserID = @UserID";
+            SqlCommand cmdSelect = new SqlCommand(strSelect, con);
+            cmdSelect.Parameters.AddWithValue("@UserID", Session["UserID"]);
+            SqlDataReader dtr = cmdSelect.ExecuteReader();
+            if (dtr.HasRows)
+            {
+                indoorPreferece = true;
+            }
+            con.Close();
+
+            con.Open();
+            string strSelect1 = "Select * From OutdoorPreference Where UserID = @UserID1";
+            SqlCommand cmdSelect1 = new SqlCommand(strSelect1, con);
+            cmdSelect1.Parameters.AddWithValue("@UserID1", Session["UserID"]);
+            SqlDataReader dtr1 = cmdSelect1.ExecuteReader();
+            if (dtr1.HasRows)
+            {
+                outdoorPreferece = true;   
+            }
+            con.Close();
+
             string latitude = HiddenField1.Value;
             string longitude = HiddenField2.Value;
 
@@ -37,110 +66,119 @@ namespace FYP
             
             string[,] dayDetails = new string[1000, 25];
 
-            if (modeGeneration.SelectedItem == null)
+            if(outdoorPreferece && indoorPreferece)
             {
-                //javascript error message
-            }
-            else
-            {
-                if(FileUploading.Checked == true)
+                if (modeGeneration.SelectedItem == null)
                 {
-                    // with ics file
-                    if (timeTableFile.HasFile)
-                    {
-                        string fileExtension = System.IO.Path.GetExtension(timeTableFile.FileName);
-                       
-                        if (fileExtension.ToLower() != ".ics")
-                        {
-                            //error message
-                            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Wrong File " + "');", true);
-                        }
-                        else
-                        {
-                               
-                            Stack<DateTime> datesStart = new Stack<DateTime>();
-                            Stack<DateTime> datesEnd = new Stack<DateTime>();
-                            Stack<string> recursion = new Stack<string>();
-
-                            //use to read the ics file given by user 
-                            ReadFile(ref datesStart, ref datesEnd, ref recursion);
-                           
-                            string[] occurDays = new string[1000];
-
-
-                            //Allocate all the used time as occupied space
-                            CollationOfTime(ref dayDetails, ref occurDays, datesStart, datesEnd, recursion);
-                            string all = "";
-                            for(int i =0; i<1000; i++)
-                            {
-                                for(int j=0; j<25; j++)
-                                {
-                                    all = all + dayDetails[i, j] + " ";
-                                }
-                            }
-                            
-                            //Label1.Text = dayDetails[0, 24];
-                            Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
-
-                            SqlConnection conn;
-                            string strconn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                            conn = new SqlConnection(strconn);
-                            conn.Open();
-                            string strDelete = "Delete From AllocatedActivities Where UserID = @UserID";
-                            SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
-                            cmdDelete.Parameters.AddWithValue("@UserID", Session["UserID"]);
-                            int numRowAffected = cmdDelete.ExecuteNonQuery();
-                            conn.Close();
-
-                            conn.Open();
-                            string strInsert = "Insert into AllocatedActivities (Activity, UserID) Values (@Activity, @UserID)";
-                            SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
-                            cmdInsert.Parameters.AddWithValue("@UserID", Session["UserID"]);
-                            cmdInsert.Parameters.AddWithValue("@Activity", allocatedActivity);
-                            int numRowAffected1 = cmdInsert.ExecuteNonQuery();
-                            conn.Close();
-
-                            string[] previewDetail =  preview(timeTablesWeekly);
-                            OutputPreview(previewDetail);
-
-                            //FileUpload(timeTablesWeekly);
-
-                        }
-                    }
+                    //javascript error message
+                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Please Choose the mode you want to generate " + "');", true);
                 }
                 else
                 {
-                    //without ics file
-                    
+                    if (FileUploading.Checked == true)
+                    {
+                        // with ics file
+                        if (timeTableFile.HasFile)
+                        {
+                            string fileExtension = System.IO.Path.GetExtension(timeTableFile.FileName);
 
-                    Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
+                            if (fileExtension.ToLower() != ".ics")
+                            {
+                                //error message
+                                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Wrong File " + "');", true);
+                            }
+                            else
+                            {
 
-                    SqlConnection conn;
-                    string strconn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                    conn = new SqlConnection(strconn);
-                    conn.Open();
-                    string strDelete = "Delete From AllocatedActivities Where UserID = @UserID";
-                    SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
-                    cmdDelete.Parameters.AddWithValue("@UserID", Session["UserID"]);
-                    int numRowAffected = cmdDelete.ExecuteNonQuery();
-                    conn.Close();
+                                Stack<DateTime> datesStart = new Stack<DateTime>();
+                                Stack<DateTime> datesEnd = new Stack<DateTime>();
+                                Stack<string> recursion = new Stack<string>();
 
-                    conn.Open();
-                    string strInsert = "Insert into AllocatedActivities (Activity, UserID) Values (@Activity, @UserID1)";
-                    SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
-                    cmdInsert.Parameters.AddWithValue("@UserID1", Session["UserID"]);
-                    cmdInsert.Parameters.AddWithValue("@Activity", allocatedActivity);
-                    int numRowAffected1 = cmdInsert.ExecuteNonQuery();
-                    conn.Close();
+                                //use to read the ics file given by user 
+                                ReadFile(ref datesStart, ref datesEnd, ref recursion);
 
-                   
-                    string[] previewDetail = preview(timeTablesWeekly);
-                    OutputPreview(previewDetail);
-                    
+                                string[] occurDays = new string[1000];
 
-                    //FileUpload(timeTablesWeekly);
+
+                                //Allocate all the used time as occupied space
+                                CollationOfTime(ref dayDetails, ref occurDays, datesStart, datesEnd, recursion);
+                                string all = "";
+                                for (int i = 0; i < 1000; i++)
+                                {
+                                    for (int j = 0; j < 25; j++)
+                                    {
+                                        all = all + dayDetails[i, j] + " ";
+                                    }
+                                }
+
+                                //Label1.Text = dayDetails[0, 24];
+                                Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
+
+                                SqlConnection conn;
+                                string strconn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                                conn = new SqlConnection(strconn);
+                                conn.Open();
+                                string strDelete = "Delete From AllocatedActivities Where UserID = @UserID";
+                                SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
+                                cmdDelete.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                                int numRowAffected = cmdDelete.ExecuteNonQuery();
+                                conn.Close();
+
+                                conn.Open();
+                                string strInsert = "Insert into AllocatedActivities (Activity, UserID) Values (@Activity, @UserID)";
+                                SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
+                                cmdInsert.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                                cmdInsert.Parameters.AddWithValue("@Activity", allocatedActivity);
+                                int numRowAffected1 = cmdInsert.ExecuteNonQuery();
+                                conn.Close();
+
+                                string[] previewDetail = preview(timeTablesWeekly);
+                                OutputPreview(previewDetail);
+
+                                //FileUpload(timeTablesWeekly);
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //without ics file
+
+
+                        Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
+
+                        SqlConnection conn;
+                        string strconn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                        conn = new SqlConnection(strconn);
+                        conn.Open();
+                        string strDelete = "Delete From AllocatedActivities Where UserID = @UserID";
+                        SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
+                        cmdDelete.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                        int numRowAffected = cmdDelete.ExecuteNonQuery();
+                        conn.Close();
+
+                        conn.Open();
+                        string strInsert = "Insert into AllocatedActivities (Activity, UserID) Values (@Activity, @UserID1)";
+                        SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
+                        cmdInsert.Parameters.AddWithValue("@UserID1", Session["UserID"]);
+                        cmdInsert.Parameters.AddWithValue("@Activity", allocatedActivity);
+                        int numRowAffected1 = cmdInsert.ExecuteNonQuery();
+                        conn.Close();
+
+
+                        string[] previewDetail = preview(timeTablesWeekly);
+                        OutputPreview(previewDetail);
+
+
+                        //FileUpload(timeTablesWeekly);
+                    }
                 }
             }
+            else
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Please insert your preference activity through your profile. " + "');", true);
+            }
+            
            
 
                      
@@ -171,6 +209,7 @@ namespace FYP
 
             previewTable.Visible = true;
         }
+
         protected void ReadFile(ref Stack<DateTime> datesStart, ref Stack<DateTime> datesEnd, ref Stack<string> recursion)
         {
             string inputContent;
@@ -863,6 +902,7 @@ namespace FYP
             string[] randomMode = new string[7]{ "a", "a","a","a","b","b","c"};
             string[] indoor = new string[6];
             string[] outdoor = new string[12];
+            
             Random r = new Random();
 
             randomMode = randomMode.OrderBy(x => r.Next()).ToArray();
@@ -923,8 +963,11 @@ namespace FYP
 
             for (int i = 0; i < 7; i++)
             {
-                outdoor = outdoor.OrderBy(x => r.Next()).ToArray();
-                indoor = indoor.OrderBy(x => r.Next()).ToArray();
+                string[] indoorSelection = new string[6];
+                string[] outdoorSelection = new string[12];
+
+                outdoorSelection = outdoor.OrderBy(x => r.Next()).ToArray();
+                indoorSelection = indoor.OrderBy(x => r.Next()).ToArray();
 
                 if (i != 0)
                 {
@@ -964,22 +1007,22 @@ namespace FYP
                         if (randomMode[i].Equals("a"))
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate,outdoor));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate,outdoorSelection));
                             else
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, outdoor));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, outdoorSelection));
                         }else if (randomMode[i].Equals("b"))
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate,outdoor));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, outdoorSelection));
                             else
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails,outdoor));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, outdoorSelection));
                         }
                         else
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate,outdoor));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, outdoorSelection));
                             else
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails,outdoor));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, outdoorSelection));
                         }
                         
                     }
@@ -988,23 +1031,23 @@ namespace FYP
                         if (randomMode[i].Equals("a"))
                         {                            
                             if (containedDate)
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, outdoor));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, outdoorSelection));
                             else
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, outdoor));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, outdoorSelection));
                         }
                         else if (randomMode[i].Equals("b"))
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate, outdoor));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate, outdoorSelection));
                             else
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, outdoor));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, outdoorSelection));
                         }
                         else
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, outdoor));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, outdoorSelection));
                             else
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, outdoor));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, outdoorSelection));
                         }
                     }
                     else
@@ -1013,25 +1056,25 @@ namespace FYP
                         {
 
                             if (containedDate)
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, outdoor));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, outdoorSelection));
                             else
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, outdoor));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, outdoorSelection));
                             
                         }
                         else if (randomMode[i].Equals("b"))
                         {
 
                             if (containedDate)
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, outdoor));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, outdoorSelection));
                             else
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, outdoor));                         
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, outdoorSelection));                         
                         }
                         else
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate, outdoor));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate, outdoorSelection));
                             else
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, outdoor));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, outdoorSelection));
                         }
                     }
                 }
@@ -1042,23 +1085,23 @@ namespace FYP
                         if (randomMode[i].Equals("a"))
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate,indoor));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate,indoorSelection));
                             else
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, indoor));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, indoorSelection));
                         }
                         else if (randomMode[i].Equals("b"))
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, indoor));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, indoorSelection));
                             else
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, indoor));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, indoorSelection));
                         }
                         else
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, indoor));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, indoorSelection));
                             else
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, indoor));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, indoorSelection));
                         }
 
                     }
@@ -1067,23 +1110,23 @@ namespace FYP
                         if (randomMode[i].Equals("a"))
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, indoor));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, indoorSelection));
                             else
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, indoor));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, indoorSelection));
                         }
                         else if (randomMode[i].Equals("b"))
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate, indoor));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate, indoorSelection));
                             else
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, indoor));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, indoorSelection));
                         }
                         else
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, indoor));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, indoorSelection));
                             else
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, indoor));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, indoorSelection));
                         }
                     }
                     else
@@ -1092,25 +1135,25 @@ namespace FYP
                         {
 
                             if (containedDate)
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, indoor));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, referenceDate, indoorSelection));
                             else
-                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, indoor));
+                                timeTablesWeekly.Push(RelaxMode(date, ref dayDetails, indoorSelection));
 
                         }
                         else if (randomMode[i].Equals("b"))
                         {
 
                             if (containedDate)
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, indoor));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, referenceDate, indoorSelection));
                             else
-                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, indoor));
+                                timeTablesWeekly.Push(TrainingMode(date, ref dayDetails, indoorSelection));
                         }
                         else
                         {
                             if (containedDate)
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate, indoor));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, referenceDate, indoorSelection));
                             else
-                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, indoor));
+                                timeTablesWeekly.Push(StudyMode(date, ref dayDetails, indoorSelection));
                         }
                     }
                 }
@@ -1951,7 +1994,7 @@ namespace FYP
                 else if (i == 5)
                 {
                     //11-12
-                    timeTables.Push(ScheduleTimeTable(11, 12, "Study Time", date));
+                    timeTables.Push(ScheduleTimeTable(11, 12, "Study", date));
                     studyTime = studyTime - 1;
                 }
                 else if (i == 6)
@@ -1977,7 +2020,7 @@ namespace FYP
                     int random = RandomNumber(1, 2);
                     if (random == 1)
                     {
-                        timeTables.Push(ScheduleTimeTable(15, 16, "Study Time", date));
+                        timeTables.Push(ScheduleTimeTable(15, 16, "Study", date));
                         studyTime = studyTime - 1;
                     }
                 }
