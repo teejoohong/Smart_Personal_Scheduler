@@ -126,9 +126,9 @@ namespace FYP
                     conn.Close();
 
                     conn.Open();
-                    string strInsert = "Insert into AllocatedActivities (Activity, UserID) Values (@Activity, @UserID)";
+                    string strInsert = "Insert into AllocatedActivities (Activity, UserID) Values (@Activity, @UserID1)";
                     SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
-                    cmdInsert.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                    cmdInsert.Parameters.AddWithValue("@UserID1", Session["UserID"]);
                     cmdInsert.Parameters.AddWithValue("@Activity", allocatedActivity);
                     int numRowAffected1 = cmdInsert.ExecuteNonQuery();
                     conn.Close();
@@ -1367,7 +1367,7 @@ namespace FYP
             {
                 if (i == 0)
                 {
-                    timeTables.Push(ScheduleTimeTable(6, 7, "Wake Up + Bath", date));
+                    timeTables.Push(ScheduleTimeTable(6, 7, "Wake Up+Bath", date));
                     dayDetails[referenceDate, 6] = "1";
                 }
                 else if (i == 1)
@@ -1563,7 +1563,7 @@ namespace FYP
             {
                 if (i == 0)
                 {
-                    timeTables.Push(ScheduleTimeTable(6, 7, "Wake Up + Bath", date));
+                    timeTables.Push(ScheduleTimeTable(6, 7, "Wake Up+Bath", date));
 
                 }
                 else if (i == 1)
@@ -2036,7 +2036,7 @@ namespace FYP
                 if(i == 0)
                 {
                     //6-7
-                    timeTables.Push(ScheduleTimeTable(6, 7, "Wake Up + bath", date));
+                    timeTables.Push(ScheduleTimeTable(6, 7, "Wake Up+bath", date));
                     dayDetails[referenceDate, 6] = "1";
                 }else if(i == 1)
                 {//7-8
@@ -2247,7 +2247,7 @@ namespace FYP
                if(i == 0)
                 {
                     //6-7
-                    timeTables.Push(ScheduleTimeTable(6, 7, "Wake Up", date));
+                    timeTables.Push(ScheduleTimeTable(6, 7, "Wake Up+Bath", date));
                 }else if(i == 1)
                 {//7-8
                     timeTables.Push(ScheduleTimeTable(7, 8, "Breakfast", date));

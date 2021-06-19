@@ -2,15 +2,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
- <style>
-table.preview td{
-    width:14%;
-  border: 1px solid black;
-}
+    <link href="CSS/TimeTableGenerator.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
 
- </style>
-
-
+</style>
+    
       <% if (Session["UserID"] == null)
           { %>
             <div >
@@ -20,9 +16,8 @@ table.preview td{
             else
             { %>
     <div>
-
+         <asp:Button runat="server" Text="Generate" OnClick="GenerationOfTimetable_Click" CssClass="btnGenerate"/>
         
-         <asp:Button runat="server" Text="Generate" OnClick="GenerationOfTimetable_Click"/>
         <br />
         <asp:CheckBox ID="FileUploading" runat="server" OnCheckedChanged="FileUploading_CheckedChanged" text="Click to include ics file upload" AutoPostBack="true"/>
              <br />
@@ -38,7 +33,8 @@ table.preview td{
         </asp:RadioButtonList>
         <br />
         
-        
+           </ContentTemplate></asp:UpdatePanel>
+
         <div runat="server" visible="false" id="previewTable">
             <p>Preview</p>
 
@@ -64,17 +60,16 @@ table.preview td{
                 </tr>
             </table>
 
-            <asp:Button ID="Button1" runat="server" Text="Download" style="" OnClick="Button1_Click"/>
+            <asp:Button ID="Button1" runat="server" Text="Download" style="" OnClick="Button1_Click" CssClass="btnDownload"/>
         </div>
         <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
         <br />
         <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
         <asp:HiddenField ID="HiddenField1" runat="server" />
         <asp:HiddenField ID="HiddenField2" runat="server" />
-        
-    </div>
+       
     
-
+  </div>
     
 
   
@@ -101,5 +96,5 @@ table.preview td{
 
     <%} %>
        
-
+  
 </asp:Content>

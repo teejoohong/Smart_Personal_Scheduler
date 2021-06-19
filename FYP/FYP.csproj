@@ -78,11 +78,13 @@
     <Content Include="BMI.aspx" />
     <Content Include="BuildInPicturess\calculator.jpg" />
     <Content Include="Calories.aspx" />
+    <Content Include="CSS\BMI.css" />
     <Content Include="CSS\Calories.css" />
     <Content Include="CSS\HomePage.css" />
     <Content Include="CSS\InfoCenter.css" />
     <Content Include="CSS\LogIn.css" />
     <Content Include="CSS\Register.css" />
+    <Content Include="CSS\TimeTableGenerator.css" />
     <Content Include="CSS\UserPreference.css" />
     <Content Include="icons\01d.png" />
     <Content Include="icons\01n.png" />
