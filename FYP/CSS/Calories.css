@@ -1,9 +1,57 @@
-﻿#caloriesTable {
+﻿.caloriesTable {
     width:100%;
 }
 
-#caloriesTable td {
+.caloriesTable td {
     width: 50%;
+}
+
+.btnInfo {
+    background-color: #1c87c9;
+    border: none;
+    color: white;   
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+    .btnInfo:hover {
+        background-color:darkslateblue
+    }
+
+.caloriesSection {
+    background: #e5ebf4;
+    padding-top:60px;
+    margin: -57px -0.55% 0px -0.55%;
+    padding-bottom: 50px;
+}
+.aCalSection {
+    background: #282828;
+    padding-top: 30px;
+    margin: 0px -0.55% 0px -0.55%;
+    padding-bottom: 70px;
+    color:lightgray;
+}
+
+#resultContainer {
+    width: 49.5%;
+    height: 280px;
+    background-color: black;
+    color: white;
+    margin: 0 auto 0 auto;
+    border: 5px inset lightgray;
+}
+
+.caloriesHeader {
+    text-align: center;
+    height: 55px; 
+    margin-top:-0.55%;
+}
+.ddl {
+    width:50%;
+    height:50px;
 }
 
 .inputForm {
