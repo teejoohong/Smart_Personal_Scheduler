@@ -49,9 +49,7 @@ namespace FYP
         const double basketball = 8.0, runningMin = 13.5, runningMax =16.0, jogging = 8.0,football = 7.0,
             volleyball = 4.0, tennis = 7.0, bodybuilding = 7.0, swimmingMin = 6.0, swimmingMax =10.0,
             kungfu = 10.0,ropeJumpingMin = 10.0, ropeJumpingMax=10.0,badminton = 7.0,dancing =6.0,
-            cycling = 5.0, gymnastics = 5.0, eating = 1.7, studying = 1.5,houseChores = 5.0 ;
-
-
+            cycling = 5.0, gymnastics = 5.0, eating = 1.005, studying = 1.01,houseChores = 3.0 ;
 
         private double calculateBasal() {
             double basal = 0;
@@ -201,11 +199,18 @@ namespace FYP
 
         private void displayChart() {
             Series series = chartCalories.Series["Series1"];
+            Series series2 = chartEachEvent.Series["Series1"];
             double calories = 0;
-            double maxCalories,total = 0;
+            double total = 0;
+            double totalEating = 0,totalHouseChores = 0 , totalStudying = 0,
+                totalBasketball = 0, totalBadminton = 0, totalSwimming = 0,
+                totalJogging = 0,totalRunning = 0,totalGym = 0,totalVolleyball = 0
+                ,totalTennis = 0,totalKungfu = 0,totalFootball = 0,totalRopeJumping = 0
+                ,totalDancing = 0,totalGymnastics = 0,totalCycling = 0;
             if (IsPostBack)
             {
                 lblActivityCalories.Text = "";
+                lblEachActivity.Text = "";
             }
             foreach (string item in testArray)
             {
@@ -213,101 +218,214 @@ namespace FYP
                 if (item == "basketball")
                 {
                     calories = calculateActivityCalories(time, basketball, testKG);
-                    series.Points.AddXY(item, calories);
+                    totalBasketball += calories;
                 }
                 else if (item == "badminton")
                 {
                     calories = calculateActivityCalories(time, badminton, testKG);
-                    series.Points.AddXY(item, calories);
+                   totalBadminton += calories;
                 }
                 else if (item == "swimming")
                 {
                     calories = calculateActivityCalories(time, swimmingMin, testKG);
-                    maxCalories = calculateActivityCalories(time, swimmingMax, testKG);
-                    series.Points.AddXY("Min " + item, calories);
-                    series.Points.AddXY("Max " + item, maxCalories);
+                    totalSwimming += calories;
                 }
                 else if (item == "jogging")
                 {
                     calories = calculateActivityCalories(time, jogging, testKG);
-                    series.Points.AddXY(item, calories);
+                    totalJogging += calories;
                 }
                 else if (item == "running")
                 {
                     calories = calculateActivityCalories(time, runningMin, testKG);
-                    maxCalories = calculateActivityCalories(time, runningMax, testKG);
-                    series.Points.AddXY("Min " + item, calories);
-                    series.Points.AddXY("Max " + item, maxCalories);
+                    totalRunning += calories;
                 }
                 else if (item == "gym")
                 {
                     calories = calculateActivityCalories(time, bodybuilding, testKG);
-                    series.Points.AddXY(item, calories);
+                    totalGym += calories;
                 }
                 else if (item == "volleyball")
                 {
                     calories = calculateActivityCalories(time, volleyball, testKG);
-                    series.Points.AddXY(item, calories);
+                    totalVolleyball += calories;
                 }
                 else if (item == "tennis")
                 {
                     calories = calculateActivityCalories(time, tennis, testKG);
-                    series.Points.AddXY(item, calories);
+                    totalTennis += calories;
                 }
                 else if (item == "kungfu")
                 {
                     calories = calculateActivityCalories(time, kungfu, testKG);
-                    series.Points.AddXY(item, calories);
+                    totalKungfu += calories;
                 }
                 else if (item == "football")
                 {
                     calories = calculateActivityCalories(time, football, testKG);
-                    series.Points.AddXY(item, calories);
+                    totalFootball += calories;
                 }
                 else if (item == "ropejumping")
                 {
                     calories = calculateActivityCalories(time, ropeJumpingMin, testKG);
-                    maxCalories = calculateActivityCalories(time, ropeJumpingMax, testKG);
-                    series.Points.AddXY("Min " + item, calories);
-                    series.Points.AddXY("Max " + item, maxCalories);
+                    totalRopeJumping += calories;
                 }
                 else if (item == "dancing")
                 {
                     calories = calculateActivityCalories(time, dancing, testKG);
-                    series.Points.AddXY(item, calories);
+                    totalDancing += calories;
                 }
                 else if (item == "gymnastics")
                 {
                     calories = calculateActivityCalories(time, gymnastics, testKG);
-                    series.Points.AddXY(item, calories);
+                    totalGymnastics += calories;
                 }
                 else if (item == "cycling")
                 {
                     calories = calculateActivityCalories(time, cycling, testKG);
-                    series.Points.AddXY(item, calories);
+                    totalCycling += calories;
                 }
                 else if (item == "eating") {
                     calories = calculateActivityCalories(time, eating, testKG);
-                    series.Points.AddXY(item, calories);
+                    totalEating += calories;
+                    
                 }
                 else if (item == "studying") {
                     calories = calculateActivityCalories(time, studying, testKG);
-                    series.Points.AddXY(item, calories);
+                    totalStudying += calories;
+                    
                 }
                 else if (item == "houseChores") {
                     calories = calculateActivityCalories(time, houseChores, testKG);
-                    series.Points.AddXY(item, calories);
+                    
+                    totalHouseChores += calories;
                 }
                 
                 else
                 {
-                    series.Points.AddXY(item, 200);
+                    series.Points.AddXY("LALA", 200);
                 }
                 total += calories;
-                lblActivityCalories.Text += "<br/>" + item + " : " + calories.ToString("0.00") + " calories <br/> ";
+                //lblActivityCalories.Text += "<br/>" + item + " : " + calories.ToString("0.00") + " calories <br/> ";
             }
+
+            
+
+            if (!isZero(totalBasketball)) {
+                series.Points.AddXY("Basketball", totalBasketball);
+                assignEvent(series2, "Basketball",basketball);
+                lblActivityCalories.Text += "<br/>Basketball  : " + totalBasketball.ToString("0.00") + " calories <br/> ";
+            }
+            if (!isZero(totalBadminton))
+            {
+                series.Points.AddXY("Badminton", totalBadminton);
+                assignEvent(series2, "Badminton", badminton);
+                lblActivityCalories.Text += "<br/>Badminton  : " + totalBadminton.ToString("0.00") + " calories <br/> ";
+            }
+            if (!isZero(totalSwimming))
+            {
+                series.Points.AddXY("Swimming", totalSwimming);
+                assignEvent(series2, "Swimming", swimmingMin);
+                lblActivityCalories.Text += "<br/>Swimming  : " + totalSwimming.ToString("0.00") + " calories <br/> ";
+            }
+            if (!isZero(totalJogging))
+            {
+                series.Points.AddXY("Jogging", totalJogging);
+                assignEvent(series2, "Jogging", jogging);
+                lblActivityCalories.Text += "<br/>Jogging  : " + totalJogging.ToString("0.00") + " calories <br/> ";
+            }
+            if (!isZero(totalRunning))
+            {
+                series.Points.AddXY("Running", totalRunning);
+                assignEvent(series2, "Running", runningMin);
+                lblActivityCalories.Text += "<br/>Running  : " + totalRunning.ToString("0.00") + " calories <br/> ";
+            }
+            if (!isZero(totalVolleyball))
+            {
+                series.Points.AddXY("Volleyball", totalVolleyball);
+                assignEvent(series2, "Volleyball", volleyball);
+                lblActivityCalories.Text += "<br/>Volleyball  : " + totalVolleyball.ToString("0.00") + " calories <br/> ";
+            }
+            if (!isZero(totalTennis))
+            {
+                series.Points.AddXY("Tennis", totalTennis);
+                assignEvent(series2, "Tennis", tennis);
+                lblActivityCalories.Text += "<br/>Tennis  : " + totalTennis.ToString("0.00") + " calories <br/> ";
+            }
+            if (!isZero(totalKungfu))
+            {
+                series.Points.AddXY("Kungfu", totalKungfu);
+                assignEvent(series2, "Kungfu", kungfu);
+                lblActivityCalories.Text += "<br/>Kungfu  : " + totalKungfu.ToString("0.00") + " calories <br/> ";
+            }
+            if (!isZero(totalFootball))
+            {
+                series.Points.AddXY("Football", totalFootball);
+                assignEvent(series2, "Football", football);
+                lblActivityCalories.Text += "<br/>Football  : " + totalFootball.ToString("0.00") + " calories <br/> ";
+            }
+
+            if (!isZero(totalRopeJumping))
+            {
+                series.Points.AddXY("RopeJumping", totalRopeJumping);
+                assignEvent(series2, "RopeJumping", ropeJumpingMin);
+                lblActivityCalories.Text += "<br/>RopeJumping  : " + totalRopeJumping.ToString("0.00") + " calories <br/> ";
+            }
+            if (!isZero(totalDancing))
+            {
+                series.Points.AddXY("Dancing", totalDancing);
+                assignEvent(series2, "Dancing", dancing);
+                lblActivityCalories.Text += "<br/>Dancing  : " + totalDancing.ToString("0.00") + " calories <br/> ";
+            }
+            if (!isZero(totalGymnastics))
+            {
+                series.Points.AddXY("Gymnastics", totalGymnastics);
+                assignEvent(series2, "Gymnastics", gymnastics);
+                lblActivityCalories.Text += "<br/>Gymnastics  : " + totalGymnastics.ToString("0.00") + " calories <br/> ";
+            }
+            if (!isZero(totalCycling))
+            {
+                series.Points.AddXY("Cycling", totalCycling);
+                assignEvent(series2, "Cycling", cycling);
+                lblActivityCalories.Text += "<br/>Cycling  : " + totalCycling.ToString("0.00") + " calories <br/> ";
+            }
+
+
+
+            series.Points.AddXY("Eating", totalEating);
+            lblActivityCalories.Text += "<br/>Eating  : " + totalEating.ToString("0.00") + " calories <br/> ";
+            assignEvent(series2, "Eating", eating);
+
+            series.Points.AddXY("Studying", totalStudying);
+            lblActivityCalories.Text += "<br/>Studying  : " + totalStudying.ToString("0.00") + " calories <br/> ";
+            assignEvent(series2, "Studying", studying);
+
+            series.Points.AddXY("House Chores", totalHouseChores);
+            lblActivityCalories.Text += "<br/>House Chores  : " + totalHouseChores.ToString("0.00") + " calories <br/> ";
+            assignEvent(series2, "House Chores", houseChores);
+
             lblActivityCalories.Text += "<br/>Total : " + total.ToString("0.00") + " calories.";
             lblActivityCalories.Text += "<br/><br/> *The calories burned is computed for 45 mins of exercising. ";
+            lblEachActivity.Text += "<br/><br/> *The calories burned is computed for 45 mins of exercising. ";
+        }
+
+        private void assignEvent(Series series , String name , double met )
+        {
+            double calories;
+            calories = calculateActivityCalories(time, met, testKG);
+            series.Points.AddXY(name, calories);
+            lblEachActivity.Text += "<br/>" + name + " : " + calories.ToString("0.00") + " calories <br/> ";
+        }
+
+        private Boolean isZero(double count)
+        {
+            Boolean isZero = false;
+
+            if (count == 0) {
+                isZero = true;
+            }
+
+            return isZero;
         }
 
         private double calculateActivityCalories(double duration, double MET, double KG)
