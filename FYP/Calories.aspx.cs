@@ -22,12 +22,14 @@ namespace FYP
             con = new SqlConnection(strcon);
 
             con.Open();
-            string strUpdate = "UPDATE [User] SET Weight = @Weight WHERE Name = @Name";
+            string strUpdate = "UPDATE [User] SET Weight = @Weight, Age = @Age, Height = @Height WHERE Name = @Name";
 
             SqlCommand cmdUpdate = new SqlCommand(strUpdate, con);
 
             cmdUpdate.Parameters.AddWithValue("@Name", Session["UserName"]);
             cmdUpdate.Parameters.AddWithValue("@Weight", txtWeight.Text);
+            cmdUpdate.Parameters.AddWithValue("@Age", txtAge.Text);
+            cmdUpdate.Parameters.AddWithValue("@Height", txtHeight.Text);
 
             int n = cmdUpdate.ExecuteNonQuery();
             if (n > 0) // Use to check whether the value have been insert into the database
@@ -47,7 +49,49 @@ namespace FYP
         const double basketball = 8.0, runningMin = 13.5, runningMax =16.0, jogging = 8.0,football = 7.0,
             volleyball = 4.0, tennis = 7.0, bodybuilding = 7.0, swimmingMin = 6.0, swimmingMax =10.0,
             kungfu = 10.0,ropeJumpingMin = 10.0, ropeJumpingMax=10.0,badminton = 7.0,dancing =6.0,
-            cycling = 5.0, gymnastics = 5.0, eating = 1.7, studying = 1.5,houseChores = 5.0 ; 
+            cycling = 5.0, gymnastics = 5.0, eating = 1.7, studying = 1.5,houseChores = 5.0 ;
+
+
+
+        private double calculateBasal() {
+            double basal = 0;
+            if (gender == "Male")
+            {
+                basal = 10 * testKG + 6.25 * height - 5 * age + 5;
+            }
+            else { 
+                basal = 10 * testKG + 6.25 * height - 5 * age - 161;
+            }
+            return basal;
+        }
+
+        private void estimationResult() {
+            double basal = calculateBasal();
+            double resultCal = basal * double.Parse(ddlWork.SelectedValue);
+            lblEstimation.Text = resultCal.ToString() + " calories";
+        }
+
+        protected void ddlWork_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            double basal = calculateBasal();
+            double resultCal = basal * double.Parse(ddlWork.SelectedValue);
+            lblEstimation.Text = resultCal.ToString() + " calories";
+            if (ddlWork.Text != "Basal metabolic rate") {
+                lblWeightLostMild.Text = "Mild weight loss(0.25 kg / week) :&nbsp" + (resultCal - 250).ToString() + " calories";
+                lblWeightLostMed.Text = "Weight weight loss (0.5 kg/week) :&nbsp" + (resultCal - 500).ToString() + " calories";
+                lblWeightLostMax.Text = "Extreme weight loss (1.0 kg/week) :&nbsp" + (resultCal - 1000).ToString() + " calories";
+            }
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Calories.aspx");
+        }
+
+        protected void btnWeight_Click(object sender, EventArgs e)
+        {
+            chgInputView();
+        }
 
         protected void btnTimetable_Click(object sender, EventArgs e)
         {
@@ -65,8 +109,9 @@ namespace FYP
         }
 
         double testKG = 0;
+        double height = 0; double age = 0;
         double time = 45.0;
-
+        string gender = "";
 
         static string testData ;
 
@@ -77,7 +122,7 @@ namespace FYP
             //Session["UserID"] = "US1";
             //Session["UserName"] = "ali123";
 
-            if (Session["UserName"] != null && Session["UserID"]!= null)
+            if (Session["UserName"] != null && Session["UserID"]!= null )
             {
                 // get weight
                 SqlConnection con;
@@ -85,13 +130,13 @@ namespace FYP
                 con = new SqlConnection(strcon);
                 con.Open();
 
-                string strSelect = "SELECT Weight FROM [User] Where Name = @Name";
+                string strSelect = "SELECT Weight, Height, Age,Gender FROM [User] Where Name = @Name";
                 //specify what is the command , what is the connection string
                 SqlCommand cmdSelect = new SqlCommand(strSelect, con);
                 cmdSelect.Parameters.AddWithValue("@Name", Session["UserName"]);
                 SqlDataReader dtr = cmdSelect.ExecuteReader();
                 while (dtr.Read()) {
-                    if ((double)dtr["Weight"] == 0.0)
+                    if ((double)dtr["Weight"] == 0.0 || (double)dtr["Age"] == 0.0 || (double)dtr["Height"] == 0.0)
                     {
                         // do something
                         //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No record found')", true);
@@ -102,6 +147,9 @@ namespace FYP
                         // do something else
                         //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('data found')", true);
                         testKG = (double)dtr["Weight"];
+                        age = (double)dtr["Age"];
+                        height = (double)dtr["Height"];
+                        gender = (string)dtr["Gender"];
                     }
                 }  
                 con.Close();
@@ -120,6 +168,7 @@ namespace FYP
                 dtr = cmdSelect.ExecuteReader();
 
                 while (dtr.Read()) {
+                    
                     if ((string)dtr["Activity"] == "0")
                     {
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No record found, please go and generate a timetable.')", true);
@@ -135,9 +184,11 @@ namespace FYP
 
                 con.Close();
 
-                if (testArray != null && testKG != 0) {
+                if (testArray != null && testKG != 0 && age != 0 && height != 0) {
                     displayChart();
                     chgCaloriesView();
+                    if (!IsPostBack)
+                        estimationResult();
                 }
             }
             else {
@@ -151,6 +202,10 @@ namespace FYP
             Series series = chartCalories.Series["Series1"];
             double calories = 0;
             double maxCalories,total = 0;
+            if (IsPostBack)
+            {
+                lblActivityCalories.Text = "";
+            }
             foreach (string item in testArray)
             {
                 //basketball,badminton,swimming,jogging,running,gym
@@ -258,7 +313,7 @@ namespace FYP
         {
             double activityCalories;
 
-            activityCalories = duration * (MET * 3.5 * KG) / 200;
+            activityCalories = duration * (MET * 3.5    * KG) / 200;
 
             return activityCalories;
         }

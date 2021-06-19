@@ -25,12 +25,12 @@
             <% 
            if (Session["UserID"] == null || Session["UserID" ] == "0")
            {%>
-        <asp:HyperLink ID="linkLogIn" runat="server" NavigateUrl="~/LogIn.aspx" CssClass="logInLink">SignIn</asp:HyperLink><div class="logInLink">|</div>
-        <asp:HyperLink ID="linkRegister" runat="server" NavigateUrl="~/Register.aspx" CssClass="logInLink">Register</asp:HyperLink>
+        <asp:HyperLink ID="linkLogIn" runat="server" NavigateUrl="~/LogIn.aspx" CssClass="logInLink" ValidationGroup="none">SignIn</asp:HyperLink><div class="logInLink">|</div>
+        <asp:HyperLink ID="linkRegister" runat="server" NavigateUrl="~/Register.aspx" CssClass="logInLink" ValidationGroup="none">Register</asp:HyperLink>
             <%}
             else{%>
-                   <asp:LinkButton ID="ltnButton1" CssClass="logInLink"  runat="server" style="float:right; color:aliceblue; font-size: 16px" OnClick="ltnButton1_Click">Sign out</asp:LinkButton>
-                     <a href="Profile.aspx" class="logInLink"><asp:Label ID="CustomerUsername" runat="server" Text="Label" style="float:right; color:aliceblue;font-size:16px; margin-right:10px"></asp:Label></a> 
+                   <asp:LinkButton ID="ltnButton1" CssClass="logInLink"  runat="server" style="float:right; color:aliceblue; font-size: 16px" OnClick="ltnButton1_Click" ValidationGroup="none">Sign out</asp:LinkButton><div class="logInLink">|</div>
+                     <a href="Profile.aspx" class="logInLink"><asp:Label ID="CustomerUsername" runat="server" Text="Label" style="float:right; color:aliceblue;font-size:16px; margin-right:10px" ValidationGroup="none"></asp:Label> </a> 
                      
             <%}%>
         <asp:Menu ID="menuNav" runat="server" RenderingMode="Table" Orientation="Horizontal" CssClass="menuBar">

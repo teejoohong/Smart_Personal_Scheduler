@@ -82,6 +82,10 @@ input[type="radio"]:checked + label::after {
     display: none;
 }
 
+.navigateButton:hover {
+    background-color: darkslateblue
+}
+
 .navigateButton {
     background-color: #1c87c9;
     border: none;

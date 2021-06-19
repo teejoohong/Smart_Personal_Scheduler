@@ -34,7 +34,7 @@ namespace FYP
             {
                 while (dtr.Read())
                 {
-                    if (txtUsername.Text.Equals(dtr["Username"]))
+                    if (txtUsername.Text.Equals(dtr["Name"]))
                     {
                         duplicate = true;
                         lblDuplicate.Text = "Username existed.";
@@ -63,13 +63,14 @@ namespace FYP
                 
                 newCon.Open();
 
-                string strInsert = "INSERT INTO [User] (UserID, Name, Email, Password) VALUES (@UserID, @Name, @Email, @Password)";
+                string strInsert = "INSERT INTO [User] (UserID, Name, Email, Password,Gender) VALUES (@UserID, @Name, @Email, @Password,@Gender)";
 
                 SqlCommand cmdInsert = new SqlCommand(strInsert, newCon);
                 cmdInsert.Parameters.AddWithValue("@UserID", userID);
                 cmdInsert.Parameters.AddWithValue("@Name", txtUsername.Text.ToString());
                 cmdInsert.Parameters.AddWithValue("@Email", txtEmail.Text.ToString());
                 cmdInsert.Parameters.AddWithValue("@Password", txtPassword.Text.ToString());
+                cmdInsert.Parameters.AddWithValue("@Gender", ddlGender.Text.ToString());
                 int n = cmdInsert.ExecuteNonQuery();
 
                 if (n > 0) // Use to check whether the value have been insert into the database
