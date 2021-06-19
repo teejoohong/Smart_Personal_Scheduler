@@ -250,7 +250,8 @@ namespace FYP
                 total += calories;
                 lblActivityCalories.Text += "<br/>" + item + " : " + calories.ToString("0.00") + " calories <br/> ";
             }
-            lblActivityCalories.Text += "<br/>Total : " + total.ToString("0.00") + " calories."; 
+            lblActivityCalories.Text += "<br/>Total : " + total.ToString("0.00") + " calories.";
+            lblActivityCalories.Text += "<br/><br/> *The calories burned is computed for 45 mins of exercising. ";
         }
 
         private double calculateActivityCalories(double duration, double MET, double KG)
