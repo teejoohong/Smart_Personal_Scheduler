@@ -23,7 +23,8 @@ namespace FYP
 
         protected void ltnButton1_Click(object sender, EventArgs e)
         {
-            Session["UserID"] = "0";
+            Session["UserID"] = null;
+            Session["Username"] = null;
             Response.Redirect("LogIn.aspx");
         }
     }

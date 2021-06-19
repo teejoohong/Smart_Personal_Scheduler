@@ -119,8 +119,8 @@ namespace FYP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Session["UserID"] = "US1";
-            //Session["UserName"] = "ali123";
+            Session["UserID"] = "US1";
+            Session["UserName"] = "ali123";
 
             if (Session["UserName"] != null && Session["UserID"]!= null )
             {
@@ -166,21 +166,22 @@ namespace FYP
                 cmdSelect = new SqlCommand(strSelect, con);
                 cmdSelect.Parameters.AddWithValue("@UserID", Session["UserID"]);
                 dtr = cmdSelect.ExecuteReader();
-
-                while (dtr.Read()) {
-                    
-                    if ((string)dtr["Activity"] == "0")
+                if (dtr.HasRows)
+                {
+                    while (dtr.Read())
                     {
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No record found, please go and generate a timetable.')", true);
-                        //No record found navigate to generate timetable
-                        chgTimetableView();
-                    }
-                    else {
                         //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Record found')", true);
                         testData = (string)dtr["Activity"];
                         testArray = testData.Split(',');
                     }
                 }
+                else {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No record found, please go and generate a timetable.')", true);
+                    //No record found navigate to generate timetable
+                    if(Session["UserID"] != null)
+                        chgTimetableView();
+                }
+                
 
                 con.Close();
 

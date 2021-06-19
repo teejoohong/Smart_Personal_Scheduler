@@ -21,13 +21,27 @@
         background-color:darkslateblue
     }
 
+.caloriesSection {
+    background: #e5ebf4;
+    padding-top:60px;
+    margin: -57px -0.55% 0px -0.55%;
+    padding-bottom: 50px;
+}
+.aCalSection {
+    background: #282828;
+    padding-top: 30px;
+    margin: 0px -0.55% 0px -0.55%;
+    padding-bottom: 70px;
+    color:lightgray;
+}
+
 #resultContainer {
     width: 49.5%;
     height: 280px;
     background-color: black;
     color: white;
     margin: 0 auto 0 auto;
-    border:5px inset lightgray;
+    border: 5px inset lightgray;
 }
 
 .caloriesHeader {

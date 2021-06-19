@@ -91,41 +91,44 @@
         </asp:View>
 
         <asp:View ID="caloriesView" runat="server">
-            <h1 class="caloriesHeader">Calories</h1>
+            <div class="caloriesSection">
+                  <h1 class="caloriesHeader">Calories</h1>
             
-            <table class="caloriesTable">
-               <tr style="height:500px ; vertical-align:top ; text-align:center">
-                    <td colspan="2">
-                        <h3>Estimate your needed calories</h3>
-                        <asp:DropDownList ID="ddlWork" runat="server" CssClass="ddl" OnSelectedIndexChanged="ddlWork_SelectedIndexChanged" AutoPostBack="true" >
-                            <asp:ListItem Value="1.0">Basal metabolic rate</asp:ListItem>
-                            <asp:ListItem Value="1.1">Bed rest (Bed ridden - Unconscious)</asp:ListItem>
-                            <asp:ListItem Value="1.2">Sedentary (Little to no exercise )</asp:ListItem>
-                            <asp:ListItem Value="1.3">Light exercise (1-3 days per week)</asp:ListItem>
-                            <asp:ListItem Value="1.5">Moderate exercise (3-5 days per week)</asp:ListItem>
-                            <asp:ListItem Value="1.7">Heavy exercise (6-7 days per week)</asp:ListItem>
-                            <asp:ListItem Value="1.9">Very heavy exercise (twice per day, extra heavy workouts)</asp:ListItem>
-                            <asp:ListItem></asp:ListItem>
-                        </asp:DropDownList><br /><br />
-                        <asp:Button ID="btnWeight" runat="server" Text="Change Info" CssClass="btnInfo" Width="50%" Height="60px" OnClick="btnWeight_Click" /><br /><br />
-                        <div id="resultContainer">
-                            <h3 style="text-decoration:underline">Result</h3>
-                            <div style="text-align:left; padding-left:1%">
-                                Calories needed / day : &nbsp
-                                <asp:Label ID="lblEstimation" runat="server" CssClass="lblEstimation" Text=""></asp:Label><br /><br />
+                    <table class="caloriesTable">
+                       <tr style="height:500px ; vertical-align:top ; text-align:center">
+                            <td colspan="2">
+                                <h3>Estimate your needed calories</h3>
+                                <asp:DropDownList ID="ddlWork" runat="server" CssClass="ddl" OnSelectedIndexChanged="ddlWork_SelectedIndexChanged" AutoPostBack="true" >
+                                    <asp:ListItem Value="1.0">Basal metabolic rate</asp:ListItem>
+                                    <asp:ListItem Value="1.1">Bed rest (Bed ridden - Unconscious)</asp:ListItem>
+                                    <asp:ListItem Value="1.2">Sedentary (Little to no exercise )</asp:ListItem>
+                                    <asp:ListItem Value="1.3">Light exercise (1-3 days per week)</asp:ListItem>
+                                    <asp:ListItem Value="1.5">Moderate exercise (3-5 days per week)</asp:ListItem>
+                                    <asp:ListItem Value="1.7">Heavy exercise (6-7 days per week)</asp:ListItem>
+                                    <asp:ListItem Value="1.9">Very heavy exercise (twice per day, extra heavy workouts)</asp:ListItem>
+                                    <asp:ListItem></asp:ListItem>
+                                </asp:DropDownList><br /><br />
+                                <asp:Button ID="btnWeight" runat="server" Text="Change Info" CssClass="btnInfo" Width="50%" Height="60px" OnClick="btnWeight_Click" /><br /><br />
+                                <div id="resultContainer">
+                                    <h3 style="text-decoration:underline">Result</h3>
+                                    <div style="text-align:left; padding-left:1%">
+                                        Calories needed / day : &nbsp
+                                        <asp:Label ID="lblEstimation" runat="server" CssClass="lblEstimation" Text=""></asp:Label><br /><br />
                                 
-                                <asp:Label ID="lblWeightLostMild" runat="server" Text=""></asp:Label><br /><br />
+                                        <asp:Label ID="lblWeightLostMild" runat="server" Text=""></asp:Label><br /><br />
                                
-                                <asp:Label ID="lblWeightLostMed" runat="server" Text=""></asp:Label><br /><br />
+                                        <asp:Label ID="lblWeightLostMed" runat="server" Text=""></asp:Label><br /><br />
                                
-                                <asp:Label ID="lblWeightLostMax" runat="server" Text=""></asp:Label><br />
-                            </div>   
-                        </div>
+                                        <asp:Label ID="lblWeightLostMax" runat="server" Text=""></asp:Label><br />
+                                    </div>   
+                                </div>
                         
-                    </td>
-                </tr>
-            </table>
-            <h1 class="caloriesHeader" style="margin : 50px auto 50px auto">Allocated Event's Calories</h1>
+                            </td>
+                        </tr>
+                    </table>
+            </div>
+            <div class="aCalSection">
+                <h1 class="caloriesHeader" style="margin : 50px auto 50px auto">Allocated Event's Calories</h1>
             <table class="caloriesTable">
                 <tr>
                     <td>
@@ -153,7 +156,28 @@
                     </td>
                 </tr>
             </table>
+            </div>
+            
           
+        </asp:View>
+
+        <asp:View ID="timetableView" runat="server">
+           <table id="timetableForm" class="inputForm">
+                <tr>
+                    <th colspan="2"><h2>Calories</h2></th>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+                <tr style="text-align:center">
+                    <td colspan="2">
+                        <asp:Button ID="btnTimetable" runat="server" Text="Generate" CssClass="buttonLogin" OnClick="btnTimetable_Click"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+            </table>
         </asp:View>
 
     </asp:MultiView>
