@@ -18,11 +18,14 @@
             <tr>
                 <td>
                     <asp:DropDownList CssClass="list" ID="DropDownList1" runat="server">
-                        <asp:ListItem>None</asp:ListItem>
-                        <asp:ListItem>Basketball</asp:ListItem>
-                        <asp:ListItem>Football</asp:ListItem>
-                        <asp:ListItem>Futsal</asp:ListItem>
-                        <asp:ListItem>Jogging</asp:ListItem>
+                      <asp:ListItem>None</asp:ListItem>
+                        <asp:ListItem>basketball</asp:ListItem>
+                        <asp:ListItem>football</asp:ListItem>
+                        <asp:ListItem>futsal</asp:ListItem>
+                        <asp:ListItem>jogging</asp:ListItem>
+                        <asp:ListItem>running</asp:ListItem>
+                        <asp:ListItem>cycling</asp:ListItem>
+                        <asp:ListItem>tennis</asp:ListItem>
                     </asp:DropDownList>
                 </td>
             </tr>
@@ -32,11 +35,14 @@
             <tr>
                 <td>
                     <asp:DropDownList CssClass="list" ID="DropDownList2" runat="server">
-                        <asp:ListItem>None</asp:ListItem>
-                        <asp:ListItem>Basketball</asp:ListItem>
-                        <asp:ListItem>Football</asp:ListItem>
-                        <asp:ListItem>Futsal</asp:ListItem>
-                        <asp:ListItem>Jogging</asp:ListItem>
+                       <asp:ListItem>None</asp:ListItem>
+                        <asp:ListItem>basketball</asp:ListItem>
+                        <asp:ListItem>football</asp:ListItem>
+                        <asp:ListItem>futsal</asp:ListItem>
+                        <asp:ListItem>jogging</asp:ListItem>
+                        <asp:ListItem>running</asp:ListItem>
+                        <asp:ListItem>cycling</asp:ListItem>
+                        <asp:ListItem>tennis</asp:ListItem>
                     </asp:DropDownList>
                 </td>
             </tr>
@@ -46,11 +52,14 @@
             <tr>
                 <td>
                     <asp:DropDownList CssClass="list" ID="DropDownList3" runat="server">
-                        <asp:ListItem>None</asp:ListItem>
-                        <asp:ListItem>Basketball</asp:ListItem>
-                        <asp:ListItem>Football</asp:ListItem>
-                        <asp:ListItem>Futsal</asp:ListItem>
-                        <asp:ListItem>Jogging</asp:ListItem>
+                       <asp:ListItem>None</asp:ListItem>
+                        <asp:ListItem>basketball</asp:ListItem>
+                        <asp:ListItem>football</asp:ListItem>
+                        <asp:ListItem>futsal</asp:ListItem>
+                        <asp:ListItem>jogging</asp:ListItem>
+                        <asp:ListItem>running</asp:ListItem>
+                        <asp:ListItem>cycling</asp:ListItem>
+                        <asp:ListItem>tennis</asp:ListItem>
                     </asp:DropDownList>
                 </td>
             </tr>
@@ -63,11 +72,17 @@
             <tr>
                 <td>
                     <asp:DropDownList CssClass="list" ID="DropDownList4" runat="server">
+                        <%--dancing, cycling, gymnastic--%>
                         <asp:ListItem>None</asp:ListItem>
-                        <asp:ListItem>Badminton</asp:ListItem>
-                        <asp:ListItem>Swimming</asp:ListItem>
-                        <asp:ListItem>Ping Pong</asp:ListItem>
-                        <asp:ListItem>GYM</asp:ListItem>
+                        <asp:ListItem>badminton</asp:ListItem>
+                        <asp:ListItem>swimming</asp:ListItem>
+                        <asp:ListItem>ping pong</asp:ListItem>
+                        <asp:ListItem>gym</asp:ListItem>
+                        <asp:ListItem>gymnastic</asp:ListItem>
+                        <asp:ListItem>kungfu</asp:ListItem>
+                        <asp:ListItem>volleyball</asp:ListItem>
+                         <asp:ListItem>ropejumping</asp:ListItem>
+                        <asp:ListItem>dancing</asp:ListItem>
                     </asp:DropDownList>
                 </td>
             </tr>
@@ -78,10 +93,15 @@
                 <td>
                     <asp:DropDownList CssClass="list" ID="DropDownList5" runat="server">
                         <asp:ListItem>None</asp:ListItem>
-                        <asp:ListItem>Badminton</asp:ListItem>
-                        <asp:ListItem>Swimming</asp:ListItem>
-                        <asp:ListItem>Ping Pong</asp:ListItem>
-                        <asp:ListItem>GYM</asp:ListItem>
+                        <asp:ListItem>badminton</asp:ListItem>
+                        <asp:ListItem>swimming</asp:ListItem>
+                        <asp:ListItem>ping pong</asp:ListItem>
+                        <asp:ListItem>gym</asp:ListItem>
+                        <asp:ListItem>gymnastic</asp:ListItem>
+                        <asp:ListItem>kungfu</asp:ListItem>
+                        <asp:ListItem>volleyball</asp:ListItem>
+                         <asp:ListItem>ropejumping</asp:ListItem>
+                        <asp:ListItem>dancing</asp:ListItem>
                     </asp:DropDownList>
                 </td>
             </tr>
@@ -91,11 +111,16 @@
             <tr>
                 <td>
                     <asp:DropDownList CssClass="list" ID="DropDownList6" runat="server">
-                        <asp:ListItem>None</asp:ListItem>
-                        <asp:ListItem>Badminton</asp:ListItem>
-                        <asp:ListItem>Swimming</asp:ListItem>
-                        <asp:ListItem>Ping Pong</asp:ListItem>
-                        <asp:ListItem>GYM</asp:ListItem>
+                         <asp:ListItem>None</asp:ListItem>
+                        <asp:ListItem>badminton</asp:ListItem>
+                        <asp:ListItem>swimming</asp:ListItem>
+                        <asp:ListItem>ping pong</asp:ListItem>
+                        <asp:ListItem>gym</asp:ListItem>
+                        <asp:ListItem>gymnastic</asp:ListItem>
+                        <asp:ListItem>kungfu</asp:ListItem>
+                        <asp:ListItem>volleyball</asp:ListItem>
+                         <asp:ListItem>ropejumping</asp:ListItem>
+                        <asp:ListItem>dancing</asp:ListItem>
                     </asp:DropDownList>
                 </td>
             </tr>
