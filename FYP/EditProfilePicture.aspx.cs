@@ -8,7 +8,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
 namespace FYP
 {
     public partial class EditProfilePicture : System.Web.UI.Page

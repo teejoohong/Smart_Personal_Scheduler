@@ -1,9 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="EditProfilePicture.aspx.cs" Inherits="FYP.EditProfilePicture" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-        <link href="CSS/Profile.css" rel="stylesheet" type="text/css" />
+    <link href="CSS/Profile.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-        <table class="profileTable">
+      <table class="profileTable">
         <tr>
             <th colspan="3"><h1>Profile</h1></th>
         </tr>
