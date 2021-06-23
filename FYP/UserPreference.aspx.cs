@@ -60,7 +60,7 @@ namespace FYP
 
         protected void cancel_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("HomePage.aspx");
         }
 
         protected void save_Click(object sender, EventArgs e)

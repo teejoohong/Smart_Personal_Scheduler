@@ -26,3 +26,19 @@ td {
     padding: 10px
 }
 
+.btn {
+    padding: 2px 5px;
+    border: 0;
+    border-radius: 0.1875em;
+    background-color: #000000;
+    box-shadow: none;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+td.btnAlign{
+    text-align:center;
+}

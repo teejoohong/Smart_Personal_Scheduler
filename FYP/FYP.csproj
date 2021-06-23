@@ -73,6 +73,13 @@
   <ItemGroup>
     <Content Include="AboutUs.aspx" />
     <Content Include="BuildInPicturess\baseline_person_black_48dp.png" />
+    <Content Include="BuildInPicturess\delete.png" />
+    <Content Include="BuildInPicturess\google calendar1.png" />
+    <Content Include="BuildInPicturess\google calendar2.png" />
+    <Content Include="BuildInPicturess\google calendar3.png" />
+    <Content Include="BuildInPicturess\google calendar4.png" />
+    <Content Include="BuildInPicturess\google calendar5.png" />
+    <Content Include="BuildInPicturess\google calendar6.png" />
     <Content Include="BuildInPicturess\ywh.jpg" />
     <Content Include="CSS\AboutUs.css" />
     <Content Include="BMI.aspx" />
@@ -85,7 +92,9 @@
     <Content Include="CSS\LogIn.css" />
     <Content Include="CSS\Register.css" />
     <Content Include="CSS\TimeTableGenerator.css" />
+    <Content Include="CSS\Tutorial.css" />
     <Content Include="CSS\UserPreference.css" />
+    <Content Include="DeleteTutorial.aspx" />
     <Content Include="icons\01d.png" />
     <Content Include="icons\01n.png" />
     <Content Include="icons\02d.png" />
@@ -112,9 +121,9 @@
     <Content Include="BuildInPicturess\logo.JPG" />
     <Content Include="Profile.aspx" />
     <Content Include="Register.aspx" />
-    <Content Include="Timetable.aspx" />
     <Content Include="TimeTableGenerator.aspx" />
     <Content Include="Tutorial.aspx" />
+    <Content Include="Tutorial2.aspx" />
     <Content Include="UserPreference.aspx" />
     <Content Include="Web.config" />
     <Content Include="HomePage.aspx" />
@@ -143,6 +152,13 @@
       <DependentUpon>Calories.aspx</DependentUpon>
     </Compile>
     <Compile Include="CulturxeInfo.cs" />
+    <Compile Include="DeleteTutorial.aspx.cs">
+      <DependentUpon>DeleteTutorial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DeleteTutorial.aspx.designer.cs">
+      <DependentUpon>DeleteTutorial.aspx</DependentUpon>
+    </Compile>
     <Compile Include="InfoCenter.aspx.cs">
       <DependentUpon>InfoCenter.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -187,13 +203,6 @@
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Timetable.aspx.cs">
-      <DependentUpon>Timetable.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Timetable.aspx.designer.cs">
-      <DependentUpon>Timetable.aspx</DependentUpon>
-    </Compile>
     <Compile Include="TimeTableGenerator.aspx.cs">
       <DependentUpon>TimeTableGenerator.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -207,6 +216,13 @@
     </Compile>
     <Compile Include="Tutorial.aspx.designer.cs">
       <DependentUpon>Tutorial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tutorial2.aspx.cs">
+      <DependentUpon>Tutorial2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tutorial2.aspx.designer.cs">
+      <DependentUpon>Tutorial2.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserPreference.aspx.cs">
       <DependentUpon>UserPreference.aspx</DependentUpon>
