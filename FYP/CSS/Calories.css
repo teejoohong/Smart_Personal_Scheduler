@@ -37,7 +37,7 @@
 
 #resultContainer {
     width: 49.5%;
-    height: 280px;
+    height: 350px;
     background-color: black;
     color: white;
     margin: 0 auto 0 auto;
@@ -92,4 +92,10 @@
 .lblActivityCalories {
     padding-left:1%;
     
+}
+
+@media only screen and (min-width :1250px) {
+    #resultContainer {
+        height: 280px;
+    }
 }

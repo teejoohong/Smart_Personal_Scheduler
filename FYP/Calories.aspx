@@ -225,5 +225,5 @@
             $("#chartdiv1").css("width", window_width + "px");
         });
     </script>
-
+    <hr />
 </asp:Content>

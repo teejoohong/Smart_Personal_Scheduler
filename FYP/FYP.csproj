@@ -90,6 +90,7 @@
     <Content Include="CSS\HomePage.css" />
     <Content Include="CSS\InfoCenter.css" />
     <Content Include="CSS\LogIn.css" />
+    <Content Include="CSS\Profile.css" />
     <Content Include="CSS\Register.css" />
     <Content Include="CSS\TimeTableGenerator.css" />
     <Content Include="CSS\Tutorial.css" />
@@ -152,13 +153,6 @@
       <DependentUpon>Calories.aspx</DependentUpon>
     </Compile>
     <Compile Include="CulturxeInfo.cs" />
-    <Compile Include="DeleteTutorial.aspx.cs">
-      <DependentUpon>DeleteTutorial.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DeleteTutorial.aspx.designer.cs">
-      <DependentUpon>DeleteTutorial.aspx</DependentUpon>
-    </Compile>
     <Compile Include="InfoCenter.aspx.cs">
       <DependentUpon>InfoCenter.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -248,6 +242,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ProfilePic\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
