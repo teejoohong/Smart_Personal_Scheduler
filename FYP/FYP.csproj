@@ -155,6 +155,13 @@
       <DependentUpon>Calories.aspx</DependentUpon>
     </Compile>
     <Compile Include="CulturxeInfo.cs" />
+    <Compile Include="DeleteTutorial.aspx.cs">
+      <DependentUpon>DeleteTutorial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DeleteTutorial.aspx.designer.cs">
+      <DependentUpon>DeleteTutorial.aspx</DependentUpon>
+    </Compile>
     <Compile Include="EditProfile.aspx.cs">
       <DependentUpon>EditProfile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
