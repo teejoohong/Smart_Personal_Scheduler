@@ -1,24 +1,28 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Tutorial.aspx.cs" Inherits="FYP.Tutorial" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="DeleteTutorial.aspx.cs" Inherits="FYP.DeleteTutorial" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <link href="CSS/Tutorial.css" rel="stylesheet" type="text/css" />
+     <link href="CSS/Tutorial.css" rel="stylesheet" type="text/css" />
     <h1><u>Help Center</u></h1>
     <hr />
     <div class="content">
+        
     <table class="table1">
         <tr>
-             <td class="menu"><div class="vl">Help menu
+            
+            <td class="menu"><div class="vl">Help menu
                 </div>
             </td>
             <td>
-                <p class="font"><b><u>How to get your ics file?</u></b></p>
+                
+                <p class="font"><b><u>How to delete your imported your ics file?</u></b></p>
+                    
                 
             </td>
         </tr>
        
         <tr >
-             <td rowspan="7" class="menu">
+            <td rowspan="3" class="menu">
                 <div class="vl">
                         <a href="Tutorial.aspx">1.How to get your ics file?</a><br /><br />
                         <a href="Tutorial2.aspx">2.How to import your ics file?</a><br /><br />
@@ -31,39 +35,18 @@
             </td>
            
         </tr>
-       
         <tr>
             <td><hr /></td>
         </tr>
 
         <tr>
             <td><p>2.</p>
-                <asp:Image CssClass="imageStyle" ID="Image2" runat="server" ImageUrl="~/BuildInPicturess/google calendar2.png"/>
+                <asp:Image CssClass="imageStyle" ID="Image2" runat="server" ImageUrl="~/BuildInPicturess/delete.png"/>
                 
             </td>
         </tr>
-
-        <tr>
-            <td><hr /></td>
-        </tr>
-
-        <tr>
-            <td><p>3.</p>
-                <asp:Image CssClass="imageStyle" ID="Image3" runat="server" ImageUrl="~/BuildInPicturess/google calendar3.png"/>
-                
-            </td>
-        </tr>
-
-
-         <tr>
-            <td><br /><hr /><br /></td>
-        </tr>
-
-        <tr>
-            <td>
-                4. Extract your downloaded file and insert into the system within the timetable generation page.
-            </td>
-        </tr>
+       
+         
     </table>
         <br />
         <br />

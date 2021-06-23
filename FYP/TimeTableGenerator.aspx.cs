@@ -139,6 +139,10 @@ namespace FYP
 
                             }
                         }
+                        else
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Please inclue your ics file or unchecked the checkbox." + "');", true);
+                        }
                     }
                     else
                     {
@@ -639,11 +643,12 @@ namespace FYP
                 //0 equal to less than a week
                 if (loopTime == 0)
                 {
-                    for (int k = 0; k < Math.Ceiling(double.Parse(occupiedTime)); k++)
+                    /*for (int k = 0; k < Math.Ceiling(double.Parse(occupiedTime)); k++)
                     {
                         dayDetails[i, start + k] = "1";
 
-                    }
+                    }*/
+                    nextDateStartTemp = dateStart;
                 }
 
                 //get the maximum date until
@@ -1400,6 +1405,7 @@ namespace FYP
 
         private Stack<string[]> StudyMode(string date,ref string[,] dayDetails, int referenceDate, string[] activity)
         {
+            int breakfast = 1;
             int studyTime = 4;
             int exercise = 1;
             int houseChore = 1;
@@ -1416,11 +1422,12 @@ namespace FYP
                 else if (i == 1)
                 {
                     timeTables.Push(ScheduleTimeTable(7,8,"breakfast",date));
+                    breakfast = breakfast - 1;
                     dayDetails[referenceDate, 7] = "1";
                     
                 }
                 else if(i == 2){
-                    if(dayDetails[referenceDate, 8].Equals("0"))
+                    if(dayDetails[referenceDate, 8].Equals("0") && breakfast == 1)
                     {                     
                         timeTables.Push(ScheduleTimeTable(8, 9, "breakfast", date));
                         studyTime = studyTime - 1;
@@ -1531,7 +1538,7 @@ namespace FYP
                     if (dayDetails[referenceDate, 17].Equals("0") && exercise == 0)
                     {
                         // bath + exercise at 16-17
-                        timeTables.Push(ScheduleTimeTable(16, 17, "Bath", date));                      
+                        timeTables.Push(ScheduleTimeTable(17, 18, "Bath", date));                      
                         dayDetails[referenceDate, 17] = "1";
                     }else if(dayDetails[referenceDate, 17].Equals("0") && dayDetails[referenceDate, 18].Equals("0"))
                     {
@@ -1846,7 +1853,7 @@ namespace FYP
                         timeTables.Push(ScheduleTimeTable(14, 15, "Study", date));
                         studyTime = studyTime - 1;
                         dayDetails[referenceDate, 14] = "1";
-                    }else if(houseChore == 1 && dayDetails[referenceDate, 15].Equals("0"))
+                    }else if(houseChore == 1 && dayDetails[referenceDate, 14].Equals("0"))
                     {
                         timeTables.Push(ScheduleTimeTable(14, 15, "House Chore", date));
                         houseChore = houseChore - 1;

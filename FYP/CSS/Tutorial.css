@@ -1,0 +1,32 @@
+﻿.Content{
+    width:100%;  
+}
+
+.table1{
+    width:100%;
+    
+}
+
+.imageStyle{
+    width:100%;
+    height:400px;
+}
+
+.font{
+    font-size:30px;
+}
+
+.table1 td.menu{
+    width:15%;
+    text-align:start;
+}
+
+.vl {
+    border-right: 1px solid green;
+    height: auto;
+}
+
+td[rowspan] {
+    vertical-align: top;
+    text-align: left;
+}

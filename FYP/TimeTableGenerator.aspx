@@ -16,24 +16,28 @@
             else
             { %>
     <div>
-         <asp:Button runat="server" Text="Generate" OnClick="GenerationOfTimetable_Click" CssClass="btnGenerate"/>
         
-        <br />
-        <asp:CheckBox ID="FileUploading" runat="server" OnCheckedChanged="FileUploading_CheckedChanged" text="Click to include ics file upload" AutoPostBack="true"/>
-             <br />
-        <div id="fileUpload" runat="server" visible="false">
-            <asp:FileUpload ID="timeTableFile" runat="server" Width="279px" />
-        </div>
-            
-
+        <p><b><u>Generate your own time table now!!!</u></b></p>
         <asp:RadioButtonList ID="modeGeneration" runat="server">
             <asp:ListItem>Study Mode</asp:ListItem>
             <asp:ListItem>Training Mode</asp:ListItem>
             <asp:ListItem>Relax Mode</asp:ListItem>
         </asp:RadioButtonList>
+         <br />
+        <asp:CheckBox ID="FileUploading" runat="server" OnCheckedChanged="FileUploading_CheckedChanged" text="Click here to include your ics file" AutoPostBack="true"/>
+             <br />
+        <div id="fileUpload" runat="server" visible="false">
+            <br />
+            <asp:FileUpload ID="timeTableFile" runat="server" Width="279px"/>
+        </div>
+         <br />
+         <asp:Button runat="server" Text="Generate" OnClick="GenerationOfTimetable_Click" CssClass="btnGenerate" ID="Button2"/>
+        
+         <br />
         <br />
         
            
+        </div>
 
         <div runat="server" visible="false" id="previewTable">
             <p>Preview</p>
@@ -60,16 +64,16 @@
                 </tr>
             </table>
 
+            <br />
+
             <asp:Button ID="Button1" runat="server" Text="Download" style="" OnClick="Button1_Click" CssClass="btnDownload"/>
         </div>
-        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
         <br />
-        <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
         <asp:HiddenField ID="HiddenField1" runat="server" />
         <asp:HiddenField ID="HiddenField2" runat="server" />
        
     
-  </div>
+
     
 
   

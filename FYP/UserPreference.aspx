@@ -72,7 +72,7 @@
             <tr>
                 <td>
                     <asp:DropDownList CssClass="list" ID="DropDownList4" runat="server">
-                        <%--dancing, cycling, gymnastic--%>
+                      
                         <asp:ListItem>None</asp:ListItem>
                         <asp:ListItem>badminton</asp:ListItem>
                         <asp:ListItem>swimming</asp:ListItem>
@@ -124,9 +124,14 @@
                     </asp:DropDownList>
                 </td>
             </tr>
+            <tr>
+                <td class="btnAlign">
+                    <asp:Button ID="cancel" runat="server" Text="Cancel" OnClick="cancel_Click" CssClass="btn"/> &nbsp&nbsp&nbsp
+                     <asp:Button ID="save" runat="server" Text="Save" OnClick="save_Click" CssClass="btn"/>
+                </td>
+            </tr>
         </table>
-        <asp:Button ID="cancel" runat="server" Text="Cancel" OnClick="cancel_Click"  />
-        <asp:Button ID="save" runat="server" Text="Save" OnClick="save_Click"  />
+        
         <br />
     </div>
 </asp:Content>

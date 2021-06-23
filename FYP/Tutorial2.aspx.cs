@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace FYP
 {
-    public partial class Timetable : System.Web.UI.Page
+    public partial class Tutorial2 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -1,12 +1,11 @@
-﻿body {
-}
+﻿
 
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
 }
 
-#btnCalculate {
+.btnCalculate {
     padding: 2px 5px;
     border: 0;
     border-radius: 0.1875em;
@@ -17,5 +16,10 @@ table, th, td {
     font-weight: 500;
     white-space: nowrap;
     cursor: pointer;
+}
+
+.button {
+    width:25%;
+    padding-left:25%
 }
 

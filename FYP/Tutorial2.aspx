@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Tutorial.aspx.cs" Inherits="FYP.Tutorial" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Tutorial2.aspx.cs" Inherits="FYP.Tutorial2" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -8,17 +8,17 @@
     <div class="content">
     <table class="table1">
         <tr>
-             <td class="menu"><div class="vl">Help menu
+            <td class="menu"><div class="vl">Help menu
                 </div>
             </td>
             <td>
-                <p class="font"><b><u>How to get your ics file?</u></b></p>
+                <p class="font"><b><u>How to import your ics file?</u></b></p>
                 
             </td>
         </tr>
        
         <tr >
-             <td rowspan="7" class="menu">
+             <td rowspan="9" class="menu">
                 <div class="vl">
                         <a href="Tutorial.aspx">1.How to get your ics file?</a><br /><br />
                         <a href="Tutorial2.aspx">2.How to import your ics file?</a><br /><br />
@@ -31,14 +31,23 @@
             </td>
            
         </tr>
-       
         <tr>
             <td><hr /></td>
         </tr>
 
         <tr>
             <td><p>2.</p>
-                <asp:Image CssClass="imageStyle" ID="Image2" runat="server" ImageUrl="~/BuildInPicturess/google calendar2.png"/>
+                <asp:Image CssClass="imageStyle" ID="Image4" runat="server" ImageUrl="~/BuildInPicturess/google calendar4.png"/>
+                
+            </td>
+        </tr>
+        <tr>
+            <td><hr /></td>
+        </tr>
+
+        <tr>
+            <td><p>3.</p>
+                <asp:Image CssClass="imageStyle" ID="Image2" runat="server" ImageUrl="~/BuildInPicturess/google calendar5.png"/>
                 
             </td>
         </tr>
@@ -48,8 +57,8 @@
         </tr>
 
         <tr>
-            <td><p>3.</p>
-                <asp:Image CssClass="imageStyle" ID="Image3" runat="server" ImageUrl="~/BuildInPicturess/google calendar3.png"/>
+            <td><p>4.</p>
+                <asp:Image CssClass="imageStyle" ID="Image3" runat="server" ImageUrl="~/BuildInPicturess/google calendar6.png"/>
                 
             </td>
         </tr>
@@ -61,7 +70,7 @@
 
         <tr>
             <td>
-                4. Extract your downloaded file and insert into the system within the timetable generation page.
+                5. Finally, you can view your google calendar.
             </td>
         </tr>
     </table>
