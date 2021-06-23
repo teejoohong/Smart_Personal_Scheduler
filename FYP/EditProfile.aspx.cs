@@ -54,7 +54,7 @@ namespace FYP
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            
+
             SqlConnection con1;
             string strcon1 = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             con1 = new SqlConnection(strcon1);
@@ -64,7 +64,7 @@ namespace FYP
 
             SqlCommand cmdUpdate = new SqlCommand(strUpdate, con1);
 
-         
+
             cmdUpdate.Parameters.AddWithValue("@email", txtEmail.Text);
             cmdUpdate.Parameters.AddWithValue("@UserID", Session["UserID"]);
             ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + txtEmail.Text + "');", true);
@@ -79,8 +79,8 @@ namespace FYP
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Failed!" + "');", true);
             }
             con1.Close();
-            
-            
+
+
         }
     }
 }

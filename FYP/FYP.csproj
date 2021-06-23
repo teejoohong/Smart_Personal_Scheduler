@@ -96,6 +96,8 @@
     <Content Include="CSS\Tutorial.css" />
     <Content Include="CSS\UserPreference.css" />
     <Content Include="DeleteTutorial.aspx" />
+    <Content Include="EditProfile.aspx" />
+    <Content Include="EditProfilePicture.aspx" />
     <Content Include="icons\01d.png" />
     <Content Include="icons\01n.png" />
     <Content Include="icons\02d.png" />
@@ -159,6 +161,20 @@
     </Compile>
     <Compile Include="DeleteTutorial.aspx.designer.cs">
       <DependentUpon>DeleteTutorial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditProfile.aspx.cs">
+      <DependentUpon>EditProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditProfile.aspx.designer.cs">
+      <DependentUpon>EditProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditProfilePicture.aspx.cs">
+      <DependentUpon>EditProfilePicture.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditProfilePicture.aspx.designer.cs">
+      <DependentUpon>EditProfilePicture.aspx</DependentUpon>
     </Compile>
     <Compile Include="InfoCenter.aspx.cs">
       <DependentUpon>InfoCenter.aspx</DependentUpon>
