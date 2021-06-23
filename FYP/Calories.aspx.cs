@@ -117,8 +117,7 @@ namespace FYP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["UserID"] = "US1";
-            Session["UserName"] = "ali123";
+
 
             if (Session["UserName"] != null && Session["UserID"]!= null )
             {
@@ -192,7 +191,7 @@ namespace FYP
             }
             else {
                 //display login form
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No user login')", true);
+                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No user login')", true);
                 chgLoginView();
             }
         }

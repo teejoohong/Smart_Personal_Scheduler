@@ -19,7 +19,7 @@ namespace FYP
             con.Open();
             string strSelect = "Select * From IndoorPreference Where UserID = @UserID";
             SqlCommand cmdSelect = new SqlCommand(strSelect, con);
-            cmdSelect.Parameters.AddWithValue("@UserID", Session["User"]);
+            cmdSelect.Parameters.AddWithValue("@UserID", Session["UserID"]);
             SqlDataReader dtr = cmdSelect.ExecuteReader();
             if (dtr.HasRows)
             {
@@ -39,7 +39,7 @@ namespace FYP
             con.Open();
             string strSelect1 = "Select * From OutdoorPreference Where UserID = @UserID1";
             SqlCommand cmdSelect1 = new SqlCommand(strSelect1, con);
-            cmdSelect.Parameters.AddWithValue("@UserID1", Session["User"]);
+            cmdSelect1.Parameters.AddWithValue("@UserID1", Session["UserID"]);
             SqlDataReader dtr1 = cmdSelect1.ExecuteReader();
             if (dtr1.HasRows)
             {

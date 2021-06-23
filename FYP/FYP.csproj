@@ -83,9 +83,12 @@
     <Content Include="CSS\HomePage.css" />
     <Content Include="CSS\InfoCenter.css" />
     <Content Include="CSS\LogIn.css" />
+    <Content Include="CSS\Profile.css" />
     <Content Include="CSS\Register.css" />
     <Content Include="CSS\TimeTableGenerator.css" />
     <Content Include="CSS\UserPreference.css" />
+    <Content Include="EditProfile.aspx" />
+    <Content Include="EditProfilePicture.aspx" />
     <Content Include="icons\01d.png" />
     <Content Include="icons\01n.png" />
     <Content Include="icons\02d.png" />
@@ -143,6 +146,20 @@
       <DependentUpon>Calories.aspx</DependentUpon>
     </Compile>
     <Compile Include="CulturxeInfo.cs" />
+    <Compile Include="EditProfile.aspx.cs">
+      <DependentUpon>EditProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditProfile.aspx.designer.cs">
+      <DependentUpon>EditProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditProfilePicture.aspx.cs">
+      <DependentUpon>EditProfilePicture.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditProfilePicture.aspx.designer.cs">
+      <DependentUpon>EditProfilePicture.aspx</DependentUpon>
+    </Compile>
     <Compile Include="InfoCenter.aspx.cs">
       <DependentUpon>InfoCenter.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -232,6 +249,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ProfilePic\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
