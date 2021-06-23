@@ -224,7 +224,6 @@
                 
                 //alert(d);
                 
-
                 searchedMarker.setMap(map);
                 
 

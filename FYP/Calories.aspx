@@ -133,7 +133,7 @@
                 <tr>
                     <td>
                        <div id="chartdiv" style="overflow-x: scroll;">
-                            <asp:Chart ID="chartCalories" runat="server" CssClass="chartCalories" Width="500px" Height="500px" >
+                            <asp:Chart ID="chartCalories" runat="server" CssClass="chartCalories" Width="760px" Height="500px" >
                                 <Titles>  
                                     <asp:Title Text="Estimated Calory burn for event allocated"></asp:Title>  
                                 </Titles>  
@@ -150,11 +150,41 @@
                             </asp:Chart>
                         </div>
                     </td>
-                    <td style="vertical-align:top ; padding-top:3.5%">
-                        <asp:Label ID="lblTitle" runat="server" Text="Estimated Activity Calories <br/>" CssClass="lblTitle"></asp:Label>
-                        <asp:Label ID="lblActivityCalories" runat="server" Text="" CssClass="lblActivityCal ories"></asp:Label><br /><br />
+                    <td style="vertical-align:top ; padding-left:2% ;">
+                        <asp:Label ID="lblTitle" runat="server" Text="Total Estimated Activity Calories <br/>" CssClass="lblTitle"></asp:Label>
+                        <asp:Label ID="lblActivityCalories" runat="server" Text="" CssClass="lblActivityCalories"></asp:Label><br /><br />
                     </td>
                 </tr>
+
+                <!--Second chart -->
+                <tr style="height : 700px">
+                    <td >
+                        <div id="chartdiv1"  style="overflow-x: scroll;">
+                            <asp:Chart ID="chartEachEvent" runat="server" CssClass="chartCalories" Width="760px" Height="500px" >
+                                <Titles>  
+                                    <asp:Title Text="Estimated Calory burn for event allocated"></asp:Title>  
+                                </Titles>  
+                                <Series>
+                                    <asp:Series Name="Series1" YValueType="Int32" YValuesPerPoint="4">
+                                    </asp:Series>
+                                </Series>
+                                <ChartAreas>
+                                    <asp:ChartArea Name="ChartArea1">
+                                        <AxisX Title="Activity"></AxisX>  
+                                        <AxisY Title="Calories"></AxisY>  
+                                    </asp:ChartArea>
+                                </ChartAreas>
+                            </asp:Chart>
+                        </div>
+                      
+                    </td>
+                    <td style="vertical-align:top ; padding-top: 5.8% ;padding-left:2% ;">
+                         <asp:Label ID="Label1" runat="server" Text="Estimated Activity Calories<br/>" CssClass="lblTitle"></asp:Label>
+                        <asp:Label ID="lblEachActivity" runat="server" Text="" CssClass="lblActivityCalories"></asp:Label><br /><br />
+                        
+                    </td>
+                </tr>
+
             </table>
             </div>
             
@@ -186,13 +216,13 @@
         $(document).ready(function () {
             var window_width = $(window).width()/2;
             $("#chartdiv").css("width", window_width + "px");
-            $("#chartCalories").css("width", window_width + "px");
+            $("#chartdiv1").css("width", window_width + "px");
         });
 
         $(window).resize(function () {
             var window_width = $(window).width()/2;
             $("#chartdiv").css("width", window_width + "px");
-            $("#chartCalories").css("width", window_width + "px");
+            $("#chartdiv1").css("width", window_width + "px");
         });
     </script>
 
