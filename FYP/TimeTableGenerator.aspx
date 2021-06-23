@@ -26,7 +26,7 @@
          <br />
         <asp:CheckBox ID="FileUploading" runat="server" OnCheckedChanged="FileUploading_CheckedChanged" text="Click here to include your ics file" AutoPostBack="true"/>
              <br />
-        <div id="fileUpload" runat="server" visible="false">
+        <div id="fileUpload" runat="server" visible="false" >
             <br />
             <asp:FileUpload ID="timeTableFile" runat="server" Width="279px"/>
         </div>
