@@ -44,7 +44,13 @@ namespace FYP
             SqlDataReader dtr = cmdSelect.ExecuteReader();
             if (dtr.HasRows)
             {
-                indoorPreferece = true;
+                while (dtr.Read())
+                {
+                    //dtr["Activity_1"].ToString()
+                    if( !dtr["Activity_1"].Equals("None") && !dtr["Activity_2"].Equals("None"))
+                        indoorPreferece = true;
+                }
+                
             }
             con.Close();
 
@@ -55,7 +61,13 @@ namespace FYP
             SqlDataReader dtr1 = cmdSelect1.ExecuteReader();
             if (dtr1.HasRows)
             {
-                outdoorPreferece = true;   
+                while (dtr.Read())
+                {
+                    //dtr["Activity_1"].ToString()
+                    if (!dtr1["Activity_1"].Equals("None") && !dtr1["Activity_2"].Equals("None"))
+                        outdoorPreferece = true;
+                }
+                   
             }
             con.Close();
 
