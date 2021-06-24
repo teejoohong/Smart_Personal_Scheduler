@@ -65,86 +65,130 @@ namespace FYP
 
         protected void save_Click(object sender, EventArgs e)
         {
-            SqlConnection con;
-            string strcon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            con = new SqlConnection(strcon);
-            con.Open();
-            string strSelect = "Select * From IndoorPreference Where UserID = @UserID";
-            SqlCommand cmdSelect = new SqlCommand(strSelect, con);
-            cmdSelect.Parameters.AddWithValue("@UserID", Session["User"]);
-            SqlDataReader dtr = cmdSelect.ExecuteReader();
-            if (dtr.HasRows)
+            if (DropDownList1.SelectedValue.Equals("None") || DropDownList4.SelectedValue.Equals("None"))
             {
-                SqlConnection conn;
-                string strconn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                conn = new SqlConnection(strconn);
-                conn.Open();
-
-                string strDelete = "Delete * From IndoorPreference Where UserID = @UserID";
-                SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
-                cmdDelete.Parameters.AddWithValue("@UserID", Session["User"]);
-                int numRowAffected = cmdDelete.ExecuteNonQuery();
-                conn.Close();
-
-                conn.Open();
-                string strDelete1 = "Delete * From OutdoorPreference Where UserID = @UserID1";
-                SqlCommand cmdDelete1 = new SqlCommand(strDelete1, conn);
-                cmdDelete1.Parameters.AddWithValue("@UserID1", Session["User"]);
-                int numRowAffected1 = cmdDelete1.ExecuteNonQuery();
-                conn.Close();
-
-
-                conn.Open();
-                string strInsert = "Insert into IndoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID2)";
-                SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
-                cmdInsert.Parameters.AddWithValue("@UserID2", Session["Value"]);
-                cmdInsert.Parameters.AddWithValue("@Activity_1", DropDownList4.SelectedValue);
-                cmdInsert.Parameters.AddWithValue("@Activity_2", DropDownList5.SelectedValue);
-                cmdInsert.Parameters.AddWithValue("@Activity_3", DropDownList6.SelectedValue);
-                int numRowAffected2 = cmdInsert.ExecuteNonQuery();
-                conn.Close();
-
-
-                conn.Open();
-                string strInsert1 = "Insert into OutdoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID3)";
-                SqlCommand cmdInsert1 = new SqlCommand(strInsert1, conn);
-                cmdInsert1.Parameters.AddWithValue("@UserID3", Session["Value"]);
-                cmdInsert1.Parameters.AddWithValue("@Activity_1", DropDownList1.SelectedValue);
-                cmdInsert1.Parameters.AddWithValue("@Activity_2", DropDownList2.SelectedValue);
-                cmdInsert1.Parameters.AddWithValue("@Activity_3", DropDownList3.SelectedValue);
-                int numRowAffected3 = cmdInsert1.ExecuteNonQuery();
-                conn.Close();
-
+                if (DropDownList1.SelectedValue.Equals("None") || DropDownList4.SelectedValue.Equals("None"))
+                {
+                    Label1.Attributes.Add("style", "color:Red;");
+                    Label1.Text = "*First favourite cannot be none.";
+                    Label2.Attributes.Add("style", "color:Red;");
+                    Label2.Text = "*First favourite cannot be none.";
+                }
+                else if (DropDownList1.SelectedValue.Equals("None"))
+                {
+                    Label1.Attributes.Add("style", "color:Red;");
+                    Label1.Text = "*First favourite cannot be none.";
+                }
+                else
+                {
+                    Label2.Attributes.Add("style", "color:Red;");
+                    Label2.Text = "*First favourite cannot be none.";
+                }
+            }
+            else if (DropDownList2.SelectedValue.Equals("None") || DropDownList5.SelectedValue.Equals("None"))
+            {
+                if (DropDownList2.SelectedValue.Equals("None") || DropDownList5.SelectedValue.Equals("None"))
+                {
+                    Label3.Attributes.Add("style", "color:Red;");
+                    Label3.Text = "*Second favourite cannot be none.";
+                    Label4.Attributes.Add("style", "color:Red;");
+                    Label4.Text = "*Second favourite cannot be none.";
+                }
+                else if (DropDownList2.SelectedValue.Equals("None"))
+                {
+                    Label3.Attributes.Add("style", "color:Red;");
+                    Label3.Text = "*Second favourite cannot be none.";
+                }
+                else
+                {
+                    Label4.Attributes.Add("style", "color:Red;");
+                    Label4.Text = "*Second favourite cannot be none.";
+                }
             }
             else
             {
-                SqlConnection conn;
-                string strconn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                conn = new SqlConnection(strconn);
+                SqlConnection con;
+                string strcon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                con = new SqlConnection(strcon);
+                con.Open();
+                string strSelect = "Select * From IndoorPreference Where UserID = @UserID";
+                SqlCommand cmdSelect = new SqlCommand(strSelect, con);
+                cmdSelect.Parameters.AddWithValue("@UserID", Session["User"]);
+                SqlDataReader dtr = cmdSelect.ExecuteReader();
+                if (dtr.HasRows)
+                {
+                    SqlConnection conn;
+                    string strconn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                    conn = new SqlConnection(strconn);
+                    conn.Open();
 
-                conn.Open();
-                string strInsert = "Insert into IndoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID)";
-                SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
-                cmdInsert.Parameters.AddWithValue("@UserID", Session["Value"]);
-                cmdInsert.Parameters.AddWithValue("@Activity_1", DropDownList4.SelectedValue);
-                cmdInsert.Parameters.AddWithValue("@Activity_2", DropDownList5.SelectedValue);
-                cmdInsert.Parameters.AddWithValue("@Activity_3", DropDownList6.SelectedValue);
-                int numRowAffected = cmdInsert.ExecuteNonQuery();
-                conn.Close();
+                    string strDelete = "Delete * From IndoorPreference Where UserID = @UserID";
+                    SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
+                    cmdDelete.Parameters.AddWithValue("@UserID", Session["User"]);
+                    int numRowAffected = cmdDelete.ExecuteNonQuery();
+                    conn.Close();
+
+                    conn.Open();
+                    string strDelete1 = "Delete * From OutdoorPreference Where UserID = @UserID1";
+                    SqlCommand cmdDelete1 = new SqlCommand(strDelete1, conn);
+                    cmdDelete1.Parameters.AddWithValue("@UserID1", Session["User"]);
+                    int numRowAffected1 = cmdDelete1.ExecuteNonQuery();
+                    conn.Close();
 
 
-                conn.Open();
-                string strInsert1 = "Insert into OutdoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID1)";
-                SqlCommand cmdInsert1 = new SqlCommand(strInsert1, conn);
-                cmdInsert1.Parameters.AddWithValue("@UserID1", Session["Value"]);
-                cmdInsert1.Parameters.AddWithValue("@Activity_1", DropDownList1.SelectedValue);
-                cmdInsert1.Parameters.AddWithValue("@Activity_2", DropDownList2.SelectedValue);
-                cmdInsert1.Parameters.AddWithValue("@Activity_3", DropDownList3.SelectedValue);
-                int numRowAffected1 = cmdInsert1.ExecuteNonQuery();
-                conn.Close();
+                    conn.Open();
+                    string strInsert = "Insert into IndoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID2)";
+                    SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
+                    cmdInsert.Parameters.AddWithValue("@UserID2", Session["Value"]);
+                    cmdInsert.Parameters.AddWithValue("@Activity_1", DropDownList4.SelectedValue);
+                    cmdInsert.Parameters.AddWithValue("@Activity_2", DropDownList5.SelectedValue);
+                    cmdInsert.Parameters.AddWithValue("@Activity_3", DropDownList6.SelectedValue);
+                    int numRowAffected2 = cmdInsert.ExecuteNonQuery();
+                    conn.Close();
 
+
+                    conn.Open();
+                    string strInsert1 = "Insert into OutdoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID3)";
+                    SqlCommand cmdInsert1 = new SqlCommand(strInsert1, conn);
+                    cmdInsert1.Parameters.AddWithValue("@UserID3", Session["Value"]);
+                    cmdInsert1.Parameters.AddWithValue("@Activity_1", DropDownList1.SelectedValue);
+                    cmdInsert1.Parameters.AddWithValue("@Activity_2", DropDownList2.SelectedValue);
+                    cmdInsert1.Parameters.AddWithValue("@Activity_3", DropDownList3.SelectedValue);
+                    int numRowAffected3 = cmdInsert1.ExecuteNonQuery();
+                    conn.Close();
+
+                }
+                else
+                {
+                    SqlConnection conn;
+                    string strconn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                    conn = new SqlConnection(strconn);
+
+                    conn.Open();
+                    string strInsert = "Insert into IndoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID)";
+                    SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
+                    cmdInsert.Parameters.AddWithValue("@UserID", Session["Value"]);
+                    cmdInsert.Parameters.AddWithValue("@Activity_1", DropDownList4.SelectedValue);
+                    cmdInsert.Parameters.AddWithValue("@Activity_2", DropDownList5.SelectedValue);
+                    cmdInsert.Parameters.AddWithValue("@Activity_3", DropDownList6.SelectedValue);
+                    int numRowAffected = cmdInsert.ExecuteNonQuery();
+                    conn.Close();
+
+
+                    conn.Open();
+                    string strInsert1 = "Insert into OutdoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID1)";
+                    SqlCommand cmdInsert1 = new SqlCommand(strInsert1, conn);
+                    cmdInsert1.Parameters.AddWithValue("@UserID1", Session["Value"]);
+                    cmdInsert1.Parameters.AddWithValue("@Activity_1", DropDownList1.SelectedValue);
+                    cmdInsert1.Parameters.AddWithValue("@Activity_2", DropDownList2.SelectedValue);
+                    cmdInsert1.Parameters.AddWithValue("@Activity_3", DropDownList3.SelectedValue);
+                    int numRowAffected1 = cmdInsert1.ExecuteNonQuery();
+                    conn.Close();
+
+                }
+                con.Close();
             }
-            con.Close();
+            
             
         }
     }

@@ -3,6 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="CSS/TimeTableGenerator.css" rel="stylesheet" type="text/css" />
+    <link href="CSS/Profile.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 
 </style>
@@ -10,7 +11,30 @@
       <% if (Session["UserID"] == null)
           { %>
             <div >
-            <p>Please log in first.</p>
+            <table id="loginForm" class="inputForm">
+                <tr>
+                    <th colspan="2"><h2>Profile</h2></th>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+                <tr style="text-align:center">
+                    <td colspan="2">
+                        <asp:Button ID="btnLogin" runat="server" Text="Login" CssClass="buttonLogin" OnClick="btnLogin_Click"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+                <tr style="text-align:center">
+                    <td colspan="2">
+                        <asp:Button ID="btnRegister" runat="server" Text="Register" CssClass="buttonLogin" OnClick="btnRegister_Click" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+            </table>
             </div>
         <%}
             else

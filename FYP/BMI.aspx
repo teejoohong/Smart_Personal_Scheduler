@@ -9,7 +9,7 @@
     <table style="width: 37%;">
         <tr>
             <td >Weigth (kg)</td>
-            <td ><asp:TextBox ID="weight" runat="server"></asp:TextBox>
+            <td ><asp:TextBox ID="weight" runat="server" Width="100%"></asp:TextBox><br />
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Please insert valid number" ControlToValidate="weight" ForeColor="red" SetFocusOnError="true" ValidationExpression="((\d+)((\.\d{1,2})?))"></asp:RegularExpressionValidator>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Required" ControlToValidate="weight" ForeColor="red" SetFocusOnError="true"></asp:RequiredFieldValidator>
                 </td>
@@ -17,7 +17,8 @@
         </tr>
         <tr>
             <td>Height (cm)</td>
-            <td><asp:TextBox ID="height" runat="server"></asp:TextBox><asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="Please insert valid number" ControlToValidate="height" ForeColor="red" SetFocusOnError="true" ValidationExpression="((\d+)((\.\d{1,2})?))"></asp:RegularExpressionValidator>
+            <td><asp:TextBox ID="height" runat="server" Width="100%"></asp:TextBox><br />
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="Please insert valid number" ControlToValidate="height" ForeColor="red" SetFocusOnError="true" ValidationExpression="((\d+)((\.\d{1,2})?))"></asp:RegularExpressionValidator>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*Required" ControlToValidate="height" ForeColor="red" SetFocusOnError="true"></asp:RequiredFieldValidator>
                
 

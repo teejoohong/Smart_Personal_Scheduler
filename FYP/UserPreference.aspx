@@ -27,6 +27,7 @@
                         <asp:ListItem>cycling</asp:ListItem>
                         <asp:ListItem>tennis</asp:ListItem>
                     </asp:DropDownList>
+                    <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -44,6 +45,7 @@
                         <asp:ListItem>cycling</asp:ListItem>
                         <asp:ListItem>tennis</asp:ListItem>
                     </asp:DropDownList>
+                    <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -84,6 +86,7 @@
                          <asp:ListItem>ropejumping</asp:ListItem>
                         <asp:ListItem>dancing</asp:ListItem>
                     </asp:DropDownList>
+                    <asp:Label ID="Label2" runat="server" Text=""></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -103,6 +106,7 @@
                          <asp:ListItem>ropejumping</asp:ListItem>
                         <asp:ListItem>dancing</asp:ListItem>
                     </asp:DropDownList>
+                    <asp:Label ID="Label4" runat="server" Text=""></asp:Label>
                 </td>
             </tr>
             <tr>
