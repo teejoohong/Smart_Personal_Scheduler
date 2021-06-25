@@ -541,7 +541,7 @@
                     }
                     limitRange += 1000;
                     //console.log("Highest = " + highestBayesianRating);
-                }while(recommendedLocation == null || highestBayesianRating < 3.5)
+                }while(highestBayesianRating < 3.5 && limitRange < 10000)
 
                 /*
                 for (var i = 0; i < searchedResults.length; i++) {
@@ -564,7 +564,7 @@
                                                                     <br/><br/> Location Address : ${recommendedLocation.formatted_address}
                                                                     <br/><br/><a href="${recommendedLink}" class="navigateButton">Navigate Now</a> `);
                 } else {
-                    document.getElementById("demo").innerHTML = "No location found...";
+                    document.getElementById("demo").innerHTML = "No location found...<br/><br/>No suitable location near your area...";
                 }
 
                 showMarkers(recommendedMarker);
