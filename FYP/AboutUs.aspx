@@ -43,43 +43,32 @@
 
     <table class="aboutMeTable">
         <tr>
+            
+            <td ><h2>Tee Joo Hong<br /></h2><hr /></td>
             <td ><h2>Yong Wei Han<br /></h2><hr /></td>
-            <td ></td>
         </tr>
         <tr>
+            
+            <td><asp:Image ID="Image3" ImageUrl="~/BuildInPicturess/TJH.jpg" CssClass="aboutMePicture" runat="server" /></td>
             <td><asp:Image ID="Image2" ImageUrl="~/BuildInPicturess/ywh.jpg" CssClass="aboutMePicture" runat="server" /></td>
-            <td>&nbsp;</td>
         </tr>
         <tr>
+            
+            <td><p>Project Leader</p>
+                <p>Currently studying Bachelor Degree in Software Engineering in University Tunku Abdul Rahman.
+
+                With CGPA &gt;3.8(Xue Ba)</p></td>
             <td>
+                <p>Da gong zai</p>
                 <p>Currently studying Bachelor Degree in Software Engineering in University Tunku Abdul Rahman.
 
                 </p>
                 
             </td>
-            <td>&nbsp;</td>
+
         </tr>
 
-        <tr>
-            
-            <td ><br /><br /><h2>Tee Joo Hong<br /></h2><hr /></td>
-            <td ></td>
-        </tr>
-        <tr>
-            <td><asp:Image ID="Image3" ImageUrl="~/BuildInPicturess/TJH.jpg" CssClass="aboutMePicture" runat="server" /></td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                <p>Currently studying Bachelor Degree in Software Engineering in University Tunku Abdul Rahman.
-
-                </p>
-                <p>21 years old single ready to migle.</p>
-            </td>
-            <td>&nbsp;</td>
-        </tr>
-
-
+        
     </table>
 
     
