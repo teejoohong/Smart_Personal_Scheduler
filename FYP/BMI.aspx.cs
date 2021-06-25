@@ -24,11 +24,11 @@ namespace FYP
             double result = w / (h * h);
             Label1.Text = result.ToString("0.00");
 
-            if (result < 18)
+            if (result < 18.5)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "Popup", "swal('Underweight.You are not recommend to use training mode for your timetable.');", true);
             }
-            else if (result > 18)
+            else if (result >= 18.5 && result <25)
             {
                 
                 ClientScript.RegisterStartupScript(this.GetType(), "Popup", "swal('Nice.You have a normal BMI value.Please keep it.');", true);
