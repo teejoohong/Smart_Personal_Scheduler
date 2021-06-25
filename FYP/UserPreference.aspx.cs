@@ -113,7 +113,7 @@ namespace FYP
                 con.Open();
                 string strSelect = "Select * From IndoorPreference Where UserID = @UserID";
                 SqlCommand cmdSelect = new SqlCommand(strSelect, con);
-                cmdSelect.Parameters.AddWithValue("@UserID", Session["User"]);
+                cmdSelect.Parameters.AddWithValue("@UserID", Session["UserID"]);
                 SqlDataReader dtr = cmdSelect.ExecuteReader();
                 if (dtr.HasRows)
                 {
@@ -122,24 +122,24 @@ namespace FYP
                     conn = new SqlConnection(strconn);
                     conn.Open();
 
-                    string strDelete = "Delete * From IndoorPreference Where UserID = @UserID";
+                    string strDelete = "Delete * From IndoorPreference Where UserID = @UserID1";
                     SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
-                    cmdDelete.Parameters.AddWithValue("@UserID", Session["User"]);
+                    cmdDelete.Parameters.AddWithValue("@UserID1", Session["UserID"]);
                     int numRowAffected = cmdDelete.ExecuteNonQuery();
                     conn.Close();
 
                     conn.Open();
-                    string strDelete1 = "Delete * From OutdoorPreference Where UserID = @UserID1";
+                    string strDelete1 = "Delete * From OutdoorPreference Where UserID = @UserID2";
                     SqlCommand cmdDelete1 = new SqlCommand(strDelete1, conn);
-                    cmdDelete1.Parameters.AddWithValue("@UserID1", Session["User"]);
+                    cmdDelete1.Parameters.AddWithValue("@UserID2", Session["UserID"]);
                     int numRowAffected1 = cmdDelete1.ExecuteNonQuery();
                     conn.Close();
 
 
                     conn.Open();
-                    string strInsert = "Insert into IndoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID2)";
+                    string strInsert = "Insert into IndoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID3)";
                     SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
-                    cmdInsert.Parameters.AddWithValue("@UserID2", Session["Value"]);
+                    cmdInsert.Parameters.AddWithValue("@UserID3", Session["UserID"]);
                     cmdInsert.Parameters.AddWithValue("@Activity_1", DropDownList4.SelectedValue);
                     cmdInsert.Parameters.AddWithValue("@Activity_2", DropDownList5.SelectedValue);
                     cmdInsert.Parameters.AddWithValue("@Activity_3", DropDownList6.SelectedValue);
@@ -148,9 +148,9 @@ namespace FYP
 
 
                     conn.Open();
-                    string strInsert1 = "Insert into OutdoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID3)";
+                    string strInsert1 = "Insert into OutdoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID4)";
                     SqlCommand cmdInsert1 = new SqlCommand(strInsert1, conn);
-                    cmdInsert1.Parameters.AddWithValue("@UserID3", Session["Value"]);
+                    cmdInsert1.Parameters.AddWithValue("@UserID4", Session["UserID"]);
                     cmdInsert1.Parameters.AddWithValue("@Activity_1", DropDownList1.SelectedValue);
                     cmdInsert1.Parameters.AddWithValue("@Activity_2", DropDownList2.SelectedValue);
                     cmdInsert1.Parameters.AddWithValue("@Activity_3", DropDownList3.SelectedValue);
@@ -165,9 +165,9 @@ namespace FYP
                     conn = new SqlConnection(strconn);
 
                     conn.Open();
-                    string strInsert = "Insert into IndoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID)";
+                    string strInsert = "Insert into IndoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID5)";
                     SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
-                    cmdInsert.Parameters.AddWithValue("@UserID", Session["Value"]);
+                    cmdInsert.Parameters.AddWithValue("@UserID5", Session["UserID"]);
                     cmdInsert.Parameters.AddWithValue("@Activity_1", DropDownList4.SelectedValue);
                     cmdInsert.Parameters.AddWithValue("@Activity_2", DropDownList5.SelectedValue);
                     cmdInsert.Parameters.AddWithValue("@Activity_3", DropDownList6.SelectedValue);
@@ -176,9 +176,9 @@ namespace FYP
 
 
                     conn.Open();
-                    string strInsert1 = "Insert into OutdoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID1)";
+                    string strInsert1 = "Insert into OutdoorPreference (Activity_1, Activity_2, Activity_3, UserID) Values (@Activity_1, @Activity_2, @Activity_3, @UserID6)";
                     SqlCommand cmdInsert1 = new SqlCommand(strInsert1, conn);
-                    cmdInsert1.Parameters.AddWithValue("@UserID1", Session["Value"]);
+                    cmdInsert1.Parameters.AddWithValue("@UserID6", Session["UserID"]);
                     cmdInsert1.Parameters.AddWithValue("@Activity_1", DropDownList1.SelectedValue);
                     cmdInsert1.Parameters.AddWithValue("@Activity_2", DropDownList2.SelectedValue);
                     cmdInsert1.Parameters.AddWithValue("@Activity_3", DropDownList3.SelectedValue);

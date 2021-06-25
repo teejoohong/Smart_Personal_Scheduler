@@ -61,7 +61,7 @@ namespace FYP
             SqlDataReader dtr1 = cmdSelect1.ExecuteReader();
             if (dtr1.HasRows)
             {
-                while (dtr.Read())
+                while (dtr1.Read())
                 {
                     //dtr["Activity_1"].ToString()
                     if (!dtr1["Activity_1"].Equals("None") && !dtr1["Activity_2"].Equals("None"))

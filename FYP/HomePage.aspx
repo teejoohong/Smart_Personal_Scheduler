@@ -16,7 +16,7 @@
                 <asp:Image ID="Image2" runat="server" 
                     ImageUrl="~/BuildInPicturess/calculator.jpg"
                 AlternateText="Calculator" Width ="94%" Height="50%" /><br />
-                <asp:Button ID="btnBMI" CssClass="btnContainer" runat="server" Text="Calculate now" />
+                <asp:Button ID="btnBMI" CssClass="btnContainer" runat="server" Text="Calculate now" OnClick="btnBMI_Click" />
             </div>
             </td>
             <td>
@@ -32,7 +32,7 @@
                   <asp:Image ID="Image3" runat="server" 
                     ImageUrl="~/BuildInPicturess/calculator.jpg"
                 AlternateText="Calculator" Width ="94%" Height="70%" /><br />
-                <asp:Button ID="btnCalories" CssClass="btnContainer" runat="server" Text="Estimate now" />
+                <asp:Button ID="btnCalories" CssClass="btnContainer" runat="server" Text="Estimate now" OnClick="btnCalories_Click" />
             </div></td>
         </tr>
         <tr class="description">
