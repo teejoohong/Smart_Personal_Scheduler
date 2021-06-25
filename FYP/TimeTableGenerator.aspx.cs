@@ -71,15 +71,17 @@ namespace FYP
             }
             con.Close();
 
-            string latitude = HiddenField1.Value;
-            string longitude = HiddenField2.Value;
 
-            GetWeatherInfo(latitude, longitude);
             
             string[,] dayDetails = new string[1000, 25];
 
             if(outdoorPreferece && indoorPreferece)
             {
+                string latitude = HiddenField1.Value;
+                string longitude = HiddenField2.Value;
+
+                GetWeatherInfo(latitude, longitude);
+
                 if (modeGeneration.SelectedItem == null)
                 {
                     //javascript error message

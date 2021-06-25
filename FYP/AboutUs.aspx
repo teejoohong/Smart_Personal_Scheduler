@@ -55,10 +55,31 @@
                 <p>Currently studying Bachelor Degree in Software Engineering in University Tunku Abdul Rahman.
 
                 </p>
+                
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tr>
+            
+            <td ><br /><br /><h2>Tee Joo Hong<br /></h2><hr /></td>
+            <td ></td>
+        </tr>
+        <tr>
+            <td><asp:Image ID="Image3" ImageUrl="~/BuildInPicturess/TJH.jpg" CssClass="aboutMePicture" runat="server" /></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <p>Currently studying Bachelor Degree in Software Engineering in University Tunku Abdul Rahman.
+
+                </p>
                 <p>21 years old single ready to migle.</p>
             </td>
             <td>&nbsp;</td>
         </tr>
+
+
     </table>
 
     

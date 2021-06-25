@@ -80,6 +80,7 @@
     <Content Include="BuildInPicturess\google calendar4.png" />
     <Content Include="BuildInPicturess\google calendar5.png" />
     <Content Include="BuildInPicturess\google calendar6.png" />
+    <Content Include="BuildInPicturess\TJH.jpg" />
     <Content Include="BuildInPicturess\ywh.jpg" />
     <Content Include="CSS\AboutUs.css" />
     <Content Include="BMI.aspx" />
