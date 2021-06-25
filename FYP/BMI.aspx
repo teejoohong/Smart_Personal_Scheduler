@@ -13,6 +13,8 @@
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Please insert valid number" ControlToValidate="weight" ForeColor="red" SetFocusOnError="true" ValidationExpression="((\d+)((\.\d{1,2})?))"></asp:RegularExpressionValidator>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Required" ControlToValidate="weight" ForeColor="red" SetFocusOnError="true"></asp:RequiredFieldValidator>
                 </td>
+
+
            
         </tr>
         <tr>
@@ -34,6 +36,7 @@
             
         </tr>
     </table>
+         </div>
        
    <br />
         <%--<p id="validate1"></p>--%>
@@ -43,7 +46,7 @@
         <br />
     
         <br />
-     </div>
+    
    
     
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
