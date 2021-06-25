@@ -11,12 +11,22 @@ namespace FYP
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["User"] = null;
+            Session["UserID"] = null;
         }
 
         protected void btnTimetable_Click(object sender, EventArgs e)
         {
             Response.Redirect("TimeTableGenerator.aspx");
+        }
+
+        protected void btnBMI_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("BMI.aspx");
+        }
+
+        protected void btnCalories_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Calories.aspx");
         }
     }
 }
