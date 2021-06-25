@@ -11,7 +11,7 @@ namespace FYP
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["UserID"] = null;
+            
         }
 
         protected void btnTimetable_Click(object sender, EventArgs e)
