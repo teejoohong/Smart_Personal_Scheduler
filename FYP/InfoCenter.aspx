@@ -21,24 +21,24 @@
             <tr>
                 <td>
                     <div class="searchedResults">
-                        <div class="radio-container">
-                            <input type="radio" id="recommended" name="option" value="recommended" checked="checked" onclick ="suggestedResult()">
-                            <label for="recommended">Recommended</label>
+                        <div class="radio-container"><BR />
+                            <input type="radio"  id="recommended" name="option" value="recommended" checked="checked" onclick ="suggestedResult()">
+                            <label for="recommended">Recommended</label><BR />
 
                             <input type="radio" id="ranking" name="option" value="ranking" onclick ="suggestedResult()">
-                            <label for="ranking">Ranking</label>
+                            <label for="ranking">Ranking</label><BR />
 
                             <input type="radio" id="nearest" name="option" value="male" onclick ="suggestedResult()">
-                            <label for="nearest">Nearest</label>
+                            <label for="nearest">Nearest</label><BR />
 
                             <input type="radio" id="mostRated" name="option" value="mostRated" onclick ="suggestedResult()">
-                            <label for="mostRated">Most Rated</label>
+                            <label for="mostRated">Most Rated</label><BR />
 
                             <input type="radio" id="highestRating" name="option" value="highestRating"  onclick ="suggestedResult()">
-                            <label for="highestRating">Highest Rating</label>
+                            <label for="highestRating">Highest Rating</label><BR />
 
                             <input type="radio" id="showAll" name="option" value="showAll" onclick ="suggestedResult()">
-                            <label for="showAll">Show All</label>
+                            <label for="showAll">Show All</label><BR />
                         </div>
                     </div>
                 </td>
