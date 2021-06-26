@@ -1424,6 +1424,7 @@ namespace FYP
             int exercise = 1;
             int houseChore = 1;
             int lunch = 1, dinner = 1;
+            int bath = 1;
             Stack<string[]> timeTables = new Stack<string[]>();
 
             for (int i = 0; i < 17; i++)
@@ -1554,6 +1555,7 @@ namespace FYP
                         // bath + exercise at 16-17
                         timeTables.Push(ScheduleTimeTable(17, 18, "Bath", date));                      
                         dayDetails[referenceDate, 17] = "1";
+                        bath = bath - 1;
                     }else if(dayDetails[referenceDate, 17].Equals("0") && dayDetails[referenceDate, 18].Equals("0"))
                     {
                         // bath + exercise at 17-18
@@ -1564,9 +1566,9 @@ namespace FYP
                     }
                 }else if( i == 12)
                 {
-                    if (dayDetails[referenceDate, 18].Equals("0") && exercise == 0)
+                    if (dayDetails[referenceDate, 18].Equals("0") && bath == 1)
                     {
-                        // bath + exercise at 16-17
+                        // bath + exercise at 17-18
                         timeTables.Push(ScheduleTimeTable(18, 19, "Bath", date));
                         dayDetails[referenceDate, 18] = "1";
                     }
