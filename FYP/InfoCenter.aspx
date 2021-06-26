@@ -400,13 +400,8 @@
             var recommendedLocation; var m_allLocationAverage; var totalRatings = 0;
             var ratingList = []; var C_lowerQuartile; var limitRange = 3000; var count = 0;
             var isFirstTime = true; var highestBayesianRating; var newHighestBayesianRating;
-            var recommendedLink;
 
-            //recommended location considering three factors 
-            clearMarkers(markers);//clear all google place searched markers
-            clearMarkers(nearestMarker);
-            clearMarkers(highestRatingMarker);
-            clearMarkers(mostRatedMarker);
+
 
             /*C_lowerQuartile = Quartile(ratingList, 0.25);
 
@@ -478,7 +473,7 @@
                 clearMarkers(markers);
                 clearMarkers(mostRatedMarker);
                 clearMarkers(recommendedMarker);
-
+                clearMarkers(rankingMarker);
                 var nearestLocationLink;
 
                 //get nearest location
@@ -505,7 +500,7 @@
                 clearMarkers(nearestMarker);
                 clearMarkers(mostRatedMarker);
                 clearMarkers(recommendedMarker);
-
+                clearMarkers(rankingMarker);
                 var highestRatingLink = googleMapLink;
 
                 var highestRatingLocation = getHighestRatingLocation();
@@ -537,7 +532,7 @@
                 clearMarkers(nearestMarker);
                 clearMarkers(highestRatingMarker);
                 clearMarkers(recommendedMarker);
-
+                clearMarkers(rankingMarker);
                 var mostRatedLink = googleMapLink;
 
                 var mostRatedLocation = getMostRatedLocation();
@@ -575,6 +570,16 @@
                 var C_lowerQuartile = recommendedValue[4];
                 var bayesianRatings = [];
                 hideSlider();
+
+                clearMarkers(markers);//clear all google place searched markers
+                clearMarkers(nearestMarker);
+                clearMarkers(highestRatingMarker);
+                clearMarkers(recommendedMarker);
+                clearMarkers(mostRatedMarker);
+
+                //clear marker
+                rankingMarker.length = 0;
+                
                 var arrayCount = 0;
                  // ranking algorithms
                  //calculateBayesAverage(searchedResults[i].user_ratings_total, searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
@@ -587,7 +592,9 @@
                         if (d < limitRange) {
                             calculatedRating = calculateBayesAverage(searchedResults[i].user_ratings_total, searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
                             bayesianRatings.push([searchedResults[i].name, calculatedRating]);
-                            //console.log(bayesianRatings[arrayCount++]);
+                            //console.log(bayesianRatings[arrayCount++]);\
+                            
+                            createMarker(searchedResults[i],rankingMarker);
                         }
                     }
 
@@ -609,6 +616,13 @@
             //RECOMMENDED==================================================================================================
             }else if (document.getElementById('recommended').checked) {
                 hideSlider();
+                var recommendedLink;
+                //recommended location considering three factors 
+                clearMarkers(markers);//clear all google place searched markers
+                clearMarkers(nearestMarker);
+                clearMarkers(highestRatingMarker);
+                clearMarkers(mostRatedMarker);
+                clearMarkers(rankingMarker);
                
                 var recommendedValue= getRecommendedLocation();
 
@@ -633,13 +647,13 @@
 
                 //show all
                 hideSlider();
-                //create marker
+                //clear marker
                 clearMarkers(highestRatingMarker);
                 clearMarkers(nearestMarker);
                 clearMarkers(mostRatedMarker);
                 clearMarkers(recommendedMarker);
                 showMarkers(markers);
-               
+                clearMarkers(rankingMarker);
 
                 if (searchedResults.length != 0) {
                     document.getElementById('demo').innerHTML = (`<b>Click on the marker to see detailed informations.</b><br/><br/>
