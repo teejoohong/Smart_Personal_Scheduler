@@ -9,34 +9,24 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class ="googleMapSection">
         <h1 class="googleMapHeader">Google Map</h1><br />
+
+        <table  class="topTable">
+            <tr style="text-align:center">
+                <td colspan="2"><input id="input" type="text" style="height:75px;width:100%;"/></td>
+            </tr>
+        </table>
+
         <!--  <p id="demo"></p>  -->
         <table class="topTable">
             <tr>
-                <td><input id="input" type="text" style="height:75px;width:99%;float:left"/></td>
                 <td>
-                    <div class="main">
-                        <input id="slider" type="range" min="0" max="10000" value="5000" onclick ="suggestedResult()"/>
-                            <div id="selector">
-                                <div id="selectBtn"></div>
-                                <div id="selectValue"></div>
-                            </div>
-                        <div id="progressBar"></div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    
-   
-        <table class="table">
-            <tr>
-                <td><div id="googleMap" class="googleMapCss"></div> </td>
-                <td>
-                    <!-- Radio button -->
-                
                     <div class="searchedResults">
                         <div class="radio-container">
                             <input type="radio" id="recommended" name="option" value="recommended" checked="checked" onclick ="suggestedResult()">
                             <label for="recommended">Recommended</label>
+
+                            <input type="radio" id="ranking" name="option" value="ranking" onclick ="suggestedResult()">
+                            <label for="ranking">Ranking</label>
 
                             <input type="radio" id="nearest" name="option" value="male" onclick ="suggestedResult()">
                             <label for="nearest">Nearest</label>
@@ -50,14 +40,36 @@
                             <input type="radio" id="showAll" name="option" value="showAll" onclick ="suggestedResult()">
                             <label for="showAll">Show All</label>
                         </div>
-                                           
+                    </div>
+                </td>
+                <td>
+                    <div class="main">
+                        <input id="slider" type="range" min="0" max="10000" value="5000" onclick ="suggestedResult()"/>
+                            <div id="selector">
+                                <div id="selectBtn"></div>
+                                <div id="selectValue"></div>
+                            </div>
+                        <div id="progressBar"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table class="table" >
+            <tr>
+                <td colspan="2"><div id="googleMap" class="googleMapCss"></div></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="searchedResults">
+                                       
                         <h2>Suggested location</h2>
 
                         <p id="demo"></p>
-
                                           
                     </div>
 
+                </td>
+                <td>
                     <div class="autoCompleteResult">
                         <h2>Searched location</h2>
                         <p id="autoComplete"></p>
@@ -65,7 +77,9 @@
                     </div>
                 </td>
             </tr>
-        </table><br />
+
+        </table>
+   
     </div>
     
     <div class ="weatherSection">
@@ -152,6 +166,7 @@
         var mostRatedMarker = [];
         var nearestMarker = [];
         var recommendedMarker = [];
+        var rankingMarker = [];
         let map;
         let service;
         let infowindow;
@@ -276,13 +291,13 @@
         function hideAutoSearch() {
             var x = document.getElementsByClassName('searchedResults');
             x[0].style.display = 'none';
-          
+            x[1].style.display = 'none';
         }
 
         function showAutoSearch() {
             var x = document.getElementsByClassName('searchedResults');
             x[0].style.display = 'block';
-
+            x[1].style.display = 'block';
         }
 
         function callback(results, status) {
@@ -381,6 +396,78 @@
             return mostRatedLocation;
         }
 
+        function getRecommendedLocation(){
+            var recommendedLocation; var m_allLocationAverage; var totalRatings = 0;
+            var ratingList = []; var C_lowerQuartile; var limitRange = 3000; var count = 0;
+            var isFirstTime = true; var highestBayesianRating; var newHighestBayesianRating;
+            var recommendedLink;
+
+            //recommended location considering three factors 
+            clearMarkers(markers);//clear all google place searched markers
+            clearMarkers(nearestMarker);
+            clearMarkers(highestRatingMarker);
+            clearMarkers(mostRatedMarker);
+
+            /*C_lowerQuartile = Quartile(ratingList, 0.25);
+
+            if (C_lowerQuartile == 0) {
+           
+            }*/
+
+            //console.log(`m = ${m_allLocationAverage} and c = ${C_lowerQuartile} count= ${count} total rating = ${totalRatings}`);
+            do { // do until location found
+
+                for (var i = 0; i < searchedResults.length; i++) {
+
+                    var d = distance(LatLng, searchedResults[i].geometry.location);
+
+                    if (d < limitRange) {
+                        totalRatings += searchedResults[i].rating;
+                        ratingList.push(searchedResults[i].user_ratings_total);
+                        count++;
+                        //console.log(searchedResults[i]);
+                    }
+                }
+
+                m_allLocationAverage = totalRatings / count;
+                C_lowerQuartile = mean(ratingList);
+
+                for (var i = 0; i < searchedResults.length; i++) {
+                    var d = distance(LatLng, searchedResults[i].geometry.location);
+
+                    if (d < limitRange) {
+                        if (isFirstTime) {
+                            recommendedLocation = searchedResults[i];
+                            highestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
+                                , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
+                            console.log("first = " + highestBayesianRating);
+                            isFirstTime = false;
+                        }
+
+                        newHighestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
+                            , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
+
+                        console.log("new= " + newHighestBayesianRating);
+                        console.log(searchedResults[i].name);
+
+                        if (newHighestBayesianRating > highestBayesianRating) {
+                            highestBayesianRating = newHighestBayesianRating;
+                            recommendedLocation = searchedResults[i];
+                        }
+
+                    }
+                }
+                limitRange += 1000;
+                //console.log("Highest = " + highestBayesianRating);
+            } while (highestBayesianRating < 3.5 && limitRange < 10000)
+
+            if (recommendedLocation != null) {
+                return [recommendedLocation, highestBayesianRating, limitRange-1000, m_allLocationAverage, C_lowerQuartile];
+            } else {
+                return [null, null, null, null, null];
+            }
+        }
+
         //need to have the results
         function suggestedResult() {
 
@@ -469,91 +556,64 @@
                     createMarker(mostRatedLocation, mostRatedMarker);
                     //console.log(highestRatingLocation.user_ratings_total);
 
-                } else {
+                    
+                }else {
                     deleteMarkers(mostRatedMarker);
                     document.getElementById("demo").innerHTML = (`No location found...`);
                 }
 
                 showMarkers(mostRatedMarker);
 
-                //RECOMMENDED=======================================
-            } else if (document.getElementById('recommended').checked) {
-                hideSlider();
-                var recommendedLocation; var m_allLocationAverage; var totalRatings = 0;
-                var ratingList = []; var C_lowerQuartile;var limitRange = 2500;var count = 0;
-                var isFirstTime = true; var highestBayesianRating; var newHighestBayesianRating;
-                var recommendedLink;
-
-                //recommended location considering three factors 
-                clearMarkers(markers);//clear all google place searched markers
-                clearMarkers(nearestMarker);
-                clearMarkers(highestRatingMarker);
-                clearMarkers(mostRatedMarker);
-
-                /*C_lowerQuartile = Quartile(ratingList, 0.25);
-
-                if (C_lowerQuartile == 0) {
                
-                }*/
-
-                //console.log(`m = ${m_allLocationAverage} and c = ${C_lowerQuartile} count= ${count} total rating = ${totalRatings}`);
-                do { // do until location found
-
+                //Ranking-------------------------------------------------------------------------------------------------
+            } else if (document.getElementById('ranking').checked) {
+                var recommendedValue = getRecommendedLocation();
+                var recommendedLocation = recommendedValue[0];
+                var highestBayesianRating = recommendedValue[1];
+                var limitRange = recommendedValue[2];
+                var m_allLocationAverage = recommendedValue[3];
+                var C_lowerQuartile = recommendedValue[4];
+                var bayesianRatings = [];
+                hideSlider();
+                var arrayCount = 0;
+                 // ranking algorithms
+                 //calculateBayesAverage(searchedResults[i].user_ratings_total, searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
+                if (recommendedLocation != null) {
                     for (var i = 0; i < searchedResults.length; i++) {
+                        var calculatedRating;
 
                         var d = distance(LatLng, searchedResults[i].geometry.location);
 
                         if (d < limitRange) {
-                            totalRatings += searchedResults[i].rating;
-                            ratingList.push(searchedResults[i].user_ratings_total);
-                            count++;
-                            //console.log(searchedResults[i]);
+                            calculatedRating = calculateBayesAverage(searchedResults[i].user_ratings_total, searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
+                            bayesianRatings.push([searchedResults[i].name, calculatedRating]);
+                            //console.log(bayesianRatings[arrayCount++]);
                         }
                     }
 
-                    m_allLocationAverage = totalRatings / count;
-                    C_lowerQuartile = mean(ratingList);
-                   
-                    for (var i = 0; i < searchedResults.length; i++) {
-                        var d = distance(LatLng, searchedResults[i].geometry.location);
+                    bayesianRatings.sort(function (a, b) {
+                        return b[1] - a[1];
+                    });
 
-                        if (d < limitRange) {
-                            if (isFirstTime) {
-                                recommendedLocation = searchedResults[i];
-                                highestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
-                                    , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
-                                //console.log("first = " + highestBayesianRating);
-                                isFirstTime = false;
-                            }
+                    document.getElementById("demo").innerHTML = "";
 
-                            newHighestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
-                                , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
-
-                            //console.log("new= " + newHighestBayesianRating);
-                            //console.log(searchedResults[i]);
-
-                            if (newHighestBayesianRating > highestBayesianRating) {
-                                highestBayesianRating = newHighestBayesianRating;
-                                recommendedLocation = searchedResults[i];
-                            }
-
-                        }
-                    }
-                    limitRange += 1000;
-                    //console.log("Highest = " + highestBayesianRating);
-                }while(highestBayesianRating < 3.5 && limitRange < 10000)
-
-                /*
-                for (var i = 0; i < searchedResults.length; i++) {
-                if (C_lowerQuartile == 0) {
-                    C_lowerQuartile = 2;
+                    for (var i = 0; i < bayesianRatings.length; i++) {
+                        document.getElementById("demo").innerHTML += (`${i + 1}) ${bayesianRatings[i][0]} : ${bayesianRatings[i][1].toFixed(2)} <br/><br/>`);
+                        console.log(bayesianRatings[i]);
+                    }            
                 }
 
-                newHighestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
-                    , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
-                console.log(i + 1 + "Rating = " + newHighestBayesianRating);
-                console.log(searchedResults[i]);
-                }*/
+                showMarkers(rankingMarker);
+              
+
+            //RECOMMENDED==================================================================================================
+            }else if (document.getElementById('recommended').checked) {
+                hideSlider();
+               
+                var recommendedValue= getRecommendedLocation();
+
+                var recommendedLocation = recommendedValue[0];
+                var highestBayesianRating = recommendedValue[1];
 
                 if (recommendedLocation != null) {
                     if (recommendedMarker.length == 0) { createMarker(recommendedLocation, recommendedMarker); }
@@ -564,7 +624,7 @@
                                                                     <br/><br/> Location Address : ${recommendedLocation.formatted_address}
                                                                     <br/><br/><a href="${recommendedLink}" class="navigateButton">Navigate Now</a> `);
                 } else {
-                    document.getElementById("demo").innerHTML = "No location found...<br/><br/>No suitable location near your area...";
+                    document.getElementById("demo").innerHTML = "No suitable location near your area...";
                 }
 
                 showMarkers(recommendedMarker);
