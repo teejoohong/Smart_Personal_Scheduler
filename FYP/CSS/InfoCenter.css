@@ -1,11 +1,15 @@
-﻿table{
-    width :100%;
-}
+﻿
 
 .table td {
     width: 50%;
     height: 500px;
 }
+
+.table {
+    width:70%;
+    margin: 0 auto 0 auto;
+}
+
 .radio-container {
     font-size: 15px;
     padding: 8px;
@@ -55,9 +59,34 @@ label {
 input[type="radio"]:checked + label::after {
     background: rgba(34, 34, 34, 1);
 }
+
+/*star*/
+.results {
+    font-size: 0;
+    padding-bottom: 16px;
+}
+
+.results-content {
+    font-size: 13px;
+    display: inline-block;
+    vertical-align: top;
+    background: url('https://i.stack.imgur.com/rwkqF.png') 0 0 repeat-x;
+    width: 185px;
+    height: 35px;
+}
+
+.results .results-content span.stars span {
+    background: url('https://i.stack.imgur.com/rwkqF.png') 0 -36px repeat-x;
+    display: inline-block;
+    height: 35px;
+}
+
+
 .googleMapCss {
     width: 100%;
     height: 100%;
+    margin: 0 auto 0 auto;
+    border:5px inset lightgray;
 }
 
 .googleMapSection {
@@ -100,7 +129,8 @@ input[type="radio"]:checked + label::after {
 }
 
 .topTable {
-    width: 100%;
+    width: 70%;
+    margin: 0 auto 0 auto;
 }
 
 .topTable td{
