@@ -64,7 +64,8 @@
                                        
                         <h2>Suggested location</h2>
 
-                        <p id="demo"></p>
+                        <div id="demo">
+                        </div>
                                           
                     </div>
 
@@ -72,7 +73,7 @@
                 <td>
                     <div class="autoCompleteResult">
                         <h2>Searched location</h2>
-                        <p id="autoComplete"></p>
+                        <div id="autoComplete"></div>
                         <p>*Make sure location on device and browser is enabled to get accurate location.</p>
                     </div>
                 </td>
@@ -153,7 +154,10 @@
         $(document).ready(function () {
             // Add your function call here
             //javascript version weather
+            //star
+
             
+
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(success);
             } else {
@@ -232,7 +236,12 @@
 
                 placeLink = googleMapLink + lat + "," + long + "/" + place.geometry.location;
 
-                document.getElementById('autoComplete').innerHTML = (`${place.name} is the searched location with a rating of ${place.rating} on google. <br/><br/>
+                document.getElementById('autoComplete').innerHTML = (`${place.name} is the searched location with a rating of ${place.rating.toFixed(2)} on google. <br/><br/>
+                                                                <div class="results">
+                                                                    <div class="results-content">
+                                                                        <span class="stars">${place.rating}</span>
+                                                                    </div>
+                                                                </div><br/><br/>
                                                                 Location Address : ${place.formatted_address}<br/><br/>
                                                                 <a href="${placeLink}" class="navigateButton">Navigate Now</a>`);
                 //var d = distance(LatLng, place.geometry.location);
@@ -435,15 +444,15 @@
                             recommendedLocation = searchedResults[i];
                             highestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
                                 , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
-                            console.log("first = " + highestBayesianRating);
+                            //console.log("first = " + highestBayesianRating);
                             isFirstTime = false;
                         }
 
                         newHighestBayesianRating = calculateBayesAverage(searchedResults[i].user_ratings_total
                             , searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
 
-                        console.log("new= " + newHighestBayesianRating);
-                        console.log(searchedResults[i].name);
+                        //console.log("new= " + newHighestBayesianRating);
+                        //console.log(searchedResults[i].name);
 
                         if (newHighestBayesianRating > highestBayesianRating) {
                             highestBayesianRating = newHighestBayesianRating;
@@ -462,6 +471,8 @@
                 return [null, null, null, null, null];
             }
         }
+
+
 
         //need to have the results
         function suggestedResult() {
@@ -489,8 +500,30 @@
                     document.getElementById("demo").innerHTML = (`Location : ${nearestLocation.name} is the nearest location around you. <br/><br/>
                                                                   Distance : ${nearestDistance.toFixed(2)} meters <br/><br/>
                                                                   Rating : ${nearestLocation.rating} on google. <br/><br/>
+                                                                 <div class="results">
+                                                                    <div class="results-content">
+                                                                        <span class="stars">${nearestLocation.rating.toFixed(2)}</span>
+                                                                    </div>
+                                                                </div><br/><br/>
                                                                 Location Address : ${nearestLocation.formatted_address}<br/><br/>
                                                                 <a href="${nearestLocationLink}" class="navigateButton">Navigate Now</a>`);
+                    $.fn.stars = function () {
+                        return this.each(function () {
+                            // Get the value
+                            var val = parseFloat($(this).html());
+                            // Make sure that the value is in 0 - 5 range, multiply to get width
+                            var size = Math.max(0, (Math.min(5, val))) * 36.5;
+                            // Create stars holder
+                            var $span = $('<span> </span>').width(size);
+                            // Replace the numerical value with stars
+                            $(this).empty().append($span);
+                        });
+                    }
+
+                    $(function () {
+                        console.log("Calling stars()");
+                        $('.results-content span.stars').stars();
+                    });
                 }
 
                 //HIGHEST RATING=======================================
@@ -511,12 +544,35 @@
 
                     document.getElementById("demo").innerHTML = (`Location : ${highestRatingLocation.name} is the highest rated location in ${radius}m<br/><br/>
                                                                    Rating : ${highestRatingLocation.rating} on google. <br/><br/>
+                                                                   <div class="results">
+                                                                    <div class="results-content">
+                                                                        <span class="stars">${highestRatingLocation.rating.toFixed(2)}</span>
+                                                                    </div>
+                                                                </div><br/><br/>
                                                                 Location Address : ${highestRatingLocation.formatted_address}<br/><br/>
                                                                 <a href="${highestRatingLink}" class="navigateButton">Navigate Now</a>`);
 
                     deleteMarkers(highestRatingMarker);
                     createMarker(highestRatingLocation, highestRatingMarker);
                     //console.log(highestRatingLocation.user_ratings_total);
+
+                    $.fn.stars = function () {
+                        return this.each(function () {
+                            // Get the value
+                            var val = parseFloat($(this).html());
+                            // Make sure that the value is in 0 - 5 range, multiply to get width
+                            var size = Math.max(0, (Math.min(5, val))) * 36.5;
+                            // Create stars holder
+                            var $span = $('<span> </span>').width(size);
+                            // Replace the numerical value with stars
+                            $(this).empty().append($span);
+                        });
+                    }
+
+                    $(function () {
+                        console.log("Calling stars()");
+                        $('.results-content span.stars').stars();
+                    });
 
                 } else {
                     deleteMarkers(highestRatingMarker);
@@ -544,13 +600,34 @@
                     document.getElementById("demo").innerHTML = (`Location : ${mostRatedLocation.name} is the most rated location in ${radius}m.<br/><br/>
                                                                   Number of rating(s) : ${mostRatedLocation.user_ratings_total} ratings <br/><br/> 
                                                                     Rating : ${mostRatedLocation.rating} on google. <br/><br/>
+                                                                   <div class="results">
+                                                                    <div class="results-content">
+                                                                        <span class="stars">${mostRatedLocation.rating.toFixed(2)}</span>
+                                                                    </div>
+                                                                </div><br/><br/>
                                                                 Location Address : ${mostRatedLocation.formatted_address}<br/><br/>
                                                                 <a href="${mostRatedLink}" class="navigateButton">Navigate Now</a>`);
 
                     deleteMarkers(mostRatedMarker);
                     createMarker(mostRatedLocation, mostRatedMarker);
                     //console.log(highestRatingLocation.user_ratings_total);
+                    $.fn.stars = function () {
+                        return this.each(function () {
+                            // Get the value
+                            var val = parseFloat($(this).html());
+                            // Make sure that the value is in 0 - 5 range, multiply to get width
+                            var size = Math.max(0, (Math.min(5, val))) * 36.5;
+                            // Create stars holder
+                            var $span = $('<span> </span>').width(size);
+                            // Replace the numerical value with stars
+                            $(this).empty().append($span);
+                        });
+                    }
 
+                    $(function () {
+                        console.log("Calling stars()");
+                        $('.results-content span.stars').stars();
+                    });
                     
                 }else {
                     deleteMarkers(mostRatedMarker);
@@ -605,9 +682,31 @@
                     document.getElementById("demo").innerHTML = "";
 
                     for (var i = 0; i < bayesianRatings.length; i++) {
-                        document.getElementById("demo").innerHTML += (`${i + 1}) ${bayesianRatings[i][0]} : ${bayesianRatings[i][1].toFixed(2)} <br/><br/>`);
-                        console.log(bayesianRatings[i]);
-                    }            
+                        document.getElementById("demo").innerHTML += (`${i + 1}) ${bayesianRatings[i][0]} : ${bayesianRatings[i][1].toFixed(2)}
+                                                                 <div class="results">
+                                                                    <div class="results-content">
+                                                                        <span class="stars">${bayesianRatings[i][1].toFixed(2)}</span>
+                                                                    </div>
+                                                                </div>`);
+                        //console.log(bayesianRatings[i]);
+                    }
+                    $.fn.stars = function () {
+                        return this.each(function () {
+                            // Get the value
+                            var val = parseFloat($(this).html());
+                            // Make sure that the value is in 0 - 5 range, multiply to get width
+                            var size = Math.max(0, (Math.min(5, val))) * 36.5;
+                            // Create stars holder
+                            var $span = $('<span> </span>').width(size);
+                            // Replace the numerical value with stars
+                            $(this).empty().append($span);
+                        });
+                    }
+
+                    $(function () {
+                        console.log("Calling stars()");
+                        $('.results-content span.stars').stars();
+                    });
                 }
 
                 showMarkers(rankingMarker);
@@ -634,9 +733,32 @@
 
                     recommendedLink = googleMapLink + lat + "," + long + "/" + recommendedLocation.geometry.location;
                     document.getElementById("demo").innerHTML = (`Location: ${recommendedLocation.name}
-                                                                    <br/><br/> Bayesian Rating : ${highestBayesianRating.toFixed(2)}
+                                                                    <br/><br/>Overall Rating : ${highestBayesianRating.toFixed(2)}<br/><br/>
+                                                                <div class="results">
+                                                                    <div class="results-content">
+                                                                        <span class="stars">${highestBayesianRating.toFixed(2)}</span>
+                                                                    </div>
+                                                                </div>
                                                                     <br/><br/> Location Address : ${recommendedLocation.formatted_address}
                                                                     <br/><br/><a href="${recommendedLink}" class="navigateButton">Navigate Now</a> `);
+                    $.fn.stars = function () {
+                        return this.each(function () {
+                            // Get the value
+                            var val = parseFloat($(this).html());
+                            // Make sure that the value is in 0 - 5 range, multiply to get width
+                            var size = Math.max(0, (Math.min(5, val))) * 36.5;
+                            // Create stars holder
+                            var $span = $('<span> </span>').width(size);
+                            // Replace the numerical value with stars
+                            $(this).empty().append($span);
+                        });
+                    }
+
+                    $(function () {
+                        console.log("Calling stars()");
+                        $('.results-content span.stars').stars();
+                    });
+
                 } else {
                     document.getElementById("demo").innerHTML = "No suitable location near your area...";
                 }
@@ -810,7 +932,7 @@
                     return data;
                 })
                 .then(function (data) {
-                    console.log(data);
+                    //console.log(data);
                     weather.temperature.maxTemp = data.main.temp_max - KELVIN;
                     weather.temperature.minTemp = data.main.temp_min - KELVIN;
                     weather.humidity = data.main.humidity;
