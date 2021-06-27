@@ -13,49 +13,51 @@ namespace FYP
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            SqlConnection con;
-            string strcon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            con = new SqlConnection(strcon);
-            con.Open();
-            string strSelect = "Select * From IndoorPreference Where UserID = @UserID";
-            SqlCommand cmdSelect = new SqlCommand(strSelect, con);
-            cmdSelect.Parameters.AddWithValue("@UserID", Session["UserID"]);
-            SqlDataReader dtr = cmdSelect.ExecuteReader();
-            if (dtr.HasRows)
-            {
-                while (dtr.Read())
+            if (!IsPostBack)
+            { 
+                SqlConnection con;
+                string strcon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                con = new SqlConnection(strcon);
+                con.Open();
+                string strSelect = "Select * From IndoorPreference Where UserID = @UserID";
+                SqlCommand cmdSelect = new SqlCommand(strSelect, con);
+                cmdSelect.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                SqlDataReader dtr = cmdSelect.ExecuteReader();
+                if (dtr.HasRows)
                 {
-                    //dtr["Activity_1"].ToString()
-                    if(dtr["Activity_1"]!= null)
-                        DropDownList4.SelectedValue = dtr["Activity_1"].ToString();
-                    if (dtr["Activity_2"] != null)
-                        DropDownList5.SelectedValue = dtr["Activity_2"].ToString();
-                    if (dtr["Activity_3"] != null)
-                        DropDownList6.SelectedValue = dtr["Activity_3"].ToString();
+                    while (dtr.Read())
+                    {
+                        //dtr["Activity_1"].ToString()
+                        if (dtr["Activity_1"] != null)
+                            DropDownList4.SelectedValue = dtr["Activity_1"].ToString();
+                        if (dtr["Activity_2"] != null)
+                            DropDownList5.SelectedValue = dtr["Activity_2"].ToString();
+                        if (dtr["Activity_3"] != null)
+                            DropDownList6.SelectedValue = dtr["Activity_3"].ToString();
+                    }
                 }
-            }
-            con.Close();
+                con.Close();
 
-            con.Open();
-            string strSelect1 = "Select * From OutdoorPreference Where UserID = @UserID1";
-            SqlCommand cmdSelect1 = new SqlCommand(strSelect1, con);
-            cmdSelect1.Parameters.AddWithValue("@UserID1", Session["UserID"]);
-            SqlDataReader dtr1 = cmdSelect1.ExecuteReader();
-            if (dtr1.HasRows)
-            {
-                while (dtr1.Read())
+                con.Open();
+                string strSelect1 = "Select * From OutdoorPreference Where UserID = @UserID1";
+                SqlCommand cmdSelect1 = new SqlCommand(strSelect1, con);
+                cmdSelect1.Parameters.AddWithValue("@UserID1", Session["UserID"]);
+                SqlDataReader dtr1 = cmdSelect1.ExecuteReader();
+                if (dtr1.HasRows)
                 {
-                    //dtr["Activity_1"].ToString()
-                    if (dtr1["Activity_1"] != null)
-                        DropDownList1.SelectedValue = dtr1["Activity_1"].ToString();
-                    if (dtr1["Activity_2"] != null)
-                        DropDownList2.SelectedValue = dtr1["Activity_2"].ToString();
-                    if (dtr1["Activity_3"] != null)
-                        DropDownList3.SelectedValue = dtr1["Activity_3"].ToString();
+                    while (dtr1.Read())
+                    {
+                        //dtr["Activity_1"].ToString()
+                        if (dtr1["Activity_1"] != null)
+                            DropDownList1.SelectedValue = dtr1["Activity_1"].ToString();
+                        if (dtr1["Activity_2"] != null)
+                            DropDownList2.SelectedValue = dtr1["Activity_2"].ToString();
+                        if (dtr1["Activity_3"] != null)
+                            DropDownList3.SelectedValue = dtr1["Activity_3"].ToString();
+                    }
                 }
+                con.Close();
             }
-            con.Close();
-
         }
 
         protected void cancel_Click(object sender, EventArgs e)
@@ -67,7 +69,7 @@ namespace FYP
         {
             if (DropDownList1.SelectedValue.Equals("None") || DropDownList4.SelectedValue.Equals("None"))
             {
-                if (DropDownList1.SelectedValue.Equals("None") || DropDownList4.SelectedValue.Equals("None"))
+                if (DropDownList1.SelectedValue.Equals("None") && DropDownList4.SelectedValue.Equals("None"))
                 {
                     Label1.Attributes.Add("style", "color:Red;");
                     Label1.Text = "*First favourite cannot be none.";
@@ -87,7 +89,7 @@ namespace FYP
             }
             else if (DropDownList2.SelectedValue.Equals("None") || DropDownList5.SelectedValue.Equals("None"))
             {
-                if (DropDownList2.SelectedValue.Equals("None") || DropDownList5.SelectedValue.Equals("None"))
+                if (DropDownList2.SelectedValue.Equals("None") && DropDownList5.SelectedValue.Equals("None"))
                 {
                     Label3.Attributes.Add("style", "color:Red;");
                     Label3.Text = "*Second favourite cannot be none.";
@@ -129,7 +131,7 @@ namespace FYP
                     conn.Close();
 
                     conn.Open();
-                    string strDelete1 = "Delete * From OutdoorPreference Where UserID = @UserID2";
+                    string strDelete1 = "Delete From OutdoorPreference Where UserID = @UserID2";
                     SqlCommand cmdDelete1 = new SqlCommand(strDelete1, conn);
                     cmdDelete1.Parameters.AddWithValue("@UserID2", Session["UserID"]);
                     int numRowAffected1 = cmdDelete1.ExecuteNonQuery();
@@ -156,6 +158,8 @@ namespace FYP
                     cmdInsert1.Parameters.AddWithValue("@Activity_3", DropDownList3.SelectedValue);
                     int numRowAffected3 = cmdInsert1.ExecuteNonQuery();
                     conn.Close();
+
+                    Response.Redirect("Profile.aspx");
 
                 }
                 else
@@ -185,6 +189,8 @@ namespace FYP
                     int numRowAffected1 = cmdInsert1.ExecuteNonQuery();
                     conn.Close();
 
+
+                    Response.Redirect("Profile.aspx");
                 }
                 con.Close();
             }
