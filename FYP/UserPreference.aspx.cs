@@ -122,7 +122,7 @@ namespace FYP
                     conn = new SqlConnection(strconn);
                     conn.Open();
 
-                    string strDelete = "Delete * From IndoorPreference Where UserID = @UserID1";
+                    string strDelete = "Delete From IndoorPreference Where UserID = @UserID1";
                     SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
                     cmdDelete.Parameters.AddWithValue("@UserID1", Session["UserID"]);
                     int numRowAffected = cmdDelete.ExecuteNonQuery();

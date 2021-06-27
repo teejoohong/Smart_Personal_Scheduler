@@ -1184,20 +1184,26 @@ namespace FYP
         {
             string appId = "016a11fa3fe4510a79916761e9219c33";
             string url = string.Format("https://api.openweathermap.org/data/2.5/onecall?lat={0}&lon={1}&exclude={2}&units=metric&appid={3}", latitude, longitude, "current,minutely,hourly,alerts",appId); // lat, long
-            using (WebClient client = new WebClient())
+
+            try
             {
-                string json = client.DownloadString(url);
-
-                WeatherInfo weatherInfo = new JavaScriptSerializer().Deserialize<WeatherInfo>(json);
-                List<WeatherInfo> weatherInfos = new List<WeatherInfo>();
-                weatherInfos.Add(weatherInfo);
-
-                for(int i = 0; i<8; i++)
+                using (WebClient client = new WebClient())
                 {
-                    weatherWeeklyForecast[i]= weatherInfo.daily[i].weather[0].main;
-                }   
+                    string json = client.DownloadString(url);
+
+                    WeatherInfo weatherInfo = new JavaScriptSerializer().Deserialize<WeatherInfo>(json);
+                    List<WeatherInfo> weatherInfos = new List<WeatherInfo>();
+                    weatherInfos.Add(weatherInfo);
+
+                    for (int i = 0; i < 8; i++)
+                    {
+                        weatherWeeklyForecast[i] = weatherInfo.daily[i].weather[0].main;
+                    }
+                }
+            }catch(Exception ex)
+            {
+
             }
-           
         }
 
         protected string[] preview(Stack<Stack<string[]>> timeTablesWeekly)
@@ -1510,7 +1516,7 @@ namespace FYP
                 {
                     if (dayDetails[referenceDate, 14].Equals("0")&& houseChore == 1)
                     {
-                        timeTables.Push(ScheduleTimeTable(13, 14, "House Chore", date));
+                        timeTables.Push(ScheduleTimeTable(14, 15, "House Chore", date));
                         houseChore = houseChore - 1;
                         dayDetails[referenceDate, 14] = "1";
                     }
