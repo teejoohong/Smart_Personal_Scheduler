@@ -60,6 +60,14 @@
             </tr>
             <tr>
                 <td>
+                    <div class="autoCompleteResult">
+                        <h2>Searched location</h2>
+                        <div id="autoComplete"></div>
+                        <p>*Make sure location on device and browser is enabled to get accurate location.</p>
+                    </div>
+
+                </td>
+                <td>
                     <div class="searchedResults">
                                        
                         <h2>Suggested location</h2>
@@ -67,14 +75,6 @@
                         <div id="demo">
                         </div>
                                           
-                    </div>
-
-                </td>
-                <td>
-                    <div class="autoCompleteResult">
-                        <h2>Searched location</h2>
-                        <div id="autoComplete"></div>
-                        <p>*Make sure location on device and browser is enabled to get accurate location.</p>
                     </div>
                 </td>
             </tr>
@@ -155,8 +155,6 @@
             // Add your function call here
             //javascript version weather
             //star
-
-            
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(success);
@@ -245,27 +243,15 @@
                                                                 Location Address : ${place.formatted_address}<br/><br/>
                                                                 <a href="${placeLink}" class="navigateButton">Navigate Now</a>`);
                 //var d = distance(LatLng, place.geometry.location);
-                $.fn.stars = function () {
-                    return this.each(function () {
-                        // Get the value
-                        var val = parseFloat($(this).html());
-                        // Make sure that the value is in 0 - 5 range, multiply to get width
-                        var size = Math.max(0, (Math.min(5, val))) * 36.5;
-                        // Create stars holder
-                        var $span = $('<span> </span>').width(size);
-                        // Replace the numerical value with stars
-                        $(this).empty().append($span);
-                    });
-                }
+                //alert(d);
+                
+                searchedMarker.setMap(map);
 
                 $(function () {
                     console.log("Calling stars()");
                     $('.results-content span.stars').stars();
+
                 });
-                //alert(d);
-                
-                searchedMarker.setMap(map);
-                
 
                 var getDestinationInfoWindow = new google.maps.InfoWindow({
 
@@ -334,6 +320,7 @@
                 }
                 searchedResults = results;//save the result for further use
                 suggestedResult(); //create marker and write result
+                
             } 
         }
 
@@ -488,6 +475,19 @@
             }
         }
 
+        // star function
+        $.fn.stars = function () {
+            return this.each(function () {
+                // Get the value
+                var val = parseFloat($(this).html());
+                // Make sure that the value is in 0 - 5 range, multiply to get width
+                var size = Math.max(0, (Math.min(5, val))) * 36.5;
+                // Create stars holder
+                var $span = $('<span> </span>').width(size);
+                // Replace the numerical value with stars
+                $(this).empty().append($span);
+            });
+        }
 
 
         //need to have the results
@@ -523,18 +523,7 @@
                                                                 </div><br/><br/>
                                                                 Location Address : ${nearestLocation.formatted_address}<br/><br/>
                                                                 <a href="${nearestLocationLink}" class="navigateButton">Navigate Now</a>`);
-                    $.fn.stars = function () {
-                        return this.each(function () {
-                            // Get the value
-                            var val = parseFloat($(this).html());
-                            // Make sure that the value is in 0 - 5 range, multiply to get width
-                            var size = Math.max(0, (Math.min(5, val))) * 36.5;
-                            // Create stars holder
-                            var $span = $('<span> </span>').width(size);
-                            // Replace the numerical value with stars
-                            $(this).empty().append($span);
-                        });
-                    }
+                    
 
                     $(function () {
                         console.log("Calling stars()");
@@ -572,19 +561,7 @@
                     createMarker(highestRatingLocation, highestRatingMarker);
                     //console.log(highestRatingLocation.user_ratings_total);
 
-                    $.fn.stars = function () {
-                        return this.each(function () {
-                            // Get the value
-                            var val = parseFloat($(this).html());
-                            // Make sure that the value is in 0 - 5 range, multiply to get width
-                            var size = Math.max(0, (Math.min(5, val))) * 36.5;
-                            // Create stars holder
-                            var $span = $('<span> </span>').width(size);
-                            // Replace the numerical value with stars
-                            $(this).empty().append($span);
-                        });
-                    }
-
+                   
                     $(function () {
                         console.log("Calling stars()");
                         $('.results-content span.stars').stars();
@@ -627,18 +604,6 @@
                     deleteMarkers(mostRatedMarker);
                     createMarker(mostRatedLocation, mostRatedMarker);
                     //console.log(highestRatingLocation.user_ratings_total);
-                    $.fn.stars = function () {
-                        return this.each(function () {
-                            // Get the value
-                            var val = parseFloat($(this).html());
-                            // Make sure that the value is in 0 - 5 range, multiply to get width
-                            var size = Math.max(0, (Math.min(5, val))) * 36.5;
-                            // Create stars holder
-                            var $span = $('<span> </span>').width(size);
-                            // Replace the numerical value with stars
-                            $(this).empty().append($span);
-                        });
-                    }
 
                     $(function () {
                         console.log("Calling stars()");
@@ -684,7 +649,7 @@
 
                         if (d < limitRange) {
                             calculatedRating = calculateBayesAverage(searchedResults[i].user_ratings_total, searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
-                            bayesianRatings.push([searchedResults[i].name, calculatedRating]);
+                            bayesianRatings.push([searchedResults[i], calculatedRating]);
                             //console.log(bayesianRatings[arrayCount++]);\
                             
                             createMarker(searchedResults[i],rankingMarker);
@@ -698,27 +663,18 @@
                     document.getElementById("demo").innerHTML = "";
 
                     for (var i = 0; i < bayesianRatings.length; i++) {
-                        document.getElementById("demo").innerHTML += (`${i + 1}) ${bayesianRatings[i][0]} : ${bayesianRatings[i][1].toFixed(2)}
+                        var rankingLink = googleMapLink + lat + "," + long + "/" + bayesianRatings[i][0].geometry.location;
+                        document.getElementById("demo").innerHTML += (`${i + 1}) ${bayesianRatings[i][0].name} : ${bayesianRatings[i][1].toFixed(2)} 
+                                                                    
                                                                  <div class="results">
                                                                     <div class="results-content">
                                                                         <span class="stars">${bayesianRatings[i][1].toFixed(2)}</span>
                                                                     </div>
-                                                                </div>`);
+                                                                </div>
+                                                                    <a href="${rankingLink}" class="navigateButton" style="height:15px ; font-size : 13px">Navigate Now</a><br/><br/>`);
                         //console.log(bayesianRatings[i]);
                     }
-                    $.fn.stars = function () {
-                        return this.each(function () {
-                            // Get the value
-                            var val = parseFloat($(this).html());
-                            // Make sure that the value is in 0 - 5 range, multiply to get width
-                            var size = Math.max(0, (Math.min(5, val))) * 36.5;
-                            // Create stars holder
-                            var $span = $('<span> </span>').width(size);
-                            // Replace the numerical value with stars
-                            $(this).empty().append($span);
-                        });
-                    }
-
+                    
                     $(function () {
                         console.log("Calling stars()");
                         $('.results-content span.stars').stars();
@@ -757,19 +713,7 @@
                                                                 </div>
                                                                     <br/><br/> Location Address : ${recommendedLocation.formatted_address}
                                                                     <br/><br/><a href="${recommendedLink}" class="navigateButton">Navigate Now</a> `);
-                    $.fn.stars = function () {
-                        return this.each(function () {
-                            // Get the value
-                            var val = parseFloat($(this).html());
-                            // Make sure that the value is in 0 - 5 range, multiply to get width
-                            var size = Math.max(0, (Math.min(5, val))) * 36.5;
-                            // Create stars holder
-                            var $span = $('<span> </span>').width(size);
-                            // Replace the numerical value with stars
-                            $(this).empty().append($span);
-                        });
-                    }
-
+                    
                     $(function () {
                         console.log("Calling stars()");
                         $('.results-content span.stars').stars();
