@@ -651,8 +651,8 @@
                             calculatedRating = calculateBayesAverage(searchedResults[i].user_ratings_total, searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
                             bayesianRatings.push([searchedResults[i], calculatedRating]);
                             //console.log(bayesianRatings[arrayCount++]);\
-                            
-                            createMarker(searchedResults[i],rankingMarker);
+
+                            createMarker(searchedResults[i], rankingMarker);
                         }
                     }
 
@@ -674,11 +674,13 @@
                                                                     <a href="${rankingLink}" class="navigateButton" style="height:15px ; font-size : 13px">Navigate Now</a><br/><br/>`);
                         //console.log(bayesianRatings[i]);
                     }
-                    
+
                     $(function () {
                         console.log("Calling stars()");
                         $('.results-content span.stars').stars();
                     });
+                } else {
+                    document.getElementById("demo").innerHTML = "No suitable location near your area...";
                 }
 
                 showMarkers(rankingMarker);
