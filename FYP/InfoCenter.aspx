@@ -153,8 +153,6 @@
         //document.getElementById("demo").innerHTML = 5 + 6;
         $(document).ready(function () {
             // Add your function call here
-            //javascript version weather
-            //star
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(success);
@@ -236,8 +234,8 @@
 
                 document.getElementById('autoComplete').innerHTML = (`${place.name} is the searched location with a rating of ${place.rating.toFixed(2)} on google. <br/><br/>
                                                                 <div class="results">
-                                                                    <div class="results-content">
-                                                                        <span class="stars">${place.rating}</span>
+                                                                    <div class="results-contentA">
+                                                                        <span class="starsA">${place.rating}</span>
                                                                     </div>
                                                                 </div><br/><br/>
                                                                 Location Address : ${place.formatted_address}<br/><br/>
@@ -249,7 +247,7 @@
 
                 $(function () {
                     console.log("Calling stars()");
-                    $('.results-content span.stars').stars();
+                    $('.results-contentA span.starsA').stars();
 
                 });
 
@@ -477,7 +475,6 @@
 
         // star function
         $.fn.stars = function () {
-            return this.each(function () {
                 // Get the value
                 var val = parseFloat($(this).html());
                 // Make sure that the value is in 0 - 5 range, multiply to get width
@@ -486,7 +483,6 @@
                 var $span = $('<span> </span>').width(size);
                 // Replace the numerical value with stars
                 $(this).empty().append($span);
-            });
         }
 
 
@@ -525,10 +521,6 @@
                                                                 <a href="${nearestLocationLink}" class="navigateButton">Navigate Now</a>`);
                     
 
-                    $(function () {
-                        console.log("Calling stars()");
-                        $('.results-content span.stars').stars();
-                    });
                 }
 
                 //HIGHEST RATING=======================================
@@ -560,12 +552,6 @@
                     deleteMarkers(highestRatingMarker);
                     createMarker(highestRatingLocation, highestRatingMarker);
                     //console.log(highestRatingLocation.user_ratings_total);
-
-                   
-                    $(function () {
-                        console.log("Calling stars()");
-                        $('.results-content span.stars').stars();
-                    });
 
                 } else {
                     deleteMarkers(highestRatingMarker);
@@ -605,11 +591,7 @@
                     createMarker(mostRatedLocation, mostRatedMarker);
                     //console.log(highestRatingLocation.user_ratings_total);
 
-                    $(function () {
-                        console.log("Calling stars()");
-                        $('.results-content span.stars').stars();
-                    });
-                    
+                 
                 }else {
                     deleteMarkers(mostRatedMarker);
                     document.getElementById("demo").innerHTML = (`No location found...`);
@@ -675,10 +657,6 @@
                         //console.log(bayesianRatings[i]);
                     }
 
-                    $(function () {
-                        console.log("Calling stars()");
-                        $('.results-content span.stars').stars();
-                    });
                 } else {
                     document.getElementById("demo").innerHTML = "No suitable location near your area...";
                 }
@@ -715,11 +693,6 @@
                                                                 </div>
                                                                     <br/><br/> Location Address : ${recommendedLocation.formatted_address}
                                                                     <br/><br/><a href="${recommendedLink}" class="navigateButton">Navigate Now</a> `);
-                    
-                    $(function () {
-                        console.log("Calling stars()");
-                        $('.results-content span.stars').stars();
-                    });
 
                 } else {
                     document.getElementById("demo").innerHTML = "No suitable location near your area...";
@@ -747,7 +720,10 @@
                                                                Have a nice day~~~`);
                 }
             }
-
+            $(function () {
+                console.log("Calling stars()");
+                $('.results-content span.stars').stars();
+            });
         }
                                         //user_rating_total      //rating
         function calculateBayesAverage(product_ratings_count, product_ratings_average, m_allLocationAverage, C_lowerQuartile) {
