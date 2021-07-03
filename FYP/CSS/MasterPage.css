@@ -17,18 +17,19 @@
     padding-top:150px
 }
 
-.logInLink{
-    float :right;
-    color:white;
-    padding-top:10px;
-    padding-right:15px;
-    text-decoration:none;
+.logInLink {
+    float: right;
+    color: white;
+    padding-top: 10px;
+    padding-right: 15px;
+    text-decoration: none;
+
 }
 
 
 
 body {
-    font-family :Arial;
+    font-family :'Comic Sans MS';
     line-height: 1.4;
 }
 
@@ -51,7 +52,6 @@ body {
 
 .menuBar {
     display: none;
-
 }
 
 img{
@@ -68,13 +68,13 @@ img{
 
 .menuWrap{
     position: fixed;
-    top : 23px;
+    top : 25px;
     right:0;
 }
 
 .menuWrap .toggler{
     position :absolute;
-    top :0;
+    top :10px;
     right:0;
     cursor: pointer;
     width : 50px;

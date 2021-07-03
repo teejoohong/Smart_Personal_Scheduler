@@ -10,16 +10,27 @@
     <div class ="googleMapSection">
         <h1 class="googleMapHeader">Google Map</h1><br />
 
+
+
+
         <table  class="topTable">
             <tr style="text-align:center">
                 <td colspan="2"><input id="input" type="text" style="height:75px;width:100%;"/></td>
             </tr>
         </table>
 
-        <!--  <p id="demo"></p>  -->
-        <table class="topTable">
+        <table style="width: 70%;  height:300px;  margin: 50px auto 0 auto;">
             <tr>
-                <td>
+                <td style="width:70%;padding-right:25px">  <div id="googleMap" class="googleMapCss"></div></td>
+                <td style="width:30%">
+                    <div class="main">
+                        <input id="slider" type="range" min="0" max="10000" value="5000" onclick ="suggestedResult()"/>
+                            <div id="selector">
+                                <div id="selectBtn"></div>
+                                <div id="selectValue"></div>
+                            </div>
+                        <div id="progressBar"></div>
+                    </div>
                     <div class="searchedResults">
                         <div class="radio-container"><BR />
                             <input type="radio"  id="recommended" name="option" value="recommended" checked="checked" onclick ="suggestedResult()">
@@ -42,24 +53,15 @@
                         </div>
                     </div>
                 </td>
-                <td>
-                    <div class="main">
-                        <input id="slider" type="range" min="0" max="10000" value="5000" onclick ="suggestedResult()"/>
-                            <div id="selector">
-                                <div id="selectBtn"></div>
-                                <div id="selectValue"></div>
-                            </div>
-                        <div id="progressBar"></div>
-                    </div>
-                </td>
+                
             </tr>
+
         </table>
-        <table class="table" >
+
+        <table class="table" style="margin-top:20px" >
+            
             <tr>
-                <td colspan="2"><div id="googleMap" class="googleMapCss"></div></td>
-            </tr>
-            <tr>
-                <td>
+                <td style="width:35%">
                     <div class="autoCompleteResult">
                         <h2>Searched location</h2>
                         <div id="autoComplete"></div>
@@ -68,7 +70,7 @@
 
                 </td>
                 <td>
-                    <div class="searchedResults">
+                    <div class="searchedResults" style="padding-left:25px">
                                        
                         <h2>Suggested location</h2>
 
@@ -79,7 +81,7 @@
                 </td>
             </tr>
 
-        </table>
+        </table><br />
    
     </div>
     
@@ -237,7 +239,7 @@
                                                                     <div class="results-contentA">
                                                                         <span class="starsA">${place.rating}</span>
                                                                     </div>
-                                                                </div><br/><br/>
+                                                                </div>
                                                                 Location Address : ${place.formatted_address}<br/><br/>
                                                                 <a href="${placeLink}" class="navigateButton">Navigate Now</a>`);
                 //var d = distance(LatLng, place.geometry.location);
@@ -516,7 +518,7 @@
                                                                     <div class="results-content">
                                                                         <span class="stars">${nearestLocation.rating.toFixed(2)}</span>
                                                                     </div>
-                                                                </div><br/><br/>
+                                                                </div>
                                                                 Location Address : ${nearestLocation.formatted_address}<br/><br/>
                                                                 <a href="${nearestLocationLink}" class="navigateButton">Navigate Now</a>`);
                     
@@ -545,7 +547,7 @@
                                                                     <div class="results-content">
                                                                         <span class="stars">${highestRatingLocation.rating.toFixed(2)}</span>
                                                                     </div>
-                                                                </div><br/><br/>
+                                                                </div>
                                                                 Location Address : ${highestRatingLocation.formatted_address}<br/><br/>
                                                                 <a href="${highestRatingLink}" class="navigateButton">Navigate Now</a>`);
 
@@ -583,7 +585,7 @@
                                                                     <div class="results-content">
                                                                         <span class="stars">${mostRatedLocation.rating.toFixed(2)}</span>
                                                                     </div>
-                                                                </div><br/><br/>
+                                                                </div>
                                                                 Location Address : ${mostRatedLocation.formatted_address}<br/><br/>
                                                                 <a href="${mostRatedLink}" class="navigateButton">Navigate Now</a>`);
 
@@ -647,7 +649,7 @@
                     for (var i = 0; i < bayesianRatings.length; i++) {
                         var rankingLink = googleMapLink + lat + "," + long + "/" + bayesianRatings[i][0].geometry.location;
                         document.getElementById("demo").innerHTML += (`${i + 1}) ${bayesianRatings[i][0].name} : ${bayesianRatings[i][1].toFixed(2)} 
-                                                                    
+                                                                    <br/><br/>
                                                                  <div class="results">
                                                                     <div class="results-content">
                                                                         <span class="stars">${bayesianRatings[i][1].toFixed(2)}</span>
@@ -691,8 +693,8 @@
                                                                         <span class="stars">${highestBayesianRating.toFixed(2)}</span>
                                                                     </div>
                                                                 </div>
-                                                                    <br/><br/> Location Address : ${recommendedLocation.formatted_address}
-                                                                    <br/><br/><a href="${recommendedLink}" class="navigateButton">Navigate Now</a> `);
+                                                                    Location Address : ${recommendedLocation.formatted_address}
+                                                                    <br/><a href="${recommendedLink}" class="navigateButton">Navigate Now</a> `);
 
                 } else {
                     document.getElementById("demo").innerHTML = "No suitable location near your area...";
