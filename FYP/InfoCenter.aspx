@@ -14,8 +14,9 @@
 
 
         <table  class="topTable">
-            <tr style="text-align:center">
-                <td colspan="2"><input id="input" type="text" style="height:75px;width:100%;"/></td>
+            <tr >
+                <td style="width:70% ; padding-right:25px"><input id="input" type="text" class="autoInput" /></td>
+                <td style="width:30%"></td>
             </tr>
         </table>
 

@@ -143,13 +143,18 @@ input[type="radio"]:checked + label::after {
     cursor: pointer;
 }
 
+.autoInput {
+    height: 75px;
+    width:100%;
+
+}
 .topTable {
     width: 70%;
     margin: 0 auto 0 auto;
 }
 
     .topTable td {
-        width: 50%;
+        
         height: 75px;
     }
 
