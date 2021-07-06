@@ -17,14 +17,14 @@
         <tr class="rowInput">
             <td class="text">Username :</td>
             <td class="rowInput">
-                <asp:TextBox id="txtUsername" runat="server"></asp:TextBox>
+                <asp:TextBox id="txtUsername" runat="server" CssClass="inputBox"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Username Required" ControlToValidate="txtUsername" Font-Size="Small" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr class="rowInput">
             <td class="text">Password &nbsp:</td>
             <td>
-                <asp:TextBox id="txtPassword" runat="server"></asp:TextBox>
+                <asp:TextBox id="txtPassword" runat="server" TextMode="Password" CssClass="inputBox"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Password Required" ControlToValidate="txtPassword" Font-Size="Small" ForeColor="Red" SetFocusOnError="True" ></asp:RequiredFieldValidator>
             </td>
         </tr>

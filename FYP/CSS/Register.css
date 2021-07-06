@@ -12,6 +12,10 @@
         height: 30px
     }
 
+.inputBox {
+    background: #e5ebf4;
+}
+
 .buttonLogin {
     background-color: black;
     color: white;

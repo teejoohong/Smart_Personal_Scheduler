@@ -6,6 +6,17 @@
     
 }
 
+.inputBox {
+    background: #e5ebf4;
+}
+
+.rightColumn input {
+    border: none;
+    border-bottom: 1px solid black;
+    width: 35%;
+    height: 30px
+}
+
     .table1 td.leftColumn {
         width: 20%;
         border: 1px solid #dddddd;

@@ -16,6 +16,10 @@
     height:80px
 }
 
+.inputBox {
+    background: #e5ebf4;
+}
+
 .rowInput input{
     border: none;
     border-bottom : 1px solid black;

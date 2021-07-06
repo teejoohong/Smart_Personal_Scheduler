@@ -11,7 +11,7 @@
     <table style="width: 40%;" class="table1">
         <tr>
             <td class="leftColumn">Weigth (kg)</td>
-            <td class="rightColumn"><asp:TextBox ID="weight" runat="server" Width="100%"></asp:TextBox><br />
+            <td class="rightColumn"><asp:TextBox ID="weight" runat="server" Width="100%" CssClass="inputBox"></asp:TextBox><br />
                
                 </td>
            <td class="validationColumn">
@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td class="leftColumn">Height (cm)</td>
-            <td class="rightColumn"><asp:TextBox ID="height" runat="server" Width="100%"></asp:TextBox><br />
+            <td class="rightColumn"><asp:TextBox ID="height" runat="server" Width="100%" CssClass="inputBox"></asp:TextBox><br />
               
                 
                 </td>       

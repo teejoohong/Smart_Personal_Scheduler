@@ -19,14 +19,14 @@
        <tr class="rowInput">
             <td class="text">Username :</td>
             <td class="rowInput">
-                <asp:TextBox id="txtUsername" runat="server"></asp:TextBox>
+                <asp:TextBox id="txtUsername" runat="server" CssClass="inputBox"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Username Required" ControlToValidate="txtUsername" Font-Size="Small" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
             </td>
         </tr>
                 <tr class="rowInput">
             <td class="text">Email &nbsp:</td>
             <td>
-                <asp:TextBox ID="txtEmail" runat="server" Cssclass="form"></asp:TextBox>
+                <asp:TextBox ID="txtEmail" runat="server" Cssclass="form inputBox" ></asp:TextBox>
                 <asp:RequiredFieldValidator ID="emailRequired" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email can not be empty." Font-Size="Small" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
                 
                 
@@ -49,14 +49,14 @@
         <tr class="rowInput">
             <td class="auto-style1">Password &nbsp:</td>
             <td class="rowInput">
-                <asp:TextBox id="txtPassword" runat="server"></asp:TextBox>
+                <asp:TextBox id="txtPassword" TextMode="Password" runat="server" CssClass="inputBox" ></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Password Required" ControlToValidate="txtPassword" Font-Size="Small" ForeColor="Red" SetFocusOnError="True" ></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr class="rowInput">
             <td class="text">Confirm Password &nbsp:</td>
             <td>
-                <asp:TextBox id="txtConfirmPassword" runat="server"></asp:TextBox>
+                <asp:TextBox id="txtConfirmPassword" TextMode="Password" runat="server" CssClass="inputBox"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Confirm Password Required" ControlToValidate="txtConfirmPassword" Font-Size="Small" ForeColor="Red" SetFocusOnError="True" ></asp:RequiredFieldValidator><br />
                   <asp:CompareValidator ID="comparePass" runat="server" ControlToCompare="txtPassword" ControlToValidate="txtConfirmPassword" ErrorMessage="Password miss-match, please re-enter the password" Font-Size="Small" ForeColor="Red" Operator="Equal" SetFocusOnError="True"></asp:CompareValidator>
             </td>
