@@ -2568,10 +2568,22 @@ namespace FYP
             timeTable[2] = DateTime.Parse(date).AddHours(endTime).ToString("yyyyMMddTHH0000"); //DEnd
             timeTable[3] = Guid.NewGuid().ToString() + DateTime.Parse(date).ToString("yyyyMMddTHHmm00Z"); //UID
             timeTable[4] = activitity; //Summary
-            timeTable[5] = HttpContext.Current.Request.Url.AbsoluteUri.Replace("TimeTableGenerator", "InfoCenter") + "?name=" + activitity;   //description         
+            timeTable[5] = HttpContext.Current.Request.Url.AbsoluteUri.Replace("TimeTableGenerator", "InfoCenter") + "?name=" + AcitivityPlace(activitity);   //description         
             return timeTable;
         }
 
+        private string AcitivityPlace(string activity)
+        {
+            string activityPlace = "";
+            if (activity.Equals("basketball"))
+                activityPlace = "basketball court";
+            else if (activity.Equals("football"))
+                activityPlace = "soccer";
+            else if (activity.Equals("futsal"))
+                activityPlace = "futsal";
+
+            return activityPlace;
+        }
         public class Temp
         {
             public double day { get; set; }
