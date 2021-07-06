@@ -2568,10 +2568,46 @@ namespace FYP
             timeTable[2] = DateTime.Parse(date).AddHours(endTime).ToString("yyyyMMddTHH0000"); //DEnd
             timeTable[3] = Guid.NewGuid().ToString() + DateTime.Parse(date).ToString("yyyyMMddTHHmm00Z"); //UID
             timeTable[4] = activitity; //Summary
-            timeTable[5] = HttpContext.Current.Request.Url.AbsoluteUri.Replace("TimeTableGenerator", "InfoCenter") + "?name=" + activitity;   //description         
+            timeTable[5] = HttpContext.Current.Request.Url.AbsoluteUri.Replace("TimeTableGenerator", "InfoCenter") + "?name=" + AcitivityPlace(activitity);   //description         
             return timeTable;
         }
 
+        private string AcitivityPlace(string activity)
+        {
+            string activityPlace = "";
+            if (activity.Equals("basketball"))
+                activityPlace = "basketball court";
+            else if (activity.Equals("football"))
+                activityPlace = "football court";
+            else if (activity.Equals("futsal"))
+                activityPlace = "futsal court";
+            else if (activity.Equals("jogging"))
+                activityPlace = "jogging";
+            else if (activity.Equals("running"))
+                activityPlace = "park";
+            else if (activity.Equals("tennis"))
+                activityPlace = "tennis court";
+            else if (activity.Equals("badminton"))
+                activityPlace = "badminton court";
+            else if (activity.Equals("swimming"))
+                activityPlace = "swimming";
+            else if (activity.Equals("ping pong"))
+                activityPlace = "ping pong court";
+            else if (activity.Equals("gym"))
+                activityPlace = "gym";
+            else if (activity.Equals("gymnastic"))
+                activityPlace = "gymastics";
+            else if (activity.Equals("kungfu"))
+                activityPlace = "Chinese martial arts";
+            else if (activity.Equals("volleyball"))
+                activityPlace = "volleyball court";
+            else if (activity.Equals("ropejumping"))
+                activityPlace = "";
+            else if (activity.Equals("dancing"))
+                activityPlace = "Dance";
+
+            return activityPlace;
+        }
         public class Temp
         {
             public double day { get; set; }
