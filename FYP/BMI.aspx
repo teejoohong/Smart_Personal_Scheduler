@@ -10,7 +10,7 @@
         <h4>Calculate Your Body Mass Index</h4>
     <table style="width: 40%;" class="table1">
         <tr>
-            <td class="leftColumn">Weigth (kg)</td>
+            <td class="leftColumn">Weight (kg)</td>
             <td class="rightColumn"><asp:TextBox ID="weight" runat="server" Width="100%"></asp:TextBox><br />
                
                 </td>
