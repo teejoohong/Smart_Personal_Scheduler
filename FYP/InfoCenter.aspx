@@ -481,13 +481,25 @@
                 // Get the value
                 var val = parseFloat($(this).html());
                 // Make sure that the value is in 0 - 5 range, multiply to get width
-                var size = Math.max(0, (Math.min(5, val))) * 36.5;
+                var size = Math.max(0, (Math.min(5, val))) * 36.87;
                 // Create stars holder
                 var $span = $('<span> </span>').width(size);
                 // Replace the numerical value with stars
                 $(this).empty().append($span);
         }
 
+        $.fn.starsRanking = function () {
+            return $(this).each(function () {
+                // Get the value
+                var val = parseFloat($(this).html());
+                // Make sure that the value is in 0 - 5 range, multiply to get width
+                var size = Math.max(0, (Math.min(5, val))) * 36.87;
+                // Create stars holder
+                var $span = $('<span />').width(size);
+                // Replace the numerical value with stars
+                $(this).html($span);
+            });
+        }
 
         //need to have the results
         function suggestedResult() {
@@ -649,7 +661,7 @@
 
                     for (var i = 0; i < bayesianRatings.length; i++) {
                         var rankingLink = googleMapLink + lat + "," + long + "/" + bayesianRatings[i][0].geometry.location;
-                        document.getElementById("demo").innerHTML += (`${i + 1}) ${bayesianRatings[i][0].name} : ${bayesianRatings[i][1].toFixed(2)} 
+                        document.getElementById("demo").innerHTML += (`${i + 1}) ${bayesianRatings[i][0].name} : ${bayesianRatings[i][1].toFixed(2)} ratings 
                                                                     <br/><br/>
                                                                  <div class="results">
                                                                     <div class="results-content">
@@ -723,10 +735,18 @@
                                                                Have a nice day~~~`);
                 }
             }
-            $(function () {
-                console.log("Calling stars()");
-                $('.results-content span.stars').stars();
-            });
+
+            if (document.getElementById('ranking').checked) {
+                $(function () {
+                    console.log("Calling stars()111");
+                    $('.results-content span.stars').starsRanking();
+                });
+            } else {
+                $(function () {
+                    console.log("Calling stars()222");
+                    $('.results-content span.stars').stars();
+                });
+            } 
         }
                                         //user_rating_total      //rating
         function calculateBayesAverage(product_ratings_count, product_ratings_average, m_allLocationAverage, C_lowerQuartile) {

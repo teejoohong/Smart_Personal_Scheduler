@@ -80,10 +80,16 @@
 .buttonLogin {
     background-color: black;
     color: white;
-    width: 20%;
+    width: 26%;
     height: 80%;
-    font-size: 18px;
+    font-size: 12px;
+    
 }
+    .buttonLogin:hover {
+        cursor: pointer;
+        background-color: #454545;
+    }
+
 .lblTitle {
     font-size:18px;
     font-weight:bold;
