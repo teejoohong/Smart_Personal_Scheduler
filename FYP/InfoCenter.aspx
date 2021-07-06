@@ -10,9 +10,6 @@
     <div class ="googleMapSection">
         <h1 class="googleMapHeader">Google Map</h1><br />
 
-
-
-
         <table  class="topTable">
             <tr >
                 <td style="width:70% ; padding-right:25px"><input id="input" type="text" class="autoInput" /></td>
@@ -20,7 +17,7 @@
             </tr>
         </table>
 
-        <table style="width: 70%;  height:300px;  margin: 1px auto 0 auto;">
+        <table style="width: 70%;  height:300px;  margin: 0px auto 0 auto;">
             <tr>
                 <td style="width:70%;padding-right:25px">  <div id="googleMap" class="googleMapCss"></div></td>
                 <td style="width:30% ; vertical-align:top">

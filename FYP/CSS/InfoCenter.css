@@ -147,6 +147,8 @@ input[type="radio"]:checked + label::after {
 .autoInput {
     height: 75px;
     width: 100%;
+    background: #e5ebf4;
+    border: 3.3px inset lightgray;
 }
 
 .topTable {
