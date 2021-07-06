@@ -746,10 +746,7 @@
                     console.log("Calling stars()222");
                     $('.results-content span.stars').stars();
                 });
-            }
-
-
-            
+            } 
         }
                                         //user_rating_total      //rating
         function calculateBayesAverage(product_ratings_count, product_ratings_average, m_allLocationAverage, C_lowerQuartile) {

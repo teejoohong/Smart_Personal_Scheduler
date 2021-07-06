@@ -252,6 +252,7 @@ input[type="radio"]:checked + label::after {
     margin: 0px -0.55% 0px -0.55%;
     color: lightgray;
     margin-top: -20px;
+    padding-bottom:100px
 }
 
 .weatherHeader {
