@@ -4,6 +4,10 @@
     --overlayColor : rgba(24,39,51,0.85);
 }
 
+* {
+    font-family: 'Comic Sans MS';
+    line-height: 1.4;
+}
 
 .footer {
     margin: 0px -8px -8px -8px;
@@ -27,11 +31,6 @@
 }
 
 
-
-body {
-    font-family :'Comic Sans MS';
-    line-height: 1.4;
-}
 
 
 .header {
@@ -225,7 +224,6 @@ img{
         border-radius: 15px; 
         padding: 20px;
         color : lightgray;
-        font-family: Arial;
         font-size :17px;
     }
 
