@@ -63,7 +63,7 @@
                         <ul>
                             <li><asp:HyperLink ID="HyperLink1" NavigateUrl="~/HomePage.aspx" runat="server">Home</asp:HyperLink></li>
                             <li><asp:HyperLink ID="HyperLink2" NavigateUrl="~/AboutUs.aspx" runat="server">AboutUs</asp:HyperLink></li>
-                            <li><asp:HyperLink ID="HyperLink3" NavigateUrl="~/Timetable.aspx" runat="server">Timetable</asp:HyperLink></li>
+                            <li><asp:HyperLink ID="HyperLink3" NavigateUrl="~/TimeTableGenerator.aspx" runat="server">Timetable</asp:HyperLink></li>
                             <li><asp:HyperLink ID="HyperLink4" NavigateUrl="~/Tutorial.aspx" runat="server">Tutorial</asp:HyperLink></li>
                             <li><asp:HyperLink ID="HyperLink5" NavigateUrl="~/BMI.aspx" runat="server">BMI</asp:HyperLink></li>
                             <li><asp:HyperLink ID="HyperLink6" NavigateUrl="~/Calories.aspx" runat="server">Calories</asp:HyperLink></li>

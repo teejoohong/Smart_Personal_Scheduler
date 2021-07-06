@@ -61,11 +61,17 @@ img {
     width: 20%;
     height: 80%;
     font-size: 18px;
+    
 }
+    .buttonLogin:hover {
+        cursor: pointer;
+        background-color: #454545;
+    }
 
-.item {
-    margin: 0px auto 0px auto;
-}
+
+    .item {
+        margin: 0px auto 0px auto;
+    }
 
 th {
     padding-left: 2%;

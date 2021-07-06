@@ -83,7 +83,13 @@
     width: 20%;
     height: 80%;
     font-size: 18px;
+    
 }
+    .buttonLogin:hover {
+        cursor: pointer;
+        background-color: #454545;
+    }
+
 .lblTitle {
     font-size:18px;
     font-weight:bold;
