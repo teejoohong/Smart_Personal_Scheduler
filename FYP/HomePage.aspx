@@ -15,7 +15,7 @@
             <div class="whiteContainer">
                 <asp:Image ID="Image2" runat="server" 
                     ImageUrl="~/BuildInPicturess/pngwing.com.png"
-                AlternateText="Calculator" Width ="66.1%" Height="100%" /><br />
+                AlternateText="Calculator" Width ="67%" Height="100%" /><br />
                 <asp:Button ID="btnBMI" CssClass="btnContainer" runat="server" Text="Calculate now" OnClick="btnBMI_Click" />
             </div>
             </td>
