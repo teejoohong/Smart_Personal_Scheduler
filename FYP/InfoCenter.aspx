@@ -20,10 +20,10 @@
             </tr>
         </table>
 
-        <table style="width: 70%;  height:300px;  margin: 50px auto 0 auto;">
+        <table style="width: 70%;  height:300px;  margin: 1px auto 0 auto;">
             <tr>
                 <td style="width:70%;padding-right:25px">  <div id="googleMap" class="googleMapCss"></div></td>
-                <td style="width:30%">
+                <td style="width:30% ; vertical-align:top">
                     <div class="main">
                         <input id="slider" type="range" min="0" max="10000" value="5000" onclick ="suggestedResult()"/>
                             <div id="selector">
