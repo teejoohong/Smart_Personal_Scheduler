@@ -11,11 +11,8 @@
     <table style="width: 40%;" class="table1">
         <tr>
             <td class="leftColumn">Weight (kg)</td>
-            <td class="rightColumn"><asp:TextBox ID="weight" runat="server" Width="100%"></asp:TextBox><br />
-            <td class="leftColumn">Weigth (kg)</td>
-            <td class="rightColumn"><asp:TextBox ID="weight" runat="server" Width="100%" CssClass="inputBox"></asp:TextBox><br />
-               
-                </td>
+             <td class="rightColumn"><asp:TextBox ID="weight" runat="server" Width="100%" CssClass="inputBox"></asp:TextBox><br />
+
            <td class="validationColumn">
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Required" ControlToValidate="weight" ForeColor="red" SetFocusOnError="true" Font-Size="X-Small"></asp:RequiredFieldValidator><br />
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Please insert valid number" ControlToValidate="weight" ForeColor="red" SetFocusOnError="true" ValidationExpression="((\d+)((\.\d{1,2})?))" Font-Size="X-Small"></asp:RegularExpressionValidator>
