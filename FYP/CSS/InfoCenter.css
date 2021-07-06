@@ -1,7 +1,6 @@
 ﻿
 
 .table td {
-
     height: 250px;
 }
 
@@ -147,16 +146,15 @@ input[type="radio"]:checked + label::after {
 
 .autoInput {
     height: 75px;
-    width:100%;
-
+    width: 100%;
 }
+
 .topTable {
     width: 70%;
     margin: 0 auto 0 auto;
 }
 
     .topTable td {
-        
         height: 75px;
     }
 

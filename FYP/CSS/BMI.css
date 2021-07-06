@@ -1,9 +1,26 @@
 ﻿
 
-table, th, td {
-    border: 1px solid black;
+.table1 {
+    
     border-collapse: collapse;
+    
 }
+
+    .table1 td.leftColumn {
+        width: 20%;
+        border: 1px solid #dddddd;
+    }
+
+    .table1 td.rightColumn {
+        width: 50%;
+        padding: 10px;
+        padding-right: 20px;
+        border: 1px solid #dddddd;
+    }
+
+    .table1 td.validationColumn {
+        width: 30%
+    }
 
 .btnCalculate {
     padding: 2px 5px;

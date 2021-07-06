@@ -2578,9 +2578,33 @@ namespace FYP
             if (activity.Equals("basketball"))
                 activityPlace = "basketball court";
             else if (activity.Equals("football"))
-                activityPlace = "soccer";
+                activityPlace = "football court";
             else if (activity.Equals("futsal"))
-                activityPlace = "futsal";
+                activityPlace = "futsal court";
+            else if (activity.Equals("jogging"))
+                activityPlace = "jogging";
+            else if (activity.Equals("running"))
+                activityPlace = "park";
+            else if (activity.Equals("tennis"))
+                activityPlace = "tennis court";
+            else if (activity.Equals("badminton"))
+                activityPlace = "badminton court";
+            else if (activity.Equals("swimming"))
+                activityPlace = "swimming";
+            else if (activity.Equals("ping pong"))
+                activityPlace = "ping pong court";
+            else if (activity.Equals("gym"))
+                activityPlace = "gym";
+            else if (activity.Equals("gymnastic"))
+                activityPlace = "gymastics";
+            else if (activity.Equals("kungfu"))
+                activityPlace = "Chinese martial arts";
+            else if (activity.Equals("volleyball"))
+                activityPlace = "volleyball court";
+            else if (activity.Equals("ropejumping"))
+                activityPlace = "";
+            else if (activity.Equals("dancing"))
+                activityPlace = "Dance";
 
             return activityPlace;
         }
