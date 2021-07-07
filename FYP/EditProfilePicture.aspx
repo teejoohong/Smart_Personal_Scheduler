@@ -8,7 +8,7 @@
             <th colspan="3"><h1>Profile</h1></th>
         </tr>
         <tr>
-            <td class="sideColumn leftCss">
+            <td class="sideColumn leftCss" onclick="location.href='Profile.aspx';">
                 <asp:HyperLink ID="linkProfile" runat="server" NavigateUrl="~/Profile.aspx">Profile</asp:HyperLink>
             </td>
             <td class="middleColumn" rowspan="3">
@@ -29,21 +29,21 @@
             <td class="sideColumn">&nbsp;</td>
         </tr>
         <tr>
-            <td class="sideColumn leftCss">
+            <td class="sideColumn leftCss" onclick="location.href='UserPreference.aspx';">
                 <asp:HyperLink ID="Preference" runat="server" NavigateUrl="~/UserPreference.aspx">Preference</asp:HyperLink>
             </td>
             <td class="middleColumn">&nbsp;</td>
             <td class="sideColumn">&nbsp;</td>
         </tr>
         <tr>
-            <td class="sideColumn leftCss">
+            <td class="sideColumn leftCss" onclick="location.href='EditProfile.aspx';">
                 <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/EditProfile.aspx">Edit Profile</asp:HyperLink>
             </td>
             <td class="middleColumn">&nbsp;</td>
             <td class="sideColumn">&nbsp;</td>
         </tr>
         <tr>
-            <td class="sideColumn leftCss">
+            <td class="sideColumn leftCss" onclick="location.href='EditProfilePicture.aspx';">
                 <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/EditProfilePicture.aspx">Edit Profile Picture</asp:HyperLink>
             </td>
             <td class="middleColumn">

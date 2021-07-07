@@ -10,7 +10,9 @@ a {
     text-align: center;
     text-decoration: none;
     background-color: black;
+
 }
+
 
     .leftCss a {
         color: white;
@@ -18,6 +20,7 @@ a {
 
         .leftCss:hover {
             background-color: dimgray;
+            cursor:pointer;
         }
 
 
@@ -98,6 +101,7 @@ th {
 
 .sideColumn {
     width: 20%;
+    
 }
 
 .middleColumn {
