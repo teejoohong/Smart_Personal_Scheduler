@@ -106,7 +106,7 @@
                                     <asp:ListItem Value="1.5">Moderate exercise (3-5 days per week)</asp:ListItem>
                                     <asp:ListItem Value="1.7">Heavy exercise (6-7 days per week)</asp:ListItem>
                                     <asp:ListItem Value="1.9">Very heavy exercise (twice per day, extra heavy workouts)</asp:ListItem>
-                                    <asp:ListItem></asp:ListItem>
+                                    
                                 </asp:DropDownList><br /><br />
                                 <asp:Button ID="btnWeight" runat="server" Text="Change Info" CssClass="btnInfo" Width="50%" Height="60px" OnClick="btnWeight_Click" /><br /><br />
                                 <div id="resultContainer">
