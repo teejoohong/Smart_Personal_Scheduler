@@ -80,115 +80,120 @@ namespace FYP
                 string latitude = HiddenField1.Value;
                 string longitude = HiddenField2.Value;
 
-                GetWeatherInfo(latitude, longitude);
-
-                if (modeGeneration.SelectedItem == null)
+                if (latitude == "" || longitude == "")
                 {
-                    //javascript error message
-                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Please Choose the mode you want to generate " + "');", true);
+                    GetWeatherInfo(latitude, longitude);
                 }
                 else
                 {
-                    if (FileUploading.Checked == true)
+                    if (modeGeneration.SelectedItem == null)
                     {
-                        // with ics file
-                        if (timeTableFile.HasFile)
+                        //javascript error message
+                        ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Please Choose the mode you want to generate " + "');", true);
+                    }
+                    else
+                    {
+                        if (FileUploading.Checked == true)
                         {
-                            string fileExtension = System.IO.Path.GetExtension(timeTableFile.FileName);
-
-                            if (fileExtension.ToLower() != ".ics")
+                            // with ics file
+                            if (timeTableFile.HasFile)
                             {
-                                //error message
-                                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Wrong File " + "');", true);
+                                string fileExtension = System.IO.Path.GetExtension(timeTableFile.FileName);
+
+                                if (fileExtension.ToLower() != ".ics")
+                                {
+                                    //error message
+                                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Wrong File " + "');", true);
+                                }
+                                else
+                                {
+
+                                    Stack<DateTime> datesStart = new Stack<DateTime>();
+                                    Stack<DateTime> datesEnd = new Stack<DateTime>();
+                                    Stack<string> recursion = new Stack<string>();
+
+                                    //use to read the ics file given by user 
+                                    ReadFile(ref datesStart, ref datesEnd, ref recursion);
+
+                                    string[] occurDays = new string[1000];
+
+
+                                    //Allocate all the used time as occupied space
+                                    CollationOfTime(ref dayDetails, ref occurDays, datesStart, datesEnd, recursion);
+                                    string all = "";
+                                    for (int i = 0; i < 1000; i++)
+                                    {
+                                        for (int j = 0; j < 25; j++)
+                                        {
+                                            all = all + dayDetails[i, j] + " ";
+                                        }
+                                    }
+
+                                    //Label1.Text = dayDetails[0, 24];
+                                    Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
+
+                                    SqlConnection conn;
+                                    string strconn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                                    conn = new SqlConnection(strconn);
+                                    conn.Open();
+                                    string strDelete = "Delete From AllocatedActivities Where UserID = @UserID";
+                                    SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
+                                    cmdDelete.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                                    int numRowAffected = cmdDelete.ExecuteNonQuery();
+                                    conn.Close();
+
+                                    conn.Open();
+                                    string strInsert = "Insert into AllocatedActivities (Activity, UserID) Values (@Activity, @UserID)";
+                                    SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
+                                    cmdInsert.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                                    cmdInsert.Parameters.AddWithValue("@Activity", allocatedActivity);
+                                    int numRowAffected1 = cmdInsert.ExecuteNonQuery();
+                                    conn.Close();
+
+                                    string[] previewDetail = preview(timeTablesWeekly);
+                                    OutputPreview(previewDetail);
+
+                                    //FileUpload(timeTablesWeekly);
+
+                                }
                             }
                             else
                             {
-
-                                Stack<DateTime> datesStart = new Stack<DateTime>();
-                                Stack<DateTime> datesEnd = new Stack<DateTime>();
-                                Stack<string> recursion = new Stack<string>();
-
-                                //use to read the ics file given by user 
-                                ReadFile(ref datesStart, ref datesEnd, ref recursion);
-
-                                string[] occurDays = new string[1000];
-
-
-                                //Allocate all the used time as occupied space
-                                CollationOfTime(ref dayDetails, ref occurDays, datesStart, datesEnd, recursion);
-                                string all = "";
-                                for (int i = 0; i < 1000; i++)
-                                {
-                                    for (int j = 0; j < 25; j++)
-                                    {
-                                        all = all + dayDetails[i, j] + " ";
-                                    }
-                                }
-
-                                //Label1.Text = dayDetails[0, 24];
-                                Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
-
-                                SqlConnection conn;
-                                string strconn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                                conn = new SqlConnection(strconn);
-                                conn.Open();
-                                string strDelete = "Delete From AllocatedActivities Where UserID = @UserID";
-                                SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
-                                cmdDelete.Parameters.AddWithValue("@UserID", Session["UserID"]);
-                                int numRowAffected = cmdDelete.ExecuteNonQuery();
-                                conn.Close();
-
-                                conn.Open();
-                                string strInsert = "Insert into AllocatedActivities (Activity, UserID) Values (@Activity, @UserID)";
-                                SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
-                                cmdInsert.Parameters.AddWithValue("@UserID", Session["UserID"]);
-                                cmdInsert.Parameters.AddWithValue("@Activity", allocatedActivity);
-                                int numRowAffected1 = cmdInsert.ExecuteNonQuery();
-                                conn.Close();
-
-                                string[] previewDetail = preview(timeTablesWeekly);
-                                OutputPreview(previewDetail);
-
-                                //FileUpload(timeTablesWeekly);
-
+                                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Please inclue your ics file or unchecked the checkbox." + "');", true);
                             }
                         }
                         else
                         {
-                            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Please inclue your ics file or unchecked the checkbox." + "');", true);
+                            //without ics file
+
+
+                            Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
+
+                            SqlConnection conn;
+                            string strconn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                            conn = new SqlConnection(strconn);
+                            conn.Open();
+                            string strDelete = "Delete From AllocatedActivities Where UserID = @UserID";
+                            SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
+                            cmdDelete.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                            int numRowAffected = cmdDelete.ExecuteNonQuery();
+                            conn.Close();
+
+                            conn.Open();
+                            string strInsert = "Insert into AllocatedActivities (Activity, UserID) Values (@Activity, @UserID1)";
+                            SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
+                            cmdInsert.Parameters.AddWithValue("@UserID1", Session["UserID"]);
+                            cmdInsert.Parameters.AddWithValue("@Activity", allocatedActivity);
+                            int numRowAffected1 = cmdInsert.ExecuteNonQuery();
+                            conn.Close();
+
+
+                            string[] previewDetail = preview(timeTablesWeekly);
+                            OutputPreview(previewDetail);
+
+
+                            //FileUpload(timeTablesWeekly);
                         }
-                    }
-                    else
-                    {
-                        //without ics file
-
-
-                        Stack<Stack<string[]>> timeTablesWeekly = Timetable(dayDetails, modeGeneration.SelectedValue);
-
-                        SqlConnection conn;
-                        string strconn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                        conn = new SqlConnection(strconn);
-                        conn.Open();
-                        string strDelete = "Delete From AllocatedActivities Where UserID = @UserID";
-                        SqlCommand cmdDelete = new SqlCommand(strDelete, conn);
-                        cmdDelete.Parameters.AddWithValue("@UserID", Session["UserID"]);
-                        int numRowAffected = cmdDelete.ExecuteNonQuery();
-                        conn.Close();
-
-                        conn.Open();
-                        string strInsert = "Insert into AllocatedActivities (Activity, UserID) Values (@Activity, @UserID1)";
-                        SqlCommand cmdInsert = new SqlCommand(strInsert, conn);
-                        cmdInsert.Parameters.AddWithValue("@UserID1", Session["UserID"]);
-                        cmdInsert.Parameters.AddWithValue("@Activity", allocatedActivity);
-                        int numRowAffected1 = cmdInsert.ExecuteNonQuery();
-                        conn.Close();
-
-
-                        string[] previewDetail = preview(timeTablesWeekly);
-                        OutputPreview(previewDetail);
-
-
-                        //FileUpload(timeTablesWeekly);
                     }
                 }
             }

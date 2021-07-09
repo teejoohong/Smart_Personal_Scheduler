@@ -12,16 +12,18 @@ namespace FYP
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string day = "20210615T190000";
+            string day = DateTime.Now.AddMinutes(-15).ToString("s");
 
-            string[] formats = { "yyyyMMddTHHmmssZ", "yyyyMMddTHHmmss" };
+
+
+            /*string[] formats = { "yyyyMMddTHHmmssZ", "yyyyMMddTHHmmss" };
             CultureInfo provider = CultureInfo.InvariantCulture;
-            day = DateTime.ParseExact(day, formats, provider, DateTimeStyles.AssumeLocal).ToString();
+            day = DateTime.ParseExact(day, formats, provider, DateTimeStyles.AssumeLocal).ToString();*/
 
 
-            Label1.Text = day.Split(' ')[0].Equals(DateTime.Today.ToString("d")).ToString();
+            Label1.Text = DateTime.Parse(day).Subtract(DateTime.Now).TotalMinutes.ToString(); 
 
-            DropDownList6.SelectedValue = "Swimming";
+           
             //Label1.Text = TimeTableGenerator.weatherInfo.daily[i].weather[0].main;
         }
     }

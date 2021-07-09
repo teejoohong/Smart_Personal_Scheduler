@@ -47,7 +47,7 @@
                 <asp:HyperLink ID="linkRegister" runat="server" NavigateUrl="~/Register.aspx">Register</asp:HyperLink>
             </td>
             <td class="linkForgetPassword" >
-                <asp:HyperLink ID="linkForgetPassword" CssClass="" runat="server" >Forget Password</asp:HyperLink>
+                <a href="ForgetPassword.aspx?view=0">Forget Password</a>
             </td>
         </tr>
     </table>

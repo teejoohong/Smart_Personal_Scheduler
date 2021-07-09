@@ -109,6 +109,7 @@
     <Content Include="DeleteTutorial.aspx" />
     <Content Include="EditProfile.aspx" />
     <Content Include="EditProfilePicture.aspx" />
+    <Content Include="ForgetPassword.aspx" />
     <Content Include="icons\01d.png" />
     <Content Include="icons\01n.png" />
     <Content Include="icons\02d.png" />
@@ -186,6 +187,13 @@
     </Compile>
     <Compile Include="EditProfilePicture.aspx.designer.cs">
       <DependentUpon>EditProfilePicture.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ForgetPassword.aspx.cs">
+      <DependentUpon>ForgetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForgetPassword.aspx.designer.cs">
+      <DependentUpon>ForgetPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="InfoCenter.aspx.cs">
       <DependentUpon>InfoCenter.aspx</DependentUpon>
