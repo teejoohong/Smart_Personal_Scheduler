@@ -57,30 +57,26 @@ namespace FYP
                 {
                     if (txtEmail.Text.Equals(dtr["Email"]))
                     {
-                        if (dtr["Email"].ToString().Equals(txtEmail.Text))
+                                              
+                        using (MailMessage mail = new MailMessage())
                         {
-                            //---cookie
-                            using (MailMessage mail = new MailMessage())
+                            mail.From = new MailAddress("testingg726@gmail.com");
+                            mail.To.Add(txtEmail.Text);
+                            mail.Subject = "EzBuddy reset password";
+                            mail.Body = "Dear, " + dtr["UserID"].ToString() + "<br /><br /> Please click this link to reset your password: <br />"
+                                + HttpContext.Current.Request.Url.AbsoluteUri + "?view=1&?id=" + dtr["Name"].ToString() +"&?time=" + DateTime.Now.ToString("s") + "  <br/>Thank you! <br /><br /> Best Regards, <br /> EzBuddy Team.";
+                            mail.IsBodyHtml = true;
+
+                            using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                             {
-                                mail.From = new MailAddress("testingg726@gmail.com");
-                                mail.To.Add(txtEmail.Text);
-                                mail.Subject = "EzBuddy reset password";
-                                mail.Body = "Dear, " + dtr["UserID"].ToString() + "<br /><br /> Please click this link to reset your password: <br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"
-                                    + HttpContext.Current.Request.Url.AbsoluteUri + "?view=1&?id=" + dtr["Name"].ToString() +"&?time=" + DateTime.Now.ToString("s") + " <br/>Thank you! <br /><br /> Best Regards, <br /> EzBuddy Team.";
-                                mail.IsBodyHtml = true;
-
-                                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
-                                {
-                                    smtp.Credentials = new NetworkCredential("testingg726@gmail.com", "abcd.1234");
-                                    smtp.EnableSsl = true;
-                                    smtp.Send(mail);
-                                }
+                                smtp.Credentials = new NetworkCredential("testingg726@gmail.com", "abcd.1234");
+                                smtp.EnableSsl = true;
+                                //smtp.UseDefaultCredentials = true;
+                                smtp.Send(mail);
                             }
-
-                            Response.Redirect("HomePage.aspx");
-
-                        }                    
+                        }
                     }
+                    Response.Redirect("HomePage.aspx");
                 }
             }
             con.Close();
@@ -104,6 +100,8 @@ namespace FYP
                 cmdUpdate.Parameters.AddWithValue("@Password", TextBox2.Text);
                 int numRowAffected = cmdUpdate.ExecuteNonQuery();
                 con.Close();
+
+                Response.Redirect("HomePage.aspx");
             }
             else
             {

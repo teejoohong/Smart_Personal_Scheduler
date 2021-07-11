@@ -78,7 +78,7 @@
                 <asp:HyperLink ID="linkLogIn" runat="server" NavigateUrl="~/LogIn.aspx">Log In</asp:HyperLink>
             </td>
             <td class="linkForgetPassword" >
-                <asp:HyperLink ID="linkForgetPassword" CssClass="" runat="server" >Forget Password</asp:HyperLink>
+                <a href="ForgetPassword.aspx?view=0">Forget Password</a>
             </td>
         </tr>
     </table>
