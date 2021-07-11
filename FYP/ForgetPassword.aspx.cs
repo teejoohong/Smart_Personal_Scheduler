@@ -70,7 +70,7 @@ namespace FYP
                             mail.From = new MailAddress("testingg726@gmail.com");
                             mail.To.Add(txtEmail.Text);
                             mail.Subject = "Smart Personal Scheduler Reset Password";
-                            mail.Body = "Dear " + dtr["UserID"].ToString() + ",<br /><br /> Please click the link below to reset your password: <br />"
+                            mail.Body = "Dear " + dtr["Name"].ToString() + ",<br /><br /> Please click the link below to reset your password: <br />"
                                 + HttpContext.Current.Request.Url.AbsoluteUri.Replace("?view=0", "?view=1") + "&id=" + dtr["UserID"].ToString() +"&time=" + DateTime.Now.ToString("s") + "  <br/>This link only available for 15 minutes. <br /> Thank you! <br /><br /> Best Regards, <br /> Smart Personal Scheduler.";
                             mail.IsBodyHtml = true;
 
