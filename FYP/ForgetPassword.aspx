@@ -2,6 +2,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
 
     <link href="CSS/LogIn.css" rel="stylesheet" type="text/css" />
     <asp:MultiView ID="MultiView1" runat="server"> 
@@ -27,6 +29,7 @@
         
         <tr >
             <td  colspan="2" class="rowButtonLogin">
+
                 <asp:Button ID="btnSend" runat="server" Text="Send" CssClass="buttonLogin" OnClick="btnSend_Click"  />
 
             </td>
@@ -74,10 +77,43 @@
         </asp:View>
 
         <asp:View ID="exceedTime" runat="server">
-            <p>The link has been expired. Please try again with a new link.</p>
+            <br />
+            <p>
+                
+                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/HomePage.aspx" Text="">The link has been expired. You will be redirected to homepage in 5 seconds. Click here to redirect now</asp:HyperLink>
+            </p>
+            <br />
         </asp:View>
-        
+
+        <asp:View ID="Delay" runat="server">
+            <br />
+                <p>
+                    <asp:HyperLink ID="redirectHome" runat="server" NavigateUrl="~/HomePage.aspx" Text="">You will be redirected to homepage in 5 seconds. Click here to redirect now</asp:HyperLink>
+                </p>
+            <br />
+        </asp:View>
+
 
     </asp:MultiView>
 
+    <script>
+    function delaySent() {
+        var delay = 5000;
+        setTimeout(function () {
+            window.location.href = "HomePage.aspx";
+        }, delay);
+        alert("An link has been successfully sent out to an email if the email has been created before. Please check your inbox.");
+
+        }
+
+        function delaySavePass() {
+            var delay = 5000;
+            setTimeout(function () {
+                window.location.href = "HomePage.aspx";
+            }, delay);
+            alert("The password has been reset.");
+
+        }
+
+    </script>
 </asp:Content>

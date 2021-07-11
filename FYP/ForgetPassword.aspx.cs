@@ -45,6 +45,14 @@ namespace FYP
 
         protected void btnSend_Click(object sender, EventArgs e)
         {
+            string message = "You will now be redirected to ASPSnippets Home Page.";
+            string url = "HomePage.aspx";
+            string script = "window.onload = function(){ alert('";
+            script += message;
+            script += "');";
+            script += "window.location = '";
+            script += url;
+            script += "'; }";
 
             SqlConnection con;
             string strcon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -88,8 +96,11 @@ namespace FYP
 
             }
             con.Close();
-            Response.Redirect("HomePage.aspx");
+            ClientScript.RegisterStartupScript(GetType(), "hwa", "delaySent();", true);
+            MultiView1.ActiveViewIndex = 3;
             
+
+
         }
 
         protected void btnConfirm_Click(object sender, EventArgs e)
@@ -114,7 +125,10 @@ namespace FYP
             else
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Please insert the same password. " + "');", true);
-            }   
+            }
+
+            ClientScript.RegisterStartupScript(GetType(), "hwa", "delaySavePass();", true);
+            MultiView1.ActiveViewIndex = 3;
 
         }
     }
