@@ -50,14 +50,14 @@
         <tr class="rowInput">
             <td class="text">New password :</td>
             <td class="rowInput">
-                <asp:TextBox id="TextBox2" runat="server" CssClass="inputBox"></asp:TextBox>
+                <asp:TextBox id="TextBox2" runat="server" CssClass="inputBox" TextMode="Password"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Password Required" ControlToValidate="TextBox2" Font-Size="Small" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
             </td>
         </tr>
                   <tr class="rowInput">
             <td class="text">Confirm Password :</td>
             <td class="rowInput">
-                <asp:TextBox id="TextBox3" runat="server" CssClass="inputBox"></asp:TextBox>
+                <asp:TextBox id="TextBox3" runat="server" CssClass="inputBox" TextMode="Password"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Password Required" ControlToValidate="TextBox3" Font-Size="Small" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
             </td>
         </tr>
