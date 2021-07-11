@@ -22,8 +22,9 @@
         <tr class="rowInput">
             <td class="text">Email :</td>
             <td class="rowInput">
-                <asp:TextBox id="txtEmail" runat="server" CssClass="inputBox"></asp:TextBox>
+                <asp:TextBox id="txtEmail" runat="server" CssClass="inputBox"></asp:TextBox>&nbsp
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Email Required" ControlToValidate="txtEmail" Font-Size="Small" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtEmail" ErrorMessage="Please enter a valid email address" Font-Size="Small" ForeColor="Red" ValidationExpression="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" SetFocusOnError="True"></asp:RegularExpressionValidator>
             </td>
         </tr>
         
