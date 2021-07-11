@@ -57,7 +57,7 @@ namespace FYP
                 {
                     if (txtEmail.Text.Equals(dtr["Email"]))
                     {
-                        if (dtr["Password"].ToString().Equals(txtEmail.Text))
+                        if (dtr["Email"].ToString().Equals(txtEmail.Text))
                         {
                             //---cookie
                             using (MailMessage mail = new MailMessage())
