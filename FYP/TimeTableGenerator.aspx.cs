@@ -195,7 +195,7 @@ namespace FYP
                 }
                 else
                 {
-
+                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Please allow your location before use the services. " + "');", true);
                 }
             }
             else
