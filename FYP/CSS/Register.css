@@ -24,6 +24,15 @@
     font-size: 18px;
 }
 
+    .buttonLogin:hover {
+        background-color: #454545;
+    }
+
+.ddlGender {
+    width:35%;
+    height:30px
+}
+
 .rowButtonLogin {
     text-align: center;
     height: 50px;

@@ -38,7 +38,7 @@
         <tr class="rowInput">
             <td class="text">Gender &nbsp:</td>
             <td>
-                <asp:DropDownList ID="ddlGender" runat="server">
+                <asp:DropDownList ID="ddlGender" runat="server" CssClass="ddlGender">
                     <asp:ListItem Selected="True">Male</asp:ListItem>
                     <asp:ListItem>Female</asp:ListItem>
                 </asp:DropDownList>

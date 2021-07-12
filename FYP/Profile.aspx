@@ -60,8 +60,8 @@
             <td class="sideColumn leftCss">
                 
             </td>
-            <td class="middleColumn" style="text-align:left">
-                <span class="lbl" >Email :</span>
+            <td class="middleColumn" style="text-align:center">
+                <span class="lbl" >Email : &nbsp</span>
                 <asp:Label ID="lblEmail" runat="server" Text="Label" CssClass="lbl"></asp:Label>
                 
             </td>
