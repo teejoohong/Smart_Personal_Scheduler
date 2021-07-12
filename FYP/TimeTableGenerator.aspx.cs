@@ -80,7 +80,7 @@ namespace FYP
                 string latitude = HiddenField1.Value;
                 string longitude = HiddenField2.Value;
 
-                if (latitude != "" || longitude != "")
+                if (latitude != "" && longitude != "")
                 {
                     GetWeatherInfo(latitude, longitude);
                     if (modeGeneration.SelectedItem == null)

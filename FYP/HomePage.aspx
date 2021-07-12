@@ -37,11 +37,11 @@
         </tr>
         <tr class="description">
             <td> 
-            <h2>Timetable</h2>
+            <h2>BMI</h2>
             <p>Get you google Timetable created automatically now by inserting the ICS file.</p>
             </td>
             <td>
-                <h2>BMI</h2>
+                <h2>Timetable</h2>
                 <p>Calculate your Body Weight Index (BMI) to see if you are healthy!</p>
             </td>
             <td>
