@@ -1,9 +1,28 @@
-﻿
+﻿.mainTable{
+    width:100%
+}
+
+.mainTable td.firstColumn {
+    width: 30%;
+    border-right: 1px solid green;
+    height: auto;
+}
+
+
+.mainTable td.secondColumn {
+    width: 70%;
+    
+   
+}
+
+td[rowspan] {
+    vertical-align: top;
+    text-align: left;
+}
 
 .table1 {
-    
     border-collapse: collapse;
-    
+    margin-left: 20px;
 }
 
 .inputBox {
@@ -34,6 +53,7 @@
     }
 
 .btnCalculate {
+    margin-left: 20px;
     padding: 2px 5px;
     border: 0;
     border-radius: 0.1875em;
@@ -51,3 +71,7 @@
     padding-left:25%
 }
 
+.vl {
+    border-right: 1px solid green;
+    height: auto;
+}

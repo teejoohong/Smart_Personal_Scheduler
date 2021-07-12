@@ -3,15 +3,36 @@
 
     <link href="CSS/BMI.css" rel="stylesheet" type="text/css" />
 
-</asp:Content>
+    </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
     <div >
-        <h4>Calculate Your Body Mass Index</h4>
-    <table style="width: 40%;" class="table1">
+        <h3>Calculate Your Body Mass Index</h3>
+        <p>Body mass index (BMI) is a measure of body fat based on height and weight that applies to adult men and women. View the BMI tables or use the tool below to compute yours.
+            <br /><br />
+            &#8226; Enter your weight and height to measures.<br /><br />
+            &#8226;Select "Calculate" and your BMI will appear below.
+        </p>
+        <hr />
+        <table class="mainTable">
+            <tr>
+                <%-- First column --%>
+                <td class="firstColumn" rowspan="2" style="width: 20%">
+                    <p><b><u>BMI Categories:</u></b><br /><br />
+                    
+                        Underweight = < 18.5<br />
+                        Normal weight = 18.5 – 24.9<br />
+                        Overweight = 25 – 29.9<br />
+                        Obesity = BMI of 30 or greater
+                    </p>
+
+                </td>
+                <%-- Second column --%>
+                <td class="secondCloumn">
+                    <table style="width: 60%;" class="table1">
         <tr>
             <td class="leftColumn">Weight (kg)</td>
-             <td class="rightColumn"><asp:TextBox ID="weight" runat="server" Width="100%" CssClass="inputBox"></asp:TextBox><br />
+             <td class="rightColumn" style="width: 50%"><asp:TextBox ID="weight" runat="server" Width="100%" CssClass="inputBox"></asp:TextBox><br />
 
            <td class="validationColumn">
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Required" ControlToValidate="weight" ForeColor="red" SetFocusOnError="true" Font-Size="X-Small"></asp:RequiredFieldValidator><br />
@@ -21,7 +42,7 @@
         </tr>
         <tr>
             <td class="leftColumn">Height (cm)</td>
-            <td class="rightColumn"><asp:TextBox ID="height" runat="server" Width="100%" CssClass="inputBox"></asp:TextBox><br />
+            <td class="rightColumn" style="width: 50%"><asp:TextBox ID="height" runat="server" Width="100%" CssClass="inputBox"></asp:TextBox><br />
               
                 
                 </td>       
@@ -34,19 +55,33 @@
 
         <tr>
             <td class="leftColumn">BMI value</td>
-            <td class="rightColumn">
+            <td class="rightColumn" style="width: 50%">
                <%-- <p id="value"></p></td>--%>
             
                 <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
             
         </tr>
-    </table>
+                    </table>
+
+                </td>
+                
+            </tr>
+            <tr>
+                
+                <td class="secondColumn" ><br /><asp:Button ID="calculate" runat="server" Text="Calculate" OnClick="Button1_Click" CssClass="btnCalculate"/></td>
+            </tr>
+
+           
+        </table>
+    
          </div>
        
    <br />
+    
+    <hr />
         <%--<p id="validate1"></p>--%>
     <%--<input id="btnCalculate" type="button" value="Calculate"  OnClick="validate()"/>--%>
-        <asp:Button ID="calculate" runat="server" Text="Calculate" OnClick="Button1_Click" CssClass="btnCalculate"/>
+        
     
         <br />
     
