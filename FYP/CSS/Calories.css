@@ -69,8 +69,9 @@
 .txtWeight {
     border: none;
     border-bottom: 1px solid black;
-    width:35%
-    ;height:30px;
+    width: 35%;
+    height: 30px;
+    background: #e5ebf4;
 }
 
 #inputForm td{

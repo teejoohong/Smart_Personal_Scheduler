@@ -56,7 +56,7 @@
             </td>
             <td class="middleColumn" style="text-align:left">
                 <span class="lbl" >Email :</span>
-                <asp:TextBox ID="txtEmail" CssClass="txtBox" runat="server"></asp:TextBox><br />
+                <asp:TextBox ID="txtEmail" CssClass="txtBox" runat="server" ></asp:TextBox><br />
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtEmail" ErrorMessage="Please enter a valid email address" Font-Size="Small" ForeColor="Red" ValidationExpression="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" SetFocusOnError="True"></asp:RegularExpressionValidator>
                  <br /><asp:RequiredFieldValidator ID="emailRequired" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email can not be empty." Font-Size="Small" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
             </td>
