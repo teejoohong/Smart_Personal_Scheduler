@@ -36,7 +36,7 @@
         </tr>
 
         <tr>
-            <td><p>2.</p>
+            <td><p>2. Please create a new calendar first before you insert the generated ics file into your google calendar.</p>
                 <asp:Image CssClass="imageStyle" ID="Image4" runat="server" ImageUrl="~/BuildInPicturess/google calendar4.png"/>
                 
             </td>
@@ -46,7 +46,7 @@
         </tr>
 
         <tr>
-            <td><p>3.</p>
+            <td><p>3. Simply put a name you want on the name column and then create the calendar.</p>
                 <asp:Image CssClass="imageStyle" ID="Image2" runat="server" ImageUrl="~/BuildInPicturess/google calendar5.png"/>
                 
             </td>
@@ -57,7 +57,7 @@
         </tr>
 
         <tr>
-            <td><p>4.</p>
+            <td><p>4. Remember to add the ics file into the calendar you created just now or created before.</p>
                 <asp:Image CssClass="imageStyle" ID="Image3" runat="server" ImageUrl="~/BuildInPicturess/google calendar6.png"/>
                 
             </td>

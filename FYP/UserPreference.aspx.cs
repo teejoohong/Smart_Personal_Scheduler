@@ -67,6 +67,11 @@ namespace FYP
 
         protected void save_Click(object sender, EventArgs e)
         {
+            Label1.Text = "";
+            Label2.Text = "";
+            Label3.Text = "";
+            Label4.Text = "";
+
             if (DropDownList1.SelectedValue.Equals("None") || DropDownList4.SelectedValue.Equals("None"))
             {
                 if (DropDownList1.SelectedValue.Equals("None") && DropDownList4.SelectedValue.Equals("None"))

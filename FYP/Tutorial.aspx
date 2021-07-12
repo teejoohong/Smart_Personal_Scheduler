@@ -37,7 +37,7 @@
         </tr>
 
         <tr>
-            <td><p>2.</p>
+            <td><p>2.Click on the main calendar for your selection to be export.</p>
                 <asp:Image CssClass="imageStyle" ID="Image2" runat="server" ImageUrl="~/BuildInPicturess/google calendar2.png"/>
                 
             </td>
@@ -48,7 +48,7 @@
         </tr>
 
         <tr>
-            <td><p>3.</p>
+            <td><p>3. Click the export button to download the calendar.</p>
                 <asp:Image CssClass="imageStyle" ID="Image3" runat="server" ImageUrl="~/BuildInPicturess/google calendar3.png"/>
                 
             </td>

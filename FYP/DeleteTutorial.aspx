@@ -40,7 +40,7 @@
         </tr>
 
         <tr>
-            <td><p>2.</p>
+            <td><p>2. Choose the calendar that you created and not original to your own calendar and then click on the delete button.</p>
                 <asp:Image CssClass="imageStyle" ID="Image2" runat="server" ImageUrl="~/BuildInPicturess/delete.png"/>
 
             </td>
