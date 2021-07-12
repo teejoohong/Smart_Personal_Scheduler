@@ -89,7 +89,8 @@ th {
     border: none;
     border-bottom: 1px solid black;
     width: 30%;
-    height: 30px
+    height: 30px;
+    background: #e5ebf4;
 }
     .profileTable td {
         height: 100px
@@ -114,67 +115,67 @@ th {
 
 @media only screen and (min-width:400px) {
     .lbl {
-        padding-right: 4%
+        padding-right: 0%
     }
 }
 
 
 @media only screen and (min-width:500px) {
     .lbl {
-        padding-right: 14%
+        padding-right: 2%
     }
 }
 
 @media only screen and (min-width:600px) {
     .lbl {
-        padding-right: 21%
+        padding-right: 7%
     }
 }
 
 @media only screen and (min-width:700px) {
     .lbl {
-        padding-right: 23%
+        padding-right: 15%
     }
 }
 
 @media only screen and (min-width:800px) {
     .lbl {
-        padding-right: 25%
+        padding-right: 20%
     }
 }
 
 @media only screen and (min-width:900px) {
     .lbl {
-        padding-right: 27%
+        padding-right: 23%
     }
 }
 
 @media only screen and (min-width:1000px) {
     .lbl {
-        padding-right: 29%
+        padding-right: 26%
     }
 }
 
 @media only screen and (min-width:1100px) {
     .lbl {
-        padding-right: 31%
+        padding-right: 28%
     }
 }
 
 @media only screen and (min-width:1200px) {
     .lbl {
-        padding-right: 33%
+        padding-right: 30%
     }
 }
 
 @media only screen and (min-width:1300px) {
     .lbl {
-        padding-right: 34%
+        padding-right: 32%
     }
 }
 
 @media only screen and (min-width:1400px) {
     .lbl {
-        padding-right: 36%
+        padding-right: 33%
     }
 }
