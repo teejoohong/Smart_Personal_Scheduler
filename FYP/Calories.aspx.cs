@@ -147,6 +147,13 @@ namespace FYP
                         age = (double)dtr["Age"];
                         height = (double)dtr["Height"];
                         gender = (string)dtr["Gender"];
+
+                        if (!IsPostBack) {
+                            txtAge.Text = dtr["Age"].ToString();
+                            txtHeight.Text = dtr["Height"].ToString();
+                            txtWeight.Text = dtr["Weight"].ToString();
+                        }
+                       
                     }
                 }  
                 con.Close();
