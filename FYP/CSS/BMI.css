@@ -4,7 +4,7 @@
 
 .mainTable td.firstColumn {
     width: 30%;
-    border-right: 1px solid green;
+    border-right: 1px solid black;
     height: auto;
 }
 

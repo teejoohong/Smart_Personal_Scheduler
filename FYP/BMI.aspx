@@ -13,6 +13,10 @@
             &#8226; Enter your weight and height to measures.<br /><br />
             &#8226;Select "Calculate" and your BMI will appear below.
         </p>
+        <div runat="server" visible="false" id="navigateEditProfile">
+            <a href="EditProfilePicture.aspx"><p>&#8226;Click here to modify your info</p></a>
+        </div>
+        
         <hr />
         <table class="mainTable">
             <tr>
@@ -34,19 +38,19 @@
             <td class="leftColumn">Weight (kg)</td>
              <td class="rightColumn" style="width: 50%"><asp:TextBox ID="weight" runat="server" Width="100%" CssClass="inputBox"></asp:TextBox><br />
 
-           <td class="validationColumn">
+           <td class="validationColumn" style="width: 30%">
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*Required" ControlToValidate="weight" ForeColor="red" SetFocusOnError="true" Font-Size="X-Small"></asp:RequiredFieldValidator><br />
                 <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Please input valid weight."  MinimumValue="15" MaximumValue="700" Type="Double"
                         Font-Size="X-Small" ForeColor="Red" SetFocusOnError="true" ControlToValidate="weight" ></asp:RangeValidator>
            </td>
         </tr>
         <tr>
-            <td class="leftColumn">Height (cm)</td>
-            <td class="rightColumn" style="width: 50%"><asp:TextBox ID="height" runat="server" Width="100%" CssClass="inputBox"></asp:TextBox><br />
+            <td class="leftColumn" style="height: 57px">Height (cm)</td>
+            <td class="rightColumn" style="width: 50%; height: 57px;"><asp:TextBox ID="height" runat="server" Width="100%" CssClass="inputBox"></asp:TextBox><br />
               
                 
                 </td>       
-            <td class="validationColumn">
+            <td class="validationColumn" style="width: 30%; height: 57px">
                  <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*Required" ControlToValidate="height" ForeColor="red" SetFocusOnError="true" Font-Size="X-Small"></asp:RequiredFieldValidator><br />
                 <asp:RangeValidator ID="RangeValidator2" runat="server" ErrorMessage="Please input valid height."  MinimumValue="120" MaximumValue="300" Type="Double"
                         Font-Size="X-Small" ForeColor="Red" SetFocusOnError="true" ControlToValidate="height"></asp:RangeValidator>

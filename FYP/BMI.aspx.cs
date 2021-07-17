@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -12,6 +14,34 @@ namespace FYP
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserID"] != null && !IsPostBack)
+            {
+                navigateEditProfile.Visible = true;
+                SqlConnection con;
+                string strcon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                con = new SqlConnection(strcon);
+                con.Open();
+                string strSelect = "SELECT * FROM [User] WHERE UserID = @UserID";
+                SqlCommand cmdSelect = new SqlCommand(strSelect, con);
+                cmdSelect.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                SqlDataReader dtr = cmdSelect.ExecuteReader();
+
+                if (dtr.HasRows)
+                {
+                    while (dtr.Read())
+                    {
+                        
+                        height.Text = dtr["Height"].ToString();
+                        weight.Text = dtr["Weight"].ToString();
+
+                    }
+                }
+                con.Close();
+            }
+            else
+            {
+                navigateEditProfile.Visible = false;
+            }
 
         }
 
