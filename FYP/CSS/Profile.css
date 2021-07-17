@@ -22,6 +22,10 @@ a {
             background-color: dimgray;
             cursor:pointer;
         }
+.profilePic{
+    border-radius:30%;
+}
+
 
 
 .button {
@@ -37,9 +41,6 @@ a {
     cursor: pointer;
 }
 
-img {
-    border-radius: 50%;
-}
 
 .lbl {
     padding-right: 0%
@@ -72,9 +73,10 @@ img {
     }
 
 
-    .item {
-        margin: 0px auto 0px auto;
-    }
+.item {
+    margin: 0px auto 0px auto;
+    border: 5px inset darkgray;
+}
 
 th {
     padding-left: 2%;

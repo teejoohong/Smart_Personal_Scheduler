@@ -88,6 +88,8 @@
     <Content Include="BuildInPicturess\google calendar4.png" />
     <Content Include="BuildInPicturess\google calendar5.png" />
     <Content Include="BuildInPicturess\google calendar6.png" />
+    <Content Include="BuildInPicturess\logo1.png" />
+    <Content Include="BuildInPicturess\logo2.png" />
     <Content Include="BuildInPicturess\pngwing.com.png" />
     <Content Include="BuildInPicturess\timetable.png" />
     <Content Include="BuildInPicturess\TJH.jpg" />
