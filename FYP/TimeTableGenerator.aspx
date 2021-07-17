@@ -40,22 +40,55 @@
             else
             { %>
     <div>
+        <table style="width:100%">
+            <tr>
+                <td style="width:30%"><p><b><u>Generate your own timetable now!!!</u></b></p></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:RadioButtonList ID="modeGeneration" runat="server" OnSelectedIndexChanged="modeGeneration_SelectedIndexChanged" AutoPostBack="true">
+                    <asp:ListItem>Study Mode</asp:ListItem>
+                    <asp:ListItem>Training Mode</asp:ListItem>
+                    <asp:ListItem>Relax Mode</asp:ListItem>
+                </asp:RadioButtonList>
+                    
+                </td>
+                <td style="text-align:center">
+                    <div id="chartdiv" runat="server" visible="false">
+                    <asp:Chart ID="chartTotalActivities" runat="server" Width="308px" Height="241px">
+                        <Titles>
+                             <asp:Title Text="Total activities"></asp:Title>  
+                        </Titles>
+                        <Series>
+                            <asp:Series Name="Series1"  YValueType="Int32" YValuesPerPoint="2" ChartType="Pie">
+                            </asp:Series>
+                        </Series>
+                        <ChartAreas>
+                            <asp:ChartArea Name="ChartArea1">
+                                 <AxisX Title="Activity"></AxisX>  
+                                 <AxisY Title="Total"></AxisY>  
+                            </asp:ChartArea>
+                        </ChartAreas>
+                    </asp:Chart>
+                        </div>
+                </td>
+            </tr>
+        </table>
+
         
-        <p><b><u>Generate your own time table now!!!</u></b></p>
-        <asp:RadioButtonList ID="modeGeneration" runat="server">
-            <asp:ListItem>Study Mode</asp:ListItem>
-            <asp:ListItem>Training Mode</asp:ListItem>
-            <asp:ListItem>Relax Mode</asp:ListItem>
-        </asp:RadioButtonList>
-         <br />
+         
         <asp:CheckBox ID="FileUploading" runat="server" OnCheckedChanged="FileUploading_CheckedChanged" text="Click here to include your ics file" AutoPostBack="true"/>
-             <br />
+                    <br />
         <div id="fileUpload" runat="server" visible="false" >
             <br />
             <asp:FileUpload ID="timeTableFile" runat="server" Width="279px"/>
         </div>
          <br />
-         <asp:Button runat="server" Text="Generate" OnClick="GenerationOfTimetable_Click" CssClass="btnGenerate" ID="Button2"/>
+        <div runat="server" id="generateBtn" visible="false">
+            <asp:Button runat="server" Text="Generate" OnClick="GenerationOfTimetable_Click" CssClass="btnGenerate" ID="Button2"/>
+
+        </div>
         
          <br />
         <br />

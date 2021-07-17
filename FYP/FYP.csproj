@@ -239,6 +239,7 @@
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Session.cs" />
     <Compile Include="TimeTableGenerator.aspx.cs">
       <DependentUpon>TimeTableGenerator.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

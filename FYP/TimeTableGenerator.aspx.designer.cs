@@ -42,6 +42,24 @@ namespace FYP
         protected global::System.Web.UI.WebControls.RadioButtonList modeGeneration;
 
         /// <summary>
+        /// chartdiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chartdiv;
+
+        /// <summary>
+        /// chartTotalActivities control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.DataVisualization.Charting.Chart chartTotalActivities;
+
+        /// <summary>
         /// FileUploading control.
         /// </summary>
         /// <remarks>
@@ -67,6 +85,15 @@ namespace FYP
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload timeTableFile;
+
+        /// <summary>
+        /// generateBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl generateBtn;
 
         /// <summary>
         /// Button2 control.

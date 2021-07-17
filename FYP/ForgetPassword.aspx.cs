@@ -14,6 +14,7 @@ namespace FYP
 {
     public partial class ForgetPassword : System.Web.UI.Page
     {
+       
         protected void Page_Load(object sender, EventArgs e)
         {
             if(Request.QueryString["view"].Equals("0"))

@@ -8,7 +8,7 @@ using System.Net;
 using System.Web.Script.Serialization;
 using System.Data.SqlClient;
 using System.Configuration;
-
+using System.Web.UI.DataVisualization.Charting;
 
 namespace FYP
 {
@@ -19,17 +19,32 @@ namespace FYP
         const string space = "&nbsp";
         const string nextLine = "<br />";
         
+        
         string[] weatherWeeklyForecast = new string[8];
         string allocatedActivity = "";
        
+
         protected void Page_Load(object sender, EventArgs e)
         {
-                               
-            
+            if (!IsPostBack)
+            {
+                if (Session["timeDetails"] != null && Session["modeSelect"] != null)
+                {
+                    OutputPreview((string[])Session["timeDetails"]);
+                    modeGeneration.SelectedValue = Session["modeSelect"].ToString();
+                    generateBtn.Visible = true;
+
+                    displayChart();
+                }
+
+            }
+
+
         }
 
         protected void GenerationOfTimetable_Click(object sender, EventArgs e)
         {
+            
             bool indoorPreferece = false;
             bool outdoorPreferece = false;
 
@@ -90,6 +105,10 @@ namespace FYP
                     }
                     else
                     {
+                        Session["timeDetails"] = null;
+                        Session["modeSelect"] = null;
+                        Session["activity"] = null;
+
                         if (FileUploading.Checked == true)
                         {
                             // with ics file
@@ -104,7 +123,7 @@ namespace FYP
                                 }
                                 else
                                 {
-
+                                    
                                     Stack<DateTime> datesStart = new Stack<DateTime>();
                                     Stack<DateTime> datesEnd = new Stack<DateTime>();
                                     Stack<string> recursion = new Stack<string>();
@@ -148,8 +167,11 @@ namespace FYP
                                     conn.Close();
 
                                     string[] previewDetail = preview(timeTablesWeekly);
+                                    Session["timeDetails"] = previewDetail;
+                                    Session["modeSelect"] = modeGeneration.SelectedValue;
+                                    Session["activity"] = allocatedActivity;
                                     OutputPreview(previewDetail);
-
+                                    displayChart();
                                     //FileUpload(timeTablesWeekly);
 
                                 }
@@ -186,8 +208,13 @@ namespace FYP
 
 
                             string[] previewDetail = preview(timeTablesWeekly);
+                            Session["timeDetails"] = previewDetail;
+                            Session["modeSelect"] = modeGeneration.SelectedValue;
+                            Session["activity"] = allocatedActivity;
+                            
                             OutputPreview(previewDetail);
-
+                           
+                            displayChart();
 
                             //FileUpload(timeTablesWeekly);
                         }
@@ -2717,6 +2744,182 @@ namespace FYP
         {
             Response.Redirect("Register.aspx");
         }
+
+        protected void modeGeneration_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            generateBtn.Visible = true;
+        }
+
+        private void displayChart()
+        {
+            Series series = chartTotalActivities.Series["Series1"];
+            string[] activity = Session["activity"].ToString().Split(',');
+           
+            double  totalHouseChores = 0, totalStudying = 0,
+               totalBasketball = 0, totalBadminton = 0, totalSwimming = 0,
+               totalJogging = 0, totalRunning = 0, totalGym = 0, totalVolleyball = 0
+               , totalTennis = 0, totalKungfu = 0, totalFootball = 0, totalRopeJumping = 0
+               , totalDancing = 0, totalGymnastics = 0, totalCycling = 0;
+            foreach (string item in activity)
+            {
+                if (item == "basketball")
+                {
+                    totalBasketball += 1;
+                }
+                else if (item == "badminton")
+                {
+                    
+                    totalBadminton += 1;
+                }
+                else if (item == "swimming")
+                {
+                    
+                    totalSwimming += 1;
+                }
+                else if (item == "jogging")
+                {
+                    
+                    totalJogging += 1;
+                }
+                else if (item == "running")
+                {
+                  
+                    totalRunning += 1;
+                }
+                else if (item == "gym")
+                {
+                  
+                    totalGym += 1;
+                }
+                else if (item == "volleyball")
+                {
+                    
+                    totalVolleyball += 1;
+                }
+                else if (item == "tennis")
+                {
+                    
+                    totalTennis += 1;
+                }
+                else if (item == "kungfu")
+                {
+                    
+                    totalKungfu += 1;
+                }
+                else if (item == "football")
+                {
+                   
+                    totalFootball += 1;
+                }
+                else if (item == "ropejumping")
+                {
+                   
+                    totalRopeJumping += 1;
+                }
+                else if (item == "dancing")
+                {
+                  
+                    totalDancing += 1;
+                }
+                else if (item == "gymnastics")
+                {
+                    
+                    totalGymnastics += 1;
+                }
+                else if (item == "cycling")
+                {
+                   
+                    totalCycling += 1;
+                }
+                else if (item == "studying")
+                {
+                    
+                    totalStudying += 1;
+
+                }
+                else if (item == "houseChores")
+                {                 
+
+                    totalHouseChores += 1;
+                }
+
+                else
+                {
+                   // series.Points.AddXY("LALA", 200);
+                }
+            }
+
+            if (!isZero(totalBasketball))
+            {
+                series.Points.AddXY("Basketball", totalBasketball);
+            }
+            if (!isZero(totalBadminton))
+            {
+                series.Points.AddXY("Badminton", totalBadminton);
+            }
+            if (!isZero(totalSwimming))
+            {
+                series.Points.AddXY("Swimming", totalSwimming);
+            }
+            if (!isZero(totalJogging))
+            {
+                series.Points.AddXY("Jogging", totalJogging);
+            }
+            if (!isZero(totalRunning))
+            {
+                series.Points.AddXY("Running", totalRunning);
+            }
+            if (!isZero(totalVolleyball))
+            {
+                series.Points.AddXY("Volleyball", totalVolleyball);
+            }
+            if (!isZero(totalTennis))
+            {
+                series.Points.AddXY("Tennis", totalTennis);
+            }
+            if (!isZero(totalKungfu))
+            {
+                series.Points.AddXY("Kungfu", totalKungfu);
+            }
+            if (!isZero(totalFootball))
+            {
+                series.Points.AddXY("Football", totalFootball);
+            }
+
+            if (!isZero(totalRopeJumping))
+            {
+                series.Points.AddXY("RopeJumping", totalRopeJumping);
+            }
+            if (!isZero(totalDancing))
+            {
+                series.Points.AddXY("Dancing", totalDancing);
+            }
+            if (!isZero(totalGymnastics))
+            {
+                series.Points.AddXY("Gymnastics", totalGymnastics);
+            }
+            if (!isZero(totalCycling))
+            {
+                series.Points.AddXY("Cycling", totalCycling);
+            }
+            
+            series.Points.AddXY("House Chores", totalHouseChores);
+            chartdiv.Visible = true;
+        }
+
+        private Boolean isZero(double count)
+        {
+            Boolean isZero = false;
+
+            if (count == 0)
+            {
+                isZero = true;
+            }
+
+            return isZero;
+        }
+
+
     }
 
 }
