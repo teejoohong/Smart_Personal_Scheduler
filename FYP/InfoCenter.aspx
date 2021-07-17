@@ -49,7 +49,19 @@
                             <input type="radio" id="showAll" name="option" value="showAll" onclick ="suggestedResult()">
                             <label for="showAll">Show All</label><BR />
                         </div>
+                    </div><br />
+                    <div id="divButton" runat="server">
+                        Outdoor Preference<br />
+                        <asp:Button ID="btnFirstPreference" runat="server" CssClass="navigateButton preferenceButton"  Text="" OnClick="btnFirstPreference_Click" /><br />
+                        <asp:Button ID="btnSecPreference" runat="server" CssClass="navigateButton preferenceButton" Text="" OnClick="btnSecPreference_Click" /><br />
+                        <asp:Button ID="btnThirdPreference" runat="server" CssClass="navigateButton preferenceButton" Text="" OnClick="btnThirdPreference_Click" /><br />
+                         <br />
+                        Indoor Preference<br />
+                        <asp:Button ID="btnFirstPreferenceIn" runat="server" CssClass="navigateButton preferenceButton" Text="" OnClick="btnFirstPreferenceIn_Click" /><br />
+                        <asp:Button ID="btnSecPreferenceIn" runat="server" CssClass="navigateButton preferenceButton" Text="" OnClick="btnSecPreferenceIn_Click" /><br />
+                        <asp:Button ID="btnThirdPreferenceIn" runat="server" CssClass="navigateButton preferenceButton" Text="" OnClick="btnThirdPreferenceIn_Click" /><br />
                     </div>
+
                 </td>
                 
             </tr>
@@ -435,6 +447,8 @@
                 }
 
                 m_allLocationAverage = totalRatings / count;
+
+                //not same with m_allLocationAverage because this one is selected mean (within range)
                 C_lowerQuartile = mean(ratingList);
 
                 for (var i = 0; i < searchedResults.length; i++) {
@@ -744,14 +758,16 @@
                     $('.results-content span.stars').stars();
                 });
             } 
-        }
-                                        //user_rating_total      //rating
+        }//(searchedResults[i].user_ratings_total, searchedResults[i].rating, m_allLocationAverage, C_lowerQuartile);
+
+                                        //user_rating_total      //rating                  //searched avg       //mean of selected location
         function calculateBayesAverage(product_ratings_count, product_ratings_average, m_allLocationAverage, C_lowerQuartile) {
             if (product_ratings_count == 0) {
                 return 0;
             } else {
                 return (product_ratings_count * product_ratings_average + m_allLocationAverage * C_lowerQuartile)
                     / (product_ratings_count + C_lowerQuartile)
+                
             }            
         }
 

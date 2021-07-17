@@ -151,7 +151,7 @@
                         </div>
                     </td>
                     <td style="vertical-align:top ; padding-left:2% ;">
-                        <asp:Label ID="lblTitle" runat="server" Text="Total Estimated Activity Calories <br/>" CssClass="lblTitle"></asp:Label>
+                        <asp:Label ID="lblTitle" runat="server" Text="Weekly Total Estimated Activity Calories <br/>" CssClass="lblTitle"></asp:Label>
                         <asp:Label ID="lblActivityCalories" runat="server" Text="" CssClass="lblActivityCalories"></asp:Label><br /><br />
                     </td>
                 </tr>
@@ -179,7 +179,7 @@
                       
                     </td>
                     <td style="vertical-align:top ; padding-top: 5.8% ;padding-left:2% ;">
-                         <asp:Label ID="Label1" runat="server" Text="Estimated Activity Calories<br/>" CssClass="lblTitle"></asp:Label>
+                         <asp:Label ID="Label1" runat="server" Text="Individual Estimated Activity Calories<br/>" CssClass="lblTitle"></asp:Label>
                         <asp:Label ID="lblEachActivity" runat="server" Text="" CssClass="lblActivityCalories"></asp:Label><br /><br />
                         
                     </td>

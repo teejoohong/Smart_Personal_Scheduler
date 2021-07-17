@@ -37,6 +37,10 @@ namespace FYP
                     {
                         lblUsername.Text = dtr["Name"].ToString();
                         txtEmail.Text = dtr["Email"].ToString();
+                        txtAge.Text = dtr["Age"].ToString();
+                        txtHeight.Text = dtr["Height"].ToString();
+                        txtWeight.Text = dtr["Weight"].ToString();
+
                     }
                 }
                 con.Close();
@@ -60,12 +64,15 @@ namespace FYP
             con1 = new SqlConnection(strcon1);
 
             con1.Open();
-            string strUpdate = "UPDATE [User] SET Email = @email WHERE UserID = @UserID";
+            string strUpdate = "UPDATE [User] SET Email = @email, Age = @Age, Weight = @Weight ,Height = @Height  WHERE UserID = @UserID";
 
             SqlCommand cmdUpdate = new SqlCommand(strUpdate, con1);
 
 
             cmdUpdate.Parameters.AddWithValue("@email", txtEmail.Text);
+            cmdUpdate.Parameters.AddWithValue("@Age", txtAge.Text);
+            cmdUpdate.Parameters.AddWithValue("@Weight", txtWeight.Text);
+            cmdUpdate.Parameters.AddWithValue("@Height", txtHeight.Text);
             cmdUpdate.Parameters.AddWithValue("@UserID", Session["UserID"]);
             ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + txtEmail.Text + "');", true);
             int n = cmdUpdate.ExecuteNonQuery();

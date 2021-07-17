@@ -21,7 +21,7 @@
 <body>
     <form id="form1" runat="server">
         <div id="topMenu" class="header">
-        <asp:HyperLink ID="logo" runat="server" NavigateUrl="~/HomePage.aspx" ImageUrl="~/BuildInPicturess/logo.JPG" CssClass="imgBurgerMenu"/>
+        <asp:HyperLink ID="logo" runat="server" NavigateUrl="~/HomePage.aspx" ImageUrl="~/BuildInPicturess/logo2.png" CssClass="imgBurgerMenu"/>
             <% 
            if (Session["UserID"] == null || Session["UserID" ] == "0")
            {%>

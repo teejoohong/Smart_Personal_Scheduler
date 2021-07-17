@@ -8,75 +8,153 @@ using System.Net;
 using System.Web.Script.Serialization;
 using System.Diagnostics;
 using System.ComponentModel;
-
-
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Globalization;
 
 namespace FYP
 {
     public partial class InfoCenter : System.Web.UI.Page
     {
+        String[] testArray = new string[6] ;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*
-            string latitude = "27.2046", longitude = "77.4977";
-            //GetLocation(ref latitude,ref longitude);
-            //http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}
-            string url = string.Format("http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=f3f718fb3d54bf852baf842135e157c5");
-            using (WebClient client = new WebClient())
-            {
-                string json = client.DownloadString(url);
-                Page.Response.Write("<script>console.log('" + json + "');</script>");
-                Page.Response.Write("<script>console.log('" +"value = "+ hiddenLatitude.Value + "');</script>");
+            divButton.Style.Add("display", "none");
+            if (Session["UserName"] != null && Session["UserID"] != null) {
+
+               
+
+                SqlConnection con;
+                string strcon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                con = new SqlConnection(strcon);
+                //get activities
+                con.Open();
+
+                strcon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                con = new SqlConnection(strcon);
+                con.Open();
+
+                string strSelect = "SELECT O.Activity_1, O.Activity_2, O.Activity_3, I.Activity_1 AS InAct1, I.Activity_2 AS InAct2, I.Activity_3 AS InAct3, I.UserID " +
+                    "FROM OutdoorPreference AS O INNER JOIN IndoorPreference AS I " +
+                    "ON O.UserID = I.UserID " +
+                    "WHERE (I.UserID = @UserID)";
+
+                //specify what is the command , what is the connection string
+                SqlCommand cmdSelect = new SqlCommand(strSelect, con);
+                cmdSelect.Parameters.AddWithValue("@UserID", Session["UserID"]);
+                SqlDataReader dtr = cmdSelect.ExecuteReader();
+                if (dtr.HasRows)
+                {
+                    while (dtr.Read())
+                    {
+                        //retrieve preference
+                        testArray[0] = dtr["Activity_1"].ToString();
+                        testArray[1] = dtr["Activity_2"].ToString();
+                        testArray[2] = dtr["Activity_3"].ToString();
+                        testArray[3] = dtr["InAct1"].ToString();
+                        testArray[4] = dtr["InAct2"].ToString();
+                        testArray[5] = dtr["InAct3"].ToString();
+                    }
+                    //display buttons
+                    divButton.Style.Add("display", "block");
+                    btnFirstPreference.Text = ToTitleCase(testArray[0]);
+                    btnSecPreference.Text = ToTitleCase(testArray[1]);
+                    btnThirdPreference.Text = ToTitleCase(testArray[2]);
+                    btnFirstPreferenceIn.Text = ToTitleCase(testArray[3]);
+                    btnSecPreferenceIn.Text = ToTitleCase(testArray[4]);
+                    btnThirdPreferenceIn.Text = ToTitleCase(testArray[5]);
+                }
+                else {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Set up your preferences to show preference buttons.')", true);
+                }
+
+                con.Close();
+
                 
-                WeatherInfo weatherInfo = (new JavaScriptSerializer()).Deserialize<WeatherInfo>(json);
-                lblLocation.Text = weatherInfo.city.name + "," + weatherInfo.city.country;
-                lblTemperatureDescription.Text = weatherInfo.list[0].weather[0].description;
-                string minTemp = string.Format("{0}°С", Math.Round(weatherInfo.list[0].temp.min, 1));
-                string maxTemp = string.Format("{0}°С", Math.Round(weatherInfo.list[0].temp.max, 1));
-                lblTemperatureValue.Text = string.Format("{0}°С", Math.Round(weatherInfo.list[0].temp.day, 1));
-                string nightTempt = string.Format("{0}°С", Math.Round(weatherInfo.list[0].temp.night, 1));
-                string humidity = weatherInfo.list[0].humidity.ToString();*/
             }
-
+            
         }
-    /*
-        [System.Security.SecurityCritical]
-        public class GeoCoordinateWatcher : IDisposable, System.ComponentModel.INotifyPropertyChanged, System.Device.Location.IGeoPositionWatcher<System.Device.Location.GeoCoordinate>
-
-
-        public class WeatherInfo
+        protected void btnFirstPreference_Click(object sender, EventArgs e)
         {
-            public City city { get; set; }
-            public List<List> list { get; set; }
+            string place = AcitivityPlace(testArray[0]);
+            Response.Redirect("InfoCenter.aspx?name=" + place);
         }
 
-        public class City
+        protected void btnSecPreference_Click(object sender, EventArgs e)
         {
-            public string name { get; set; }
-            public string country { get; set; }
+            string place = AcitivityPlace(testArray[1]);
+            Response.Redirect("InfoCenter.aspx?name=" + place);
         }
 
-        public class Temp
+        protected void btnThirdPreference_Click(object sender, EventArgs e)
         {
-            public double day { get; set; }
-            public double min { get; set; }
-            public double max { get; set; }
-            public double night { get; set; }
+            string place = AcitivityPlace(testArray[2]);
+            Response.Redirect("InfoCenter.aspx?name=" + place);
         }
 
-        public class Weather
+        protected void btnFirstPreferenceIn_Click(object sender, EventArgs e)
         {
-            public string description { get; set; }
-            public string icon { get; set; }
+            string place = AcitivityPlace(testArray[3]);
+            Response.Redirect("InfoCenter.aspx?name=" + place);
         }
 
-        public class List
+        protected void btnSecPreferenceIn_Click(object sender, EventArgs e)
         {
-            public Temp temp { get; set; }
-            public int humidity { get; set; }
-            public List<Weather> weather { get; set; }
+            string place = AcitivityPlace(testArray[4]);
+            Response.Redirect("InfoCenter.aspx?name=" + place);
         }
 
-    }*/
+        protected void btnThirdPreferenceIn_Click(object sender, EventArgs e)
+        {
+            string place = AcitivityPlace(testArray[5]);
+            Response.Redirect("InfoCenter.aspx?name=" + place);
+        }
+
+        private string AcitivityPlace(string activity)
+        {
+            string activityPlace = "";
+            if (activity.Equals("basketball"))
+                activityPlace = "basketball court";
+            else if (activity.Equals("football"))
+                activityPlace = "football court";
+            else if (activity.Equals("futsal"))
+                activityPlace = "futsal court";
+            else if (activity.Equals("jogging"))
+                activityPlace = "jogging";
+            else if (activity.Equals("running"))
+                activityPlace = "park";
+            else if (activity.Equals("tennis"))
+                activityPlace = "tennis court";
+            else if (activity.Equals("badminton"))
+                activityPlace = "badminton court";
+            else if (activity.Equals("swimming"))
+                activityPlace = "swimming";
+            else if (activity.Equals("ping pong"))
+                activityPlace = "ping pong court";
+            else if (activity.Equals("gym"))
+                activityPlace = "gym";
+            else if (activity.Equals("gymnastic"))
+                activityPlace = "gymastics";
+            else if (activity.Equals("kungfu"))
+                activityPlace = "Chinese martial arts";
+            else if (activity.Equals("volleyball"))
+                activityPlace = "volleyball court";
+            else if (activity.Equals("ropejumping"))
+                activityPlace = "";
+            else if (activity.Equals("dancing"))
+                activityPlace = "Dance";
+
+            return activityPlace;
+        }
+
+        private string ToTitleCase(string str)
+        {
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
+        }
+
+        
+    }
+   
 
 }

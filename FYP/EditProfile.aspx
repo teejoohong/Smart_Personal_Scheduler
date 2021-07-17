@@ -1,6 +1,21 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="EditProfile.aspx.cs" Inherits="FYP.EditProfile" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CSS/Profile.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .auto-style1 {
+            border-bottom: 1px solid black;
+            background: #e5ebf4;
+            border-left-style: none;
+            border-left-color: inherit;
+            border-left-width: medium;
+            border-right-style: none;
+            border-right-color: inherit;
+            border-right-width: medium;
+            border-top-style: none;
+            border-top-color: inherit;
+            border-top-width: medium;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <table class="profileTable">
@@ -51,7 +66,7 @@
         </tr>
 
         <tr>
-            <td class="sideColumn leftCss">
+            <td class="sideColumn ">
                 
             </td>
             <td class="middleColumn" style="text-align:center">
@@ -59,6 +74,51 @@
                 <asp:TextBox ID="txtEmail" CssClass="txtBox" runat="server" ></asp:TextBox><br />
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtEmail" ErrorMessage="Please enter a valid email address" Font-Size="Small" ForeColor="Red" ValidationExpression="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" SetFocusOnError="True"></asp:RegularExpressionValidator>
                  <br /><asp:RequiredFieldValidator ID="emailRequired" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email can not be empty." Font-Size="Small" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
+            </td>
+            <td class="sideColumn">&nbsp;</td>
+        </tr>
+        
+        <tr>
+            <td class="sideColumn ">
+                
+            </td>
+            <td class="middleColumn" style="text-align:center">
+                <span class="lbl" >Age :</span>
+                <asp:TextBox ID="txtAge" CssClass="txtBox" runat="server" ></asp:TextBox><br />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Age cannot be empty." ControlToValidate="txtAge" ForeColor="Red" SetFocusOnError="true" Font-Size="Small"></asp:RequiredFieldValidator>
+                <br />
+                <asp:RangeValidator ID="RangeValidator3" runat="server" ErrorMessage="Please input valid Age."  MinimumValue="0" MaximumValue="130" Type="Double"
+                        Font-Size="Small" ForeColor="Red" SetFocusOnError="true" ControlToValidate="txtAge"></asp:RangeValidator>
+            </td>
+            <td class="sideColumn">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="sideColumn ">
+                
+            </td>
+            <td class="middleColumn" style="text-align:center">
+                <span class="lbl" >Height :</span>
+                <asp:TextBox ID="txtHeight" CssClass="txtBox" runat="server"  ></asp:TextBox><br />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Height cannot be empty." ControlToValidate="txtHeight" ForeColor="Red" SetFocusOnError="true" Font-Size="Small"></asp:RequiredFieldValidator>
+                 <br />
+                <asp:RangeValidator ID="RangeValidator2" runat="server" ErrorMessage="Please input valid height."  MinimumValue="120" MaximumValue="300" Type="Double"
+                        Font-Size="Small" ForeColor="Red" SetFocusOnError="true" ControlToValidate="txtHeight"></asp:RangeValidator>
+            </td>
+            <td class="sideColumn">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="sideColumn ">
+                
+            </td>
+            <td class="middleColumn" style="text-align:center">
+                <span class="lbl" >Weight :</span>
+                <asp:TextBox ID="txtWeight" CssClass="txtBox" runat="server" ></asp:TextBox><br />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Weight cannot be empty." ControlToValidate="txtWeight" ForeColor="Red" SetFocusOnError="true" Font-Size="Small"></asp:RequiredFieldValidator><br />
+                <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Please input valid weight."  MinimumValue="15" MaximumValue="700" Type="Double"
+                        Font-Size="Small" ForeColor="Red" SetFocusOnError="true" ControlToValidate="txtWeight"></asp:RangeValidator>
+                 <br />
             </td>
             <td class="sideColumn">&nbsp;</td>
         </tr>

@@ -57,7 +57,7 @@
         </tr>
 
         <tr>
-            <td class="sideColumn leftCss">
+            <td class="sideColumn ">
                 
             </td>
             <td class="middleColumn" style="text-align:center">
@@ -68,11 +68,36 @@
             <td class="sideColumn">&nbsp;</td>
         </tr>
         <tr>
-            <td class="sideColumn">
+            <td class="sideColumn ">
                 
             </td>
             <td class="middleColumn" >
-                <asp:Label ID="Label2" runat="server" Text="" CssClass="lbl"></asp:Label>
+                <span class="lbl" >Age : &nbsp</span>
+                <asp:Label ID="lblAge" runat="server" Text="" CssClass="lbl"></asp:Label>
+                
+            </td>
+            <td class="sideColumn">&nbsp;</td>
+        </tr>
+        
+
+        <tr>
+            <td class="sideColumn ">
+                
+            </td>
+            <td class="middleColumn" >
+                <span class="lbl" >Height : &nbsp</span>
+                <asp:Label ID="lblHeight" runat="server" Text="" CssClass="lbl"></asp:Label>
+            </td>
+            <td class="sideColumn">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="sideColumn ">
+                
+            </td>
+            <td class="middleColumn" >
+                <span class="lbl" >Weight : &nbsp</span>
+                <asp:Label ID="lblKg" runat="server" Text="" CssClass="lbl"></asp:Label>
             </td>
             <td class="sideColumn">&nbsp;</td>
         </tr>

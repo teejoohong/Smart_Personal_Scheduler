@@ -96,13 +96,31 @@ namespace FYP
         protected global::System.Web.UI.WebControls.Label lblEmail;
 
         /// <summary>
-        /// Label2 control.
+        /// lblAge control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label lblAge;
+
+        /// <summary>
+        /// lblHeight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHeight;
+
+        /// <summary>
+        /// lblKg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblKg;
 
         /// <summary>
         /// loginView control.
