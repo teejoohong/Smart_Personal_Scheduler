@@ -42,11 +42,12 @@
     <div>
         <table style="width:100%">
             <tr>
-                <td style="width:30%"><p><b><u>Generate your own timetable now!!!</u></b></p></td>
+                <td style="width:30%"></td>
                 <td></td>
             </tr>
             <tr>
                 <td>
+                    <p><b><u>Generate your own timetable now!!!</u></b></p>
                     <asp:RadioButtonList ID="modeGeneration" runat="server" OnSelectedIndexChanged="modeGeneration_SelectedIndexChanged" AutoPostBack="true">
                     <asp:ListItem>Study Mode</asp:ListItem>
                     <asp:ListItem>Training Mode</asp:ListItem>
@@ -56,7 +57,7 @@
                 </td>
                 <td style="text-align:center">
                     <div id="chartdiv" runat="server" visible="false">
-                    <asp:Chart ID="chartTotalActivities" runat="server" Width="308px" Height="241px">
+                    <asp:Chart ID="chartTotalActivities" runat="server" Width="400px" Height="241px">
                         <Titles>
                              <asp:Title Text="Total activities"></asp:Title>  
                         </Titles>

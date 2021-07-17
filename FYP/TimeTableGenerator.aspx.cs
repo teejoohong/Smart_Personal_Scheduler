@@ -26,18 +26,19 @@ namespace FYP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+
+            if (IsPostBack)
             {
                 if (Session["timeDetails"] != null && Session["modeSelect"] != null)
                 {
                     OutputPreview((string[])Session["timeDetails"]);
-                    modeGeneration.SelectedValue = Session["modeSelect"].ToString();
+                   // modeGeneration.SelectedValue = Session["modeSelect"].ToString();
                     generateBtn.Visible = true;
-
                     displayChart();
                 }
 
             }
+
 
 
         }
@@ -98,6 +99,7 @@ namespace FYP
                 if (latitude != "" && longitude != "")
                 {
                     GetWeatherInfo(latitude, longitude);
+
                     if (modeGeneration.SelectedItem == null)
                     {
                         //javascript error message
@@ -1324,11 +1326,12 @@ namespace FYP
                     WeatherInfo weatherInfo = new JavaScriptSerializer().Deserialize<WeatherInfo>(json);
                     List<WeatherInfo> weatherInfos = new List<WeatherInfo>();
                     weatherInfos.Add(weatherInfo);
-
+                    
                     for (int i = 0; i < 8; i++)
                     {
-                        weatherWeeklyForecast[i] = weatherInfo.daily[i].weather[0].main;
+                        weatherWeeklyForecast[i] = weatherInfo.daily[i].weather[0].main;                     
                     }
+                    
                 }
             }catch(Exception ex)
             {
@@ -2641,6 +2644,7 @@ namespace FYP
 
             return activityPlace;
         }
+
         public class Temp
         {
             public double day { get; set; }
@@ -2760,6 +2764,12 @@ namespace FYP
                totalJogging = 0, totalRunning = 0, totalGym = 0, totalVolleyball = 0
                , totalTennis = 0, totalKungfu = 0, totalFootball = 0, totalRopeJumping = 0
                , totalDancing = 0, totalGymnastics = 0, totalCycling = 0;
+
+            foreach (var serie in chartTotalActivities.Series)
+            {
+                serie.Points.Clear();
+            }
+
             foreach (string item in activity)
             {
                 if (item == "basketball")
@@ -2788,7 +2798,6 @@ namespace FYP
                 }
                 else if (item == "gym")
                 {
-                  
                     totalGym += 1;
                 }
                 else if (item == "volleyball")
@@ -2901,9 +2910,13 @@ namespace FYP
             if (!isZero(totalCycling))
             {
                 series.Points.AddXY("Cycling", totalCycling);
+            }if (!isZero(totalGym))
+            {
+                series.Points.AddXY("GYM", totalGym);
             }
             
             series.Points.AddXY("House Chores", totalHouseChores);
+            series.Points.AddXY("Reading", totalStudying);
             chartdiv.Visible = true;
         }
 

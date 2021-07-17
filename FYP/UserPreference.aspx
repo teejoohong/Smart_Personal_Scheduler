@@ -21,7 +21,6 @@
                       <asp:ListItem>None</asp:ListItem>
                         <asp:ListItem>basketball</asp:ListItem>
                         <asp:ListItem>football</asp:ListItem>
-                        <asp:ListItem>futsal</asp:ListItem>
                         <asp:ListItem>jogging</asp:ListItem>
                         <asp:ListItem>running</asp:ListItem>
                         <asp:ListItem>cycling</asp:ListItem>
@@ -39,7 +38,7 @@
                        <asp:ListItem>None</asp:ListItem>
                         <asp:ListItem>basketball</asp:ListItem>
                         <asp:ListItem>football</asp:ListItem>
-                        <asp:ListItem>futsal</asp:ListItem>
+                        
                         <asp:ListItem>jogging</asp:ListItem>
                         <asp:ListItem>running</asp:ListItem>
                         <asp:ListItem>cycling</asp:ListItem>
@@ -57,7 +56,7 @@
                        <asp:ListItem>None</asp:ListItem>
                         <asp:ListItem>basketball</asp:ListItem>
                         <asp:ListItem>football</asp:ListItem>
-                        <asp:ListItem>futsal</asp:ListItem>
+                        
                         <asp:ListItem>jogging</asp:ListItem>
                         <asp:ListItem>running</asp:ListItem>
                         <asp:ListItem>cycling</asp:ListItem>
@@ -78,7 +77,7 @@
                         <asp:ListItem>None</asp:ListItem>
                         <asp:ListItem>badminton</asp:ListItem>
                         <asp:ListItem>swimming</asp:ListItem>
-                        <asp:ListItem>ping pong</asp:ListItem>
+                        
                         <asp:ListItem>gym</asp:ListItem>
                         <asp:ListItem>gymnastic</asp:ListItem>
                         <asp:ListItem>kungfu</asp:ListItem>
@@ -98,7 +97,7 @@
                         <asp:ListItem>None</asp:ListItem>
                         <asp:ListItem>badminton</asp:ListItem>
                         <asp:ListItem>swimming</asp:ListItem>
-                        <asp:ListItem>ping pong</asp:ListItem>
+                       
                         <asp:ListItem>gym</asp:ListItem>
                         <asp:ListItem>gymnastic</asp:ListItem>
                         <asp:ListItem>kungfu</asp:ListItem>
@@ -118,7 +117,7 @@
                          <asp:ListItem>None</asp:ListItem>
                         <asp:ListItem>badminton</asp:ListItem>
                         <asp:ListItem>swimming</asp:ListItem>
-                        <asp:ListItem>ping pong</asp:ListItem>
+                        
                         <asp:ListItem>gym</asp:ListItem>
                         <asp:ListItem>gymnastic</asp:ListItem>
                         <asp:ListItem>kungfu</asp:ListItem>

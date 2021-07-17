@@ -395,6 +395,12 @@ namespace FYP
                 assignEvent(series2, "Cycling", cycling);
                 lblActivityCalories.Text += "<br/>Cycling  : " + totalCycling.ToString("0.00") + " calories <br/> ";
             }
+            if (!isZero(totalGym))
+            {
+                series.Points.AddXY("GYM", totalGym);
+                assignEvent(series2, "Gymnastics", bodybuilding);
+                lblActivityCalories.Text += "<br/>GYM  : " + totalGym.ToString("0.00") + " calories <br/> ";
+            }
 
 
 
