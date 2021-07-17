@@ -14,7 +14,7 @@
             &#8226;Select "Calculate" and your BMI will appear below.
         </p>
         <div runat="server" visible="false" id="navigateEditProfile">
-            <a href="EditProfilePicture.aspx"><p>&#8226;Click here to modify your info</p></a>
+            <a href="EditProfilePicture.aspx"><p>&#8226; Click here to modify your info</p></a>
         </div>
         
         <hr />
