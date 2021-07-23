@@ -13,26 +13,35 @@
         <tr>
             <td>
             <div class="whiteContainer">
-                <asp:Image ID="Image2" runat="server" 
-                    ImageUrl="~/BuildInPicturess/pngwing.com.png"
-                AlternateText="Calculator" Width ="67%" Height="100%" /><br />
+                <a href="BMI.aspx">
+                    <asp:Image ID="Image2" runat="server" 
+                    ImageUrl="~/BuildInPicturess/pngwing.com.png" 
+                AlternateText="Calculator"  Width ="67%" Height="100%" />
+                </a>
+                <br />
                 <asp:Button ID="btnBMI" CssClass="btnContainer" runat="server" Text="Calculate now" OnClick="btnBMI_Click" />
             </div>
             </td>
             <td>
                 <div class="whiteContainer">
-                <asp:Image ID="Image1" runat="server" 
-                    ImageUrl="~/BuildInPicturess/timetable.png" 
-                AlternateText="Smart Personal Scheduler" Width ="100%" Height="70%" /><br />
+                <a href="TimeTableGenerator.aspx">
+                    <asp:Image ID="Image1" runat="server" 
+                                        ImageUrl="~/BuildInPicturess/timetable.png" 
+                                    AlternateText="Smart Personal Scheduler" Width ="100%" Height="70%" />
+                </a>
+                <br />
                 <asp:Button ID="btnTimetable" CssClass="btnContainer" runat="server" Text="Generate now" OnClick="btnTimetable_Click" />
             
             </div>
             </td>
             <td><div class="whiteContainer" >
-                  <asp:Image ID="Image3" runat="server" 
-                    ImageUrl="~/BuildInPicturess/cal.png"
-                AlternateText="Calculator" Width ="66.1%" Height="70%" /><br />
-                <asp:Button ID="btnCalories" CssClass="btnContainer" runat="server" Text="Estimate now" OnClick="btnCalories_Click" />
+                <a href="Calories.aspx">
+                <asp:Image ID="Image3" runat="server" 
+                                    ImageUrl="~/BuildInPicturess/cal.png"
+                                AlternateText="Calculator" Width ="66.1%" Height="70%" /><br />
+                                <asp:Button ID="btnCalories" CssClass="btnContainer" runat="server" Text="Estimate now" OnClick="btnCalories_Click" />
+                </a>
+                  
             </div></td>
         </tr>
         <tr class="description">

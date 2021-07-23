@@ -85,9 +85,10 @@ namespace FYP
 
                             using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                             {
-                                smtp.Credentials = new NetworkCredential("testingg726@gmail.com", "abcd.1234");
+                                smtp.UseDefaultCredentials = false;
+                                smtp.Credentials = new NetworkCredential("testingg726@gmail.com", "fuck*my*life*8787174@&$");
                                 smtp.EnableSsl = true;
-                                //smtp.UseDefaultCredentials = true;
+                                
                                 smtp.Send(mail);
                             }
                         }

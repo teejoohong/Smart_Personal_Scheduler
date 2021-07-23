@@ -52,7 +52,7 @@
             <td class="sideColumn">&nbsp;</td>
         </tr>
         <tr>
-            <td class="sideColumn leftCss">
+            <td class="sideColumn">
                 
             </td>
             <td class="middleColumn">

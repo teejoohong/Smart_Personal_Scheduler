@@ -1,21 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="EditProfile.aspx.cs" Inherits="FYP.EditProfile" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CSS/Profile.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-        .auto-style1 {
-            border-bottom: 1px solid black;
-            background: #e5ebf4;
-            border-left-style: none;
-            border-left-color: inherit;
-            border-left-width: medium;
-            border-right-style: none;
-            border-right-color: inherit;
-            border-right-width: medium;
-            border-top-style: none;
-            border-top-color: inherit;
-            border-top-width: medium;
-        }
-    </style>
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <table class="profileTable">

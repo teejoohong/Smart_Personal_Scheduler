@@ -13,7 +13,7 @@
             <div >
             <table id="loginForm" class="inputForm">
                 <tr>
-                    <th colspan="2"><h2>Timetable</h2></th>
+                    <th colspan="2"><h2>Scheduler</h2></th>
                 </tr>
                 <tr>
                     <td colspan="2">&nbsp;</td>

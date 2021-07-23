@@ -37,7 +37,7 @@
                 <Items>
                    <asp:MenuItem NavigateUrl="~/HomePage.aspx" Text="Home" Value="Home Page"/>
                    <asp:MenuItem NavigateUrl="~/AboutUs.aspx" Text="AboutUs" Value="About Us"/>
-                   <asp:MenuItem NavigateUrl="~/TimeTableGenerator.aspx" Text="Timetable" Value="Gallery"/>
+                   <asp:MenuItem NavigateUrl="~/TimeTableGenerator.aspx" Text="Scheduler" Value="Gallery"/>
                    <asp:MenuItem NavigateUrl="~/Tutorial.aspx" Text="Tutorial" Value="Wishlist" />
                    <asp:MenuItem NavigateUrl="~/BMI.aspx" Text="BMI" Value="Cart"/>
                    <asp:MenuItem NavigateUrl="~/Calories.aspx" Text="Calories" Value="Order History" />
