@@ -41,12 +41,9 @@
             { %>
     <div>
         <table style="width:100%">
+            
             <tr>
-                <td style="width:30%"></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>
+                <td style="width:30%">
                     <p><b><u>Generate your own timetable now!!!</u></b></p>
                     <asp:RadioButtonList ID="modeGeneration" runat="server" OnSelectedIndexChanged="modeGeneration_SelectedIndexChanged" AutoPostBack="true">
                     <asp:ListItem>Study Mode</asp:ListItem>
