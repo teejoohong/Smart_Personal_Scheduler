@@ -26,8 +26,7 @@ namespace FYP
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            if (IsPostBack)
-            {
+ 
                 if (Session["timeDetails"] != null && Session["modeSelect"] != null)
                 {
                     OutputPreview((string[])Session["timeDetails"]);
@@ -36,7 +35,6 @@ namespace FYP
                     displayChart();
                 }
 
-            }
 
         }
 

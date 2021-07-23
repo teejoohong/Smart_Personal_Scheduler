@@ -5,6 +5,10 @@ a {
     text-decoration: none;
 }
 
+.lblUsername {
+    font-size:20px;
+    font-weight:bold;
+}
 
 .leftCss {
     text-align: center;
@@ -83,16 +87,18 @@ th {
 }
 
 .profileTable {
-    width: 100%;
-    margin: -30px -0.55% 0px -0.55%;
+    width: 80%;
+    margin: -30px auto 0px auto;
 }
 
 .txtBox {
     border: none;
     border-bottom: 1px solid black;
-    width: 30%;
-    height: 30px;
+    width: 80%;
+    height: 40px;
     background: #e5ebf4;
+    font-size:15px;
+    font-weight:bold;
 }
     .profileTable td {
         height: 100px
@@ -103,12 +109,17 @@ th {
     }
 
 .sideColumn {
-    width: 20%;
-    
+    width: 25%;
+    padding-left:15px;
+}
+
+.sideColumn2 {
+    width: 25%;
+    padding-left: 15px;
 }
 
 .middleColumn {
-    width: 60%;
+    width: 50%;
     text-align: center;
     padding-left: 2%;
 }

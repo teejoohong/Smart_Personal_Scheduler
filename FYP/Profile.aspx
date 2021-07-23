@@ -30,20 +30,28 @@
 
                             </asp:DataList>
             </td>
-            <td class="sideColumn">&nbsp;</td>
+            <td class="sideColumn2">
+                <span class="lbl" >Email : &nbsp</span><br /><br />
+                <asp:Label ID="lblEmail" runat="server" Text="Label" CssClass="lbl"></asp:Label></td>
         </tr>
         <tr>
             <td class="sideColumn leftCss" onclick="location.href='UserPreference.aspx';">
                 <asp:HyperLink ID="Preference" runat="server" NavigateUrl="~/UserPreference.aspx">Preference</asp:HyperLink>
             </td>
-            <td class="middleColumn">&nbsp;</td>
+            <td class="sideColumn2">
+                <span class="lbl" >Age : &nbsp</span><br /><br />
+                <asp:Label ID="lblAge" runat="server" Text="" CssClass="lbl"></asp:Label>
+            </td>
             <td class="sideColumn">&nbsp;</td>
         </tr>
         <tr>
             <td class="sideColumn leftCss"  onclick="location.href='EditProfile.aspx';">
                 <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/EditProfile.aspx">Edit Profile</asp:HyperLink>
             </td>
-            <td class="middleColumn">&nbsp;</td>
+            <td class="sideColumn2">
+                <span class="lbl" >Height : &nbsp</span><br /><br />
+                <asp:Label ID="lblHeight" runat="server" Text="" CssClass="lbl"></asp:Label>
+            </td>
             <td class="sideColumn">&nbsp;</td>
         </tr>
         <tr>
@@ -51,9 +59,12 @@
                  <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/EditProfilePicture.aspx">Edit Profile Picture</asp:HyperLink>
             </td>
             <td class="middleColumn">
-                <asp:Label ID="lblUsername" runat="server" Text=""></asp:Label><br /><hr />
+                <asp:Label ID="lblUsername" runat="server" Text="" CssClass="lblUsername"></asp:Label><br />
             </td>
-            <td class="sideColumn">&nbsp;</td>
+            <td class="sideColumn2">
+                <span class="lbl" >Weight : &nbsp</span><br /><br />
+                <asp:Label ID="lblKg" runat="server" Text="" CssClass="lbl"></asp:Label>
+            </td>
         </tr>
 
         <tr>
@@ -61,43 +72,8 @@
                 
             </td>
             <td class="middleColumn" style="text-align:center">
-                <span class="lbl" >Email : &nbsp</span>
-                <asp:Label ID="lblEmail" runat="server" Text="Label" CssClass="lbl"></asp:Label>
                 
-            </td>
-            <td class="sideColumn">&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="sideColumn ">
                 
-            </td>
-            <td class="middleColumn" >
-                <span class="lbl" >Age : &nbsp</span>
-                <asp:Label ID="lblAge" runat="server" Text="" CssClass="lbl"></asp:Label>
-                
-            </td>
-            <td class="sideColumn">&nbsp;</td>
-        </tr>
-        
-
-        <tr>
-            <td class="sideColumn ">
-                
-            </td>
-            <td class="middleColumn" >
-                <span class="lbl" >Height : &nbsp</span>
-                <asp:Label ID="lblHeight" runat="server" Text="" CssClass="lbl"></asp:Label>
-            </td>
-            <td class="sideColumn">&nbsp;</td>
-        </tr>
-
-        <tr>
-            <td class="sideColumn ">
-                
-            </td>
-            <td class="middleColumn" >
-                <span class="lbl" >Weight : &nbsp</span>
-                <asp:Label ID="lblKg" runat="server" Text="" CssClass="lbl"></asp:Label>
             </td>
             <td class="sideColumn">&nbsp;</td>
         </tr>
