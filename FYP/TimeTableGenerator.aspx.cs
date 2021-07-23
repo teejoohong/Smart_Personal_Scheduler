@@ -23,7 +23,6 @@ namespace FYP
         string[] weatherWeeklyForecast = new string[8];
         string allocatedActivity = "";
        
-
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -38,8 +37,6 @@ namespace FYP
                 }
 
             }
-
-
 
         }
 
