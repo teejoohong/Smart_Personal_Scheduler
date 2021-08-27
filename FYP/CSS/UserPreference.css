@@ -1,6 +1,7 @@
 ﻿body {
 }
 
+
 .title{
     text-align:center;
     font-size:25px
@@ -19,6 +20,7 @@
     border-collapse: collapse;
    
 }
+
 
 .table td {
     border: 1px solid black;

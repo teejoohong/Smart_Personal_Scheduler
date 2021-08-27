@@ -15,6 +15,9 @@
 .inputBox {
     background: #e5ebf4;
 }
+.menuBar {
+    margin-top: 0.001px;
+}
 
 .buttonLogin {
     background-color: black;

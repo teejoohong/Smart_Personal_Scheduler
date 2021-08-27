@@ -1,13 +1,12 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="EditProfile.aspx.cs" Inherits="FYP.EditProfile" %>
+﻿<%@ Page Title="Edit Profile" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="EditProfile.aspx.cs" Inherits="FYP.EditProfile" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CSS/Profile.css" rel="stylesheet" type="text/css" />
-    
     
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <table class="profileTable">
         <tr>
-            <th colspan="3"><h1>Profile</h1></th>
+            <th colspan="3"><h1>Edit Profile</h1></th>
         </tr>
         <tr>
             <td class="sideColumn leftCss" onclick="location.href='Profile.aspx';">
@@ -27,7 +26,7 @@
                             </asp:DataList>
             </td>
             <td class="sideColumn2">
-                 <span class="lbl" >Email :</span><br />
+                 <span class="lbl" style="font-weight : bold" >Email :</span><br />
                 <asp:TextBox ID="txtEmail" runat="server"  CssClass="txtBox"></asp:TextBox><br />
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtEmail" ErrorMessage="Please enter a valid email address" Font-Size="Small" ForeColor="Red" ValidationExpression="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" SetFocusOnError="True"></asp:RegularExpressionValidator>
                  <br /><asp:RequiredFieldValidator ID="emailRequired" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email can not be empty." Font-Size="Small" ForeColor="Red" SetFocusOnError="True"></asp:RequiredFieldValidator>
@@ -38,7 +37,7 @@
                 <asp:HyperLink ID="Preference" runat="server" NavigateUrl="~/UserPreference.aspx">Preference</asp:HyperLink>
             </td>
             <td class="sideColumn2">
-                 <span class="lbl" >Age :</span><br />
+                 <span class="lbl" style="font-weight : bold">Age :</span><br />
                 <asp:TextBox ID="txtAge" CssClass="txtBox" runat="server" ></asp:TextBox><br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Age cannot be empty." ControlToValidate="txtAge" ForeColor="Red" SetFocusOnError="true" Font-Size="Small"></asp:RequiredFieldValidator>
                 <br />
@@ -52,7 +51,7 @@
                 <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/EditProfile.aspx">Edit Profile</asp:HyperLink>
             </td>
             <td class="sideColumn2">
-                <span class="lbl" >Height :</span><br />
+                <span class="lbl" style="font-weight : bold">Height :</span><br />
                 <asp:TextBox ID="txtHeight" CssClass="txtBox" runat="server"  ></asp:TextBox><br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Height cannot be empty." ControlToValidate="txtHeight" ForeColor="Red" SetFocusOnError="true" Font-Size="Small"></asp:RequiredFieldValidator>
                  <br />
@@ -69,7 +68,7 @@
                 <asp:Label ID="lblUsername" runat="server" Text="" CssClass="lblUsername"></asp:Label><br />
             </td>
             <td class="sideColumn2">
-                <span class="lbl" >Weight :</span><br />
+                <span class="lbl" style="font-weight : bold">Weight :</span><br />
                 <asp:TextBox ID="txtWeight" CssClass="txtBox" runat="server" ></asp:TextBox><br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Weight cannot be empty." ControlToValidate="txtWeight" ForeColor="Red" SetFocusOnError="true" Font-Size="Small"></asp:RequiredFieldValidator><br />
                 <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Please input valid weight."  MinimumValue="15" MaximumValue="700" Type="Double"

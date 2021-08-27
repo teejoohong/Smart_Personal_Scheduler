@@ -59,8 +59,10 @@ body {
 }
 
 
+
 .menuBar {
     display: none;
+    margin-top: -20px;
 }
 
 img{
@@ -231,7 +233,6 @@ img{
     }
 
     .menuBar a {
-        border-radius: 15px; 
         padding: 20px;
         color : lightgray;
         font-size :17px;

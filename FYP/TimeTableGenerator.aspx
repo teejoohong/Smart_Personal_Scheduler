@@ -40,6 +40,7 @@
             else
             { %>
     <div>
+        <h1 style="text-align:center">Scheduler</h1> <br />
         <table style="width:100%">
             
             <tr>

@@ -1,9 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Tutorial.aspx.cs" Inherits="FYP.Tutorial" %>
+﻿<%@ Page Title="Tutorial" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Tutorial.aspx.cs" Inherits="FYP.Tutorial" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="CSS/Tutorial.css" rel="stylesheet" type="text/css" />
-    <h1><u>Help Center</u></h1>
+    <h1 style="text-align:center">Help Center</h1><br />
     <hr />
     <div class="content">
     <table class="table1">

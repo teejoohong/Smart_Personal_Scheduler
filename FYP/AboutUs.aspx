@@ -1,11 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="AboutUs.aspx.cs" Inherits="FYP.AboutUs" %>
+﻿<%@ Page Title="About Us" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="AboutUs.aspx.cs" Inherits="FYP.AboutUs" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
     <!--CSS -->
     <link href="CSS/AboutUs.css" rel="stylesheet" type="text/css" />
-
+    <h1 style="text-align:center">About Us</h1> <br />
     <div class="aboutUs">
        
         <p class="imgLogo"> <asp:Image ID="Image1" runat="server" ImageUrl="~/BuildInPicturess/logo.JPG" AlternateText="Smart Personal Scheduler" Height="270px" Width="250px" /></p>

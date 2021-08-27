@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="EditProfilePicture.aspx.cs" Inherits="FYP.EditProfilePicture" %>
+﻿<%@ Page Title="Edit Profile Picture" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="EditProfilePicture.aspx.cs" Inherits="FYP.EditProfilePicture" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CSS/Profile.css" rel="stylesheet" type="text/css" />
 </asp:Content>

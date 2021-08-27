@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="FYP.Profile" %>
+﻿<%@ Page Title="Profile" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="FYP.Profile" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CSS/Profile.css" rel="stylesheet" type="text/css" />
 </asp:Content>
@@ -9,7 +9,7 @@
          <asp:View ID="profileView" runat="server">
                  <table class="profileTable">
         <tr>
-            <th colspan="3"><h1>Profile</h1></th>
+            <th colspan="3" style="padding-top : 20px ; padding-bottom:10px"><h1>Profile</h1></th>
         </tr>
         <tr>
             <td class="sideColumn leftCss"  onclick="location.href='Profile.aspx';" >
@@ -31,7 +31,7 @@
                             </asp:DataList>
             </td>
             <td class="sideColumn2">
-                <span class="lbl" >Email : &nbsp</span><br /><br />
+                <span class="lbl" style="font-weight:bold">Email : &nbsp</span><br /><br />
                 <asp:Label ID="lblEmail" runat="server" Text="Label" CssClass="lbl"></asp:Label></td>
         </tr>
         <tr>
@@ -39,7 +39,7 @@
                 <asp:HyperLink ID="Preference" runat="server" NavigateUrl="~/UserPreference.aspx">Preference</asp:HyperLink>
             </td>
             <td class="sideColumn2">
-                <span class="lbl" >Age : &nbsp</span><br /><br />
+                <span class="lbl" style="font-weight:bold">Age : &nbsp</span><br /><br />
                 <asp:Label ID="lblAge" runat="server" Text="" CssClass="lbl"></asp:Label>
             </td>
             <td class="sideColumn">&nbsp;</td>
@@ -49,7 +49,7 @@
                 <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/EditProfile.aspx">Edit Profile</asp:HyperLink>
             </td>
             <td class="sideColumn2">
-                <span class="lbl" >Height : &nbsp</span><br /><br />
+                <span class="lbl" style="font-weight:bold">Height : &nbsp</span><br /><br />
                 <asp:Label ID="lblHeight" runat="server" Text="" CssClass="lbl"></asp:Label>
             </td>
             <td class="sideColumn">&nbsp;</td>
@@ -62,7 +62,7 @@
                 <asp:Label ID="lblUsername" runat="server" Text="" CssClass="lblUsername"></asp:Label><br />
             </td>
             <td class="sideColumn2">
-                <span class="lbl" >Weight : &nbsp</span><br /><br />
+                <span class="lbl" style="font-weight:bold">Weight : &nbsp</span><br /><br />
                 <asp:Label ID="lblKg" runat="server" Text="" CssClass="lbl"></asp:Label>
             </td>
         </tr>

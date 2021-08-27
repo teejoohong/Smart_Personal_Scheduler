@@ -20,10 +20,16 @@ namespace FYP
 
         protected void Page_Load(object sender, EventArgs e)
         {
+           
             divButton.Style.Add("display", "none");
-            if (Session["UserName"] != null && Session["UserID"] != null) {
+            btnFirstPreference.Style.Add("background-color", "#1c87c9");
+            btnSecPreference.Style.Add("background-color", "#1c87c9");
+            btnThirdPreference.Style.Add("background-color", "#1c87c9");
+            btnFirstPreferenceIn.Style.Add("background-color", "#1c87c9");
+            btnSecPreferenceIn.Style.Add("background-color", "#1c87c9");
+            btnThirdPreferenceIn.Style.Add("background-color", "#1c87c9");
 
-               
+            if (Session["UserName"] != null && Session["UserID"] != null) {
 
                 SqlConnection con;
                 string strcon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -64,6 +70,22 @@ namespace FYP
                     btnFirstPreferenceIn.Text = ToTitleCase(testArray[3]);
                     btnSecPreferenceIn.Text = ToTitleCase(testArray[4]);
                     btnThirdPreferenceIn.Text = ToTitleCase(testArray[5]);
+
+                    string name = Request.QueryString["name"];
+                    if (name != null) {
+                        if (name == AcitivityPlace(btnFirstPreference.Text.ToLower().ToString()))
+                            btnFirstPreference.Style.Add("background-color", "darkslateblue");
+                        else if (name == AcitivityPlace(btnSecPreference.Text.ToLower().ToString()))
+                            btnSecPreference.Style.Add("background-color", "darkslateblue");
+                        else if (name == AcitivityPlace(btnThirdPreference.Text.ToLower().ToString()))
+                            btnThirdPreference.Style.Add("background-color", "darkslateblue");
+                        else if (name == AcitivityPlace(btnFirstPreferenceIn.Text.ToLower().ToString()))
+                            btnFirstPreferenceIn.Style.Add("background-color", "darkslateblue");
+                        else if (name == AcitivityPlace(btnSecPreferenceIn.Text.ToLower().ToString()))
+                            btnSecPreferenceIn.Style.Add("background-color", "darkslateblue");
+                        else if (name == AcitivityPlace(btnThirdPreferenceIn.Text.ToLower().ToString()))
+                            btnThirdPreferenceIn.Style.Add("background-color", "darkslateblue");
+                    } 
                 }
                 else {
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Set up your preferences to show preference buttons.')", true);
@@ -113,6 +135,7 @@ namespace FYP
 
         private string AcitivityPlace(string activity)
         {
+            
             string activityPlace = "";
             if (activity.Equals("basketball"))
                 activityPlace = "basketball court";

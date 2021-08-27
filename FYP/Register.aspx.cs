@@ -76,7 +76,7 @@ namespace FYP
                 if (n > 0) // Use to check whether the value have been insert into the database
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Account Successfully Created!" + "');", true);
-
+                    Response.Redirect("LogIn.aspx");
                 }
                 else
                 {

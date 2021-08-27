@@ -4,6 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!--CSS -->
     <link href="CSS/HomePage.css" rel="stylesheet" type="text/css" />
+    <h1 style="text-align:center">Home Page</h1> <br />
     <table class="tableThreeContainer">
         <tr>
             <td><h2>BMI</h2><hr /></td>

@@ -9,6 +9,7 @@ namespace FYP
 {
     public partial class MasterPage : System.Web.UI.MasterPage
     {
+        String pageName;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack) {
@@ -18,6 +19,20 @@ namespace FYP
 
                 }
             }
+
+            foreach (MenuItem item in menuNav.Items) {
+                if (item.NavigateUrl.Equals(Request.AppRelativeCurrentExecutionFilePath)) {
+                    item.Selected = true;
+                    //Label1.Text = HttpContext.Current.Request.Url.AbsolutePath; /HomePage.aspx
+                    //Label1.Text = item.Text.ToString(); Home
+                    //Label1.Text = item.NavigateUrl.ToString(); ~/Calories.aspx
+                }
+                pageName = HttpContext.Current.Request.Url.AbsolutePath;
+                if (pageName == "/EditProfile.aspx" || pageName == "/EditProfilePicture.aspx" || pageName == "/UserPreference.aspx") {
+                    menuNav.FindItem("Profile").Selected = true;
+                }
+            }
+
         }
 
 

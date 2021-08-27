@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="InfoCenter.aspx.cs" Inherits="FYP.InfoCenter" %>
+﻿<%@ Page Title="Info Center" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="InfoCenter.aspx.cs" Inherits="FYP.InfoCenter" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     
     <link href="CSS/InfoCenter.css" rel="stylesheet" type="text/css" />
@@ -7,6 +7,8 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+    
     <div class ="googleMapSection">
         <h1 class="googleMapHeader">Google Map</h1><br />
 
@@ -124,8 +126,9 @@
                 </td>
                 <td>
                     <div id="weatherInfo"></div>
-                    <div style="padding-left:1%"><p>*Enable https connection to get weather Info.<br/><br/>
-                    <a href="https://cors-anywhere.herokuapp.com/}" class="navigateButton">Enable Https connection</a></p></div>
+                    <div style="padding-left:1%"><br/><br/>
+                   <!-- <a href="https://cors-anywhere.herokuapp.com/}" class="navigateButton">Enable Https connection</a></p>-->
+                    </div>
                 </td>
             </tr>
         </table>
@@ -135,9 +138,7 @@
 </script>   -->
 
  
-<script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOs73MjrEETY_b9lbU9QCco5DoMll2UOY&libraries=places">
-</script>
+
 
   
     <script type="text/javascript">  
@@ -163,9 +164,8 @@
         }
 
         //document.getElementById("demo").innerHTML = 5 + 6;
-        $(document).ready(function () {
+        $(window).ready(function () {
             // Add your function call here
-
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(success);
             } else {
@@ -186,6 +186,7 @@
         let searchedResults = [];
         const googleMapLink = "https://www.google.com/maps/dir/";
         const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+        
 
         function success(position) {
             //GOOGLE_MAP--------
@@ -193,7 +194,7 @@
             lat = position.coords.latitude;
             long = position.coords.longitude;
             LatLng = new google.maps.LatLng(lat, long);
-            
+
 
             //https://www.google.com/maps/dir/2.8000601238492435,%2B101.49562181470077/hospital%20banting
             //GOOGLE_MAP PROPERTIES
@@ -230,9 +231,17 @@
                 componentRestrictions: { 'country': ['MY'] },
                 types:['establishment']
             });
+            // prevent enter error
+            var input = document.getElementById('input');
+            google.maps.event.addDomListener(input, 'keydown', function (event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                }
+            });
 
             autocomplete.addListener("place_changed", () => {
                 const place = autocomplete.getPlace();
+
                 var searchedLink = googleMapLink + lat + "," + long + "/" + place.geometry.location;
                 var searchedMarker = new google.maps.Marker({
                     position: place.geometry.location,
@@ -273,7 +282,7 @@
                     getDestinationInfoWindow.open(map, searchedMarker);
                 });
             });
-
+            
 
             //GOOGLE_PLACE SEARCH
             if (name != null) {
@@ -897,8 +906,8 @@
         // GET WEATHER FROM API PROVIDER
         function getWeather() {
                         
-            let api = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${key}`;
-
+            /*let api = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${key}`;*/
+            let api = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${key}`;
             fetch(api)
                 .then(function (response) {
                     let data = response.json();
@@ -973,6 +982,9 @@
 
     </script>  
 
+    <script 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOs73MjrEETY_b9lbU9QCco5DoMll2UOY&libraries=places&callback=success">
+</script>
 <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOs73MjrEETY_b9lbU9QCco5DoMll2UOY&callback=myMap"></script>-->
 
 </asp:Content>

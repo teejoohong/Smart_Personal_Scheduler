@@ -39,8 +39,8 @@ namespace FYP
                         lblUsername.Text = dtr["Name"].ToString();
                         lblEmail.Text = dtr["Email"].ToString();
                         lblAge.Text = dtr["Age"].ToString() + " years old";
-                        lblHeight.Text = dtr["Height"].ToString() + " centimeters(cm)";
-                        lblKg.Text = dtr["Weight"].ToString() + " kilograms(kg)";
+                        lblHeight.Text = dtr["Height"].ToString() + " cm";
+                        lblKg.Text = dtr["Weight"].ToString() + " kg";
                     }
                 }
                 con.Close();

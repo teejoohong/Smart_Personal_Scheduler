@@ -46,8 +46,9 @@
 
 .caloriesHeader {
     text-align: center;
-    height: 55px; 
-    margin-top:-0.55%;
+    height: 55px;
+    margin-top: -0.55%;
+    padding-top: 25px;
 }
 .ddl {
     width:50%;

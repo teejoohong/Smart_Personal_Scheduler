@@ -1,4 +1,8 @@
-﻿.loginTable{
+﻿.menuBar {
+    margin-top: 0.001px;
+}
+
+.loginTable{
     width:50%;
     margin:50px auto 100px auto;
     border:1px solid black;

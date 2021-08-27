@@ -4,7 +4,7 @@
 
 <html>
 <head runat="server">
-    <title></title>
+    <title>Smart Personal Scheduler</title>
 
     <!--CSS-->
     <link href="CSS/MasterPage.css" rel="stylesheet" type="text/css" />
@@ -33,8 +33,11 @@
                      <a href="Profile.aspx" class="logInLink"><asp:Label ID="CustomerUsername" runat="server" Text="Label" style="float:right; color:aliceblue;font-size:16px; margin-right:10px" ValidationGroup="none"></asp:Label> </a> 
                      
             <%}%>
+
+            
         <asp:Menu ID="menuNav" runat="server" RenderingMode="Table" Orientation="Horizontal" CssClass="menuBar">
-                <Items>
+            <StaticSelectedStyle BackColor="Gray" VerticalPadding="20px"/>   
+            <Items>
                    <asp:MenuItem NavigateUrl="~/HomePage.aspx" Text="Home" Value="Home Page"/>
                    <asp:MenuItem NavigateUrl="~/AboutUs.aspx" Text="AboutUs" Value="About Us"/>
                    <asp:MenuItem NavigateUrl="~/TimeTableGenerator.aspx" Text="Scheduler" Value="Gallery"/>
