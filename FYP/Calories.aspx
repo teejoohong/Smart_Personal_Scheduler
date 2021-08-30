@@ -8,9 +8,6 @@
     <asp:MultiView ID="caloriesMultiView" runat="server">
         <asp:View ID="inputView" runat="server">
             <table id="inputForm" class="inputForm">
-                <tr>
-                    <th colspan="2"><h2>Calories</h2></th>
-                </tr>
                <tr>
                     <td colspan="2">&nbsp;</td>
                 </tr>
