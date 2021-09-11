@@ -10,7 +10,7 @@
         <table  class="table">
            
             <tr>
-                <td class="title">Oudoor Activity</td>
+                <td class="title">Outdoor Activity</td>
             </tr>
             <tr>
                 <td>1. What is your favourite first outdoor sport?</td>

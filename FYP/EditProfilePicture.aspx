@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
       <table class="profileTable">
         <tr>
-            <th colspan="3"><h1>Profile</h1></th>
+            <th colspan="3"><h1>Edit Profile Picture</h1></th>
         </tr>
         <tr>
             <td class="sideColumn leftCss" onclick="location.href='Profile.aspx';">
