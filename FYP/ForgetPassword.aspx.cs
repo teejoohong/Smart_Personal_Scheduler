@@ -31,7 +31,7 @@ namespace FYP
                 
                 //DateTime timeSend =  DateTime.ParseExact(Request.QueryString["time"].Replace("\r",""), formats, provider);
                 if (DateTime.Now.Subtract(timeSend).TotalMinutes <= 15)
-                {
+                {   
                     MultiView1.ActiveViewIndex = 1;
                 }
                 else

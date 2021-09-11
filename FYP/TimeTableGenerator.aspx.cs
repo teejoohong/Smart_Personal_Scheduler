@@ -2607,9 +2607,9 @@ namespace FYP
         {
             string activityPlace = "";
             if (activity.Equals("basketball"))
-                activityPlace = "basketball court";
+                activityPlace = "basketball%20court";
             else if (activity.Equals("football"))
-                activityPlace = "football court";
+                activityPlace = "football%20court";
             else if (activity.Equals("futsal"))
                 activityPlace = "futsal court";
             else if (activity.Equals("jogging"))
@@ -2619,19 +2619,19 @@ namespace FYP
             else if (activity.Equals("tennis"))
                 activityPlace = "tennis court";
             else if (activity.Equals("badminton"))
-                activityPlace = "badminton court";
+                activityPlace = "badminton%20court";
             else if (activity.Equals("swimming"))
                 activityPlace = "swimming";
             else if (activity.Equals("ping pong"))
-                activityPlace = "ping pong court";
+                activityPlace = "ping%20pong%20court";
             else if (activity.Equals("gym"))
                 activityPlace = "gym";
             else if (activity.Equals("gymnastic"))
                 activityPlace = "gymastics";
             else if (activity.Equals("kungfu"))
-                activityPlace = "Chinese martial arts";
+                activityPlace = "Chinese%20martial%20arts";
             else if (activity.Equals("volleyball"))
-                activityPlace = "volleyball court";
+                activityPlace = "volleyball%20court";
             else if (activity.Equals("ropejumping"))
                 activityPlace = "";
             else if (activity.Equals("dancing"))
