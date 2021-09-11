@@ -56,7 +56,7 @@
                 
             </td>
             <td class="middleColumn">
-                <asp:FileUpload ID="FileUpload1" runat="server" accept="image/*" CssClass="button"/> <br />
+                <asp:FileUpload ID="FileUpload1" runat="server" accept="image/*" CssClass="buttonUpload"/> <br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Required To Upload a photo." ControlToValidate="FileUpload1" ValidationGroup="va1" ForeColor="red" Font-Size="small" CssClass ="validator">
 
                 </asp:RequiredFieldValidator>

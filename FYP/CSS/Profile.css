@@ -48,10 +48,22 @@ a {
     cursor: pointer;
 }
 
-
-.lbl {
-    padding-right: 0%
+.buttonUpload {
+    padding: 2px 5px;
+    border: 0;
+    border-radius: 0.1875em;
+    background-color: black;
+    box-shadow: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
 }
+
+    .lbl {
+        padding-right: 0%
+    }
 
 .inputForm th {
     border-bottom: 1px solid black;
